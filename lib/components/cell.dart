@@ -3,12 +3,16 @@
 import 'package:flutter/material.dart';
 
 class Cell extends StatefulWidget{
-  final Widget title;
+  final Text title;
   final Icon icon;
-  const Cell({Key? key, required this.title, required this.icon}):super(key: key);
+  final bool? arrow;
+  final Widget? tag;
+
+  const Cell({Key? key, required this.title, required this.icon, this.arrow = true, this.tag})
+      : super(key: key);
 
   @override
-  State<StatefulWidget> createState()=>CellStatePage();
+  State<StatefulWidget> createState() => CellStatePage();
 }
 
  class CellStatePage extends State<Cell>{
@@ -16,28 +20,34 @@ class Cell extends StatefulWidget{
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      width: 300,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Align(
-              alignment: Alignment.centerLeft,
-              child: SizedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    widget.icon,
-                    const SizedBox(width: 3,),
-                    widget.title
-                  ],
+        height: 50,
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Align(
+                alignment: Alignment.centerLeft,
+                child: SizedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      widget.icon,
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      widget.title
+                    ],
                 ),
               )
           ),
-          const Align(
-              alignment: Alignment.centerRight,
-              child: Icon(Icons.chevron_right)
-          ),
+            Align(
+                alignment: Alignment.centerRight,
+                child: widget.tag ??
+                    Icon(
+                      Icons.chevron_right,
+                      color: widget.title.style!.color,
+                      size: widget.icon.size,
+                    )),
         ],
       )
     );

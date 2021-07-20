@@ -16,17 +16,18 @@ class MoodSpace extends StatefulWidget {
 
 class MoodSpaceStatePage extends State<MoodSpace> {
 
-  final _scrollController= ScrollController();
+  final _scrollController = ScrollController();
   final Logger logger = Logger();
   final GetxState getX = Get.find();
   bool _isShowTitle = false;
-
+  final GetxState gexState = Get.find();
 
   @override
   void initState() {
     super.initState();
+
     _scrollController.addListener(() {
-      if(_scrollController.offset ==0.0){
+      if (_scrollController.offset == 0.0) {
         setState(() {
           _isShowTitle = false;
         });
@@ -48,62 +49,55 @@ class MoodSpaceStatePage extends State<MoodSpace> {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      controller: _scrollController,
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            expandedHeight: 280.0,
-            pinned: true,
-            automaticallyImplyLeading:false,
-            flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              title: _isShowTitle ? const Text('好友动态',style: TextStyle(fontSize: 18)):null,
-              background: Column(
-                children: [
-                  GFCarousel(
-                    viewportFraction: 1.0,
-                    autoPlay: true,
-                    items: imageList.map(
+    return Scaffold(
+      body: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return <Widget>[
+            SliverAppBar(
+              expandedHeight: 210.0,
+              pinned: true,
+              automaticallyImplyLeading: false,
+              flexibleSpace: FlexibleSpaceBar(
+                  centerTitle: true,
+                  title: _isShowTitle ? const Text('好友动态', style: TextStyle(fontSize: 18)) : null,
+                  background: Column(
+                    children: [
+                      SizedBox(height: MediaQuery.of(context).padding.top),
+                      GFCarousel(
+                        viewportFraction: 1.0,
+                        autoPlay: true,
+                        items: imageList.map(
                           (url) {
-                        return Container(
-                          margin: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius:const BorderRadius.all( Radius.circular(5.0)),
-                            child: Image.network(
-                                url,
-                                fit: BoxFit.cover,
-                                width: 800.0
-                            ),
-                          ),
-                        );
-                      },
-                    ).toList(),
-                    onPageChanged: (index) {
-                      setState(() {
-                        index;
-                      });
-                    },
-                  ),
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(5, 0, 6, 6),
-                    height: 70,
-                    decoration: BoxDecoration(
-                        color:const Color.fromRGBO(230, 230, 243, 1),
-                        borderRadius:BorderRadius.circular(5)
-                    ),
-                    child: const OpGrid(),
-                  ),
-                ],
-              )
-            ),
-          )];
-      },
-      body: ListView.builder(
-        itemCount: 100,
-        itemBuilder: (BuildContext context, int index){
-          return const MoodTell();
-        }
+                            return Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 8),
+                              child: ClipRRect(
+                                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                                child: Image.network(url, fit: BoxFit.cover, width: 800.0),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                        onPageChanged: (index) {
+                          setState(() {
+                            index;
+                          });
+                        },
+                      ),
+                    ],
+                  )),
+            )
+          ];
+        },
+        body: ListView.builder(
+            itemCount: 100,
+            padding: const EdgeInsets.all(0),
+            itemBuilder: (BuildContext context, int index) {
+              return const MoodTell();
+            }),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
       ),
     );
   }

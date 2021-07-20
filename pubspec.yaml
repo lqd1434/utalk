@@ -34,7 +34,6 @@ dependencies:
   video_player: ^2.1.10
   getwidget: ^2.0.3
   get: 4.1.4
-  bottom_navy_bar: ^6.0.0
   flutter_native_splash: ^1.2.0
   flutter_slidable: 1.0.0-dev.2
   bubble: 1.2.1
@@ -46,6 +45,15 @@ dependencies:
   flutter_local_notifications: 6.0.0
   shared_preferences: 2.0.6
   google_fonts: 2.1.0
+  flutter_speed_dial: 4.1.0
+  google_nav_bar: 5.0.5
+  #  liquid_progress_indicator: 0.4.0
+  sleek_circular_slider: 2.0.1
+  progress_state_button: 1.0.3
+  percent_indicator: 3.0.1
+  animate_do: 2.0.0
+  font_awesome_flutter: 9.1.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -56,7 +64,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^1.0.3
+  flutter_lints: ^1.0.4
 
 flutter:
   uses-material-design: true

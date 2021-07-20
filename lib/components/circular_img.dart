@@ -5,10 +5,18 @@ class RadiusImage extends StatefulWidget{
   final double radius;
   final double widthAndHeight;
   final ImageProvider image;
-  const RadiusImage({Key? key, required this.radius, required this.widthAndHeight, required this.image,}):super(key: key);
+  final BoxBorder? border;
+
+  const RadiusImage({
+    Key? key,
+    required this.radius,
+    required this.widthAndHeight,
+    required this.image,
+    this.border,
+  }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState()=>RadiusImageStatePage();
+  State<StatefulWidget> createState() => RadiusImageStatePage();
 }
 
 class RadiusImageStatePage extends State<RadiusImage>{
@@ -21,11 +29,11 @@ class RadiusImageStatePage extends State<RadiusImage>{
         height: widget.widthAndHeight,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.radius),
+            border: widget.border,
             image: DecorationImage(
               image: widget.image,
               fit: BoxFit.cover,
-            )
-        ),
+            )),
       ),
     );
   }

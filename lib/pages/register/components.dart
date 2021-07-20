@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class RegisterInput extends StatelessWidget {
   final String labelText;
@@ -19,35 +22,35 @@ class RegisterInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      cursorColor: Colors.white,
+      cursorColor: Colors.deepPurple,
       obscureText: obscureText,
       controller: controller,
-      style: const TextStyle(color: Colors.white),
+      style: const TextStyle(color: Colors.deepPurple),
       decoration: InputDecoration(
           labelText: labelText,
           prefixIcon: prefixIcon,
-          focusColor: Colors.white,
+          focusColor: Colors.deepPurple,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 1,
-              color: Colors.white,
+              color: Colors.deepPurple,
             ),
           ),
-          hoverColor: Colors.white,
-          labelStyle: const TextStyle(color: Colors.white),
+          hoverColor: Colors.deepPurple,
+          labelStyle: const TextStyle(color: Colors.deepPurple),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 1,
-              color: Colors.white,
+              color: Colors.deepPurple,
             ),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
               width: 1,
-              color: Colors.white,
+              color: Colors.deepPurple,
             ),
           )),
     );
@@ -76,25 +79,31 @@ class EmailVerifyStatePage extends State<EmailVerify> {
   Timer? countDownTimer;
 
 
-  _sendVerifyCode(){
-    widget.sendVerifyCode();
-    const timeout = Duration(seconds: 1);
-    Timer.periodic(timeout, (timer) {
-      //callback function
-      //1s 回调一次
-      countDownTimer = timer;
-      setState(() {
-        _timeCount--;
-      });
-      if (_timeCount == 0) {
-        countDownTimer!.cancel();
+  _sendVerifyCode() {
+    if (widget.emailEditingController.value.text.isNotEmpty) {
+      widget.sendVerifyCode();
+      const timeout = Duration(seconds: 1);
+      Timer.periodic(timeout, (timer) {
+        //callback function
+        //1s 回调一次
+        countDownTimer = timer;
         setState(() {
-          _timeCount = 60;
+          _timeCount--;
         });
-      }
-    });
+        if (_timeCount == 0) {
+          countDownTimer!.cancel();
+          setState(() {
+            _timeCount = 60;
+          });
+        }
+      });
+    } else {
+      BotToast.showText(
+          text: '邮箱不能为空',
+          contentColor: const Color.fromRGBO(245, 62, 62, 1),
+          textStyle: const TextStyle(color: Colors.white));
+    }
   }
-
 
   @override
   void dispose() {
@@ -106,102 +115,98 @@ class EmailVerifyStatePage extends State<EmailVerify> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 30),
-          child: Text(
-            '注册',
-            style: TextStyle(color: Colors.white, fontSize: 30),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: RegisterInput(
-            controller: widget.emailEditingController,
-            labelText: '邮箱',
-            prefixIcon: const Icon(
-              Icons.email,
-              color: Colors.white,
+    return Container(
+      margin: const EdgeInsets.only(bottom: 30),
+      padding: EdgeInsets.zero,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 30),
+            child: Text(
+              '注册',
+              style: TextStyle(color: Colors.deepPurple, fontSize: 30, fontWeight: FontWeight.bold),
             ),
-            obscureText: false,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 190,
-                child: RegisterInput(
-                  controller: widget.verifyCodeEditingController,
-                  labelText: '验证码',
-                  prefixIcon: const Icon(
-                    Icons.security,
-                    color: Colors.white,
-                  ),
-                  obscureText: false,
-                ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: RegisterInput(
+              controller: widget.emailEditingController,
+              labelText: '邮箱',
+              prefixIcon: const Icon(
+                Icons.email,
+                color: Colors.deepPurple,
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: DecoratedBox(
-                    decoration: BoxDecoration(
-                        color: Colors.lightBlueAccent,
-                        borderRadius: BorderRadius.circular(10.0), //3像素圆角
-                        boxShadow: const [
-                          //阴影
-                          BoxShadow(
-                              color: Colors.black54,
-                              offset: Offset(2.0, 2.0),
-                              blurRadius: 4.0)
-                        ]),
-                    child: SizedBox(
-                      width: 95,
-                      height: 56,
-                      child: TextButton(
-                        onPressed: _timeCount == 60 ? _sendVerifyCode : null,
-                        child: Text(
-                          _timeCount == 60
-                              ? '获取验证码'
-                              : _timeCount.toString() + 's',
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 14),
-                        ),
-                      ),
-                    )),
-              )
-            ],
+              obscureText: false,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  color: Colors.lightBlueAccent,
-                  borderRadius: BorderRadius.circular(10.0), //3像素圆角
-                  boxShadow: const [
-                    //阴影
-                    BoxShadow(
-                        color: Colors.black54,
-                        offset: Offset(2.0, 2.0),
-                        blurRadius: 4.0)
-                  ]),
-              child: SizedBox(
-                width: double.maxFinite,
-                height: 56,
-                child: TextButton(
-                  onPressed: widget.handleVerify,
-                  child: const Text(
-                    "验证",
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: 150,
+                  child: RegisterInput(
+                    controller: widget.verifyCodeEditingController,
+                    labelText: '验证码',
+                    prefixIcon: const Icon(
+                      Icons.security,
+                      color: Colors.deepPurple,
+                    ),
+                    obscureText: false,
                   ),
                 ),
-              )),
-        ),
-      ],
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                  child: DecoratedBox(
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurple,
+                          borderRadius: BorderRadius.circular(10.0), //3像素圆角
+                          boxShadow: const [
+                            //阴影
+                            BoxShadow(
+                                color: Colors.black54, offset: Offset(2.0, 2.0), blurRadius: 4.0)
+                          ]),
+                      child: SizedBox(
+                        width: 95,
+                        height: 56,
+                        child: TextButton(
+                          onPressed: _timeCount == 60 ? _sendVerifyCode : null,
+                          child: Text(
+                            _timeCount == 60 ? '获取验证码' : _timeCount.toString() + 's',
+                            style: const TextStyle(color: Colors.white, fontSize: 14),
+                          ),
+                        ),
+                      )),
+                )
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+            child: DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple,
+                    borderRadius: BorderRadius.circular(10.0), //3像素圆角
+                    boxShadow: const [
+                      //阴影
+                      BoxShadow(color: Colors.black54, offset: Offset(2.0, 2.0), blurRadius: 4.0)
+                    ]),
+                child: SizedBox(
+                  width: double.maxFinite,
+                  height: 56,
+                  child: TextButton(
+                    onPressed: widget.handleVerify,
+                    child: const Text(
+                      "验证",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ),
+                )),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -229,25 +234,25 @@ class PasswordAndName extends StatefulWidget {
 class PasswordAndNameStatePage extends State<PasswordAndName> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+    return Container(
+        margin: EdgeInsets.only(bottom: 30),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 30),
             child: Text(
-            '设置信息',
-            style: TextStyle(color: Colors.blueGrey, fontSize: 30),
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+              '设置信息',
+              style: TextStyle(color: Colors.deepPurple, fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
         child: RegisterInput(
           controller: widget.nameEditingController,
           labelText: '昵称',
           prefixIcon: const Icon(
-            Icons.lock,
-            color: Colors.white,
-          ),
+                Icons.person,
+                color: Colors.deepPurple,
+              ),
           obscureText: false,
         ),
       ),
@@ -258,8 +263,8 @@ class PasswordAndNameStatePage extends State<PasswordAndName> {
           labelText: '密码',
           prefixIcon: const Icon(
             Icons.lock,
-            color: Colors.white,
-          ),
+                color: Colors.deepPurple,
+              ),
           obscureText: false,
         ),
       ),
@@ -269,9 +274,9 @@ class PasswordAndNameStatePage extends State<PasswordAndName> {
           controller: widget.ensurePasswordEditingController,
           labelText: '确认密码',
           prefixIcon: const Icon(
-            Icons.lock,
-            color: Colors.white,
-          ),
+                Icons.security,
+                color: Colors.deepPurple,
+              ),
           obscureText: false,
         ),
       ),
@@ -279,24 +284,24 @@ class PasswordAndNameStatePage extends State<PasswordAndName> {
         padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
         child: DecoratedBox(
             decoration: BoxDecoration(
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(10.0), //3像素圆角
-                boxShadow: const [
-                  //阴影
-                  BoxShadow(color: Colors.grey, blurRadius: 4.0)
-                ]),
+                color: Colors.deepPurple,
+                    borderRadius: BorderRadius.circular(10.0), //3像素圆角
+                    boxShadow: const [
+                      //阴影
+                      BoxShadow(color: Colors.deepPurpleAccent, blurRadius: 4.0)
+                    ]),
             child: SizedBox(
               width: double.maxFinite,
-              height: 56,
-              child: TextButton(
-                onPressed: widget.handleRegister,
-                child: const Text(
-                  "注册",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ),
-            )),
-      )
-    ]);
+                  height: 56,
+                  child: TextButton(
+                    onPressed: widget.handleRegister,
+                    child: const Text(
+                      "注册",
+                      style: TextStyle(color: Colors.white, fontSize: 20, letterSpacing: 5),
+                    ),
+                  ),
+                )),
+          )
+        ]));
   }
 }

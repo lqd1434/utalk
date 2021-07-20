@@ -14,15 +14,16 @@ class FriendListStatePage extends State<FriendList> {
   Widget build(BuildContext context) {
     return Container(
         child: ListView.builder(
-          itemBuilder:(BuildContext context, int index){
-            return const GFListTile(
-              avatar:GFAvatar(),
-              titleText:'lqd',
-              subTitleText: 'welcome to new york',
-            );
-          },
-          itemCount: 10,
-        )
+          padding: const EdgeInsets.all(0),
+      itemBuilder: (BuildContext context, int index) {
+        return const GFListTile(
+          avatar: GFAvatar(),
+          titleText: 'lqd',
+          subTitleText: 'welcome to new york',
+        );
+      },
+      itemCount: 10,
+    )
     );
   }
 }

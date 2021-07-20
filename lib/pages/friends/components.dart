@@ -1,8 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
-import 'package:myapp/components/friend_list.dart';
+import 'package:myapp/pages/friends/friend_list.dart';
 import 'package:myapp/pages/chat/index.dart';
 
 class Search extends StatefulWidget {

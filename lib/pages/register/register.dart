@@ -118,7 +118,7 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
         _isVerify = false;
       });
     } else{
-      Get.toNamed('/');
+      Get.toNamed('/auth');
     }
   }
 
@@ -134,11 +134,7 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
             width: double.maxFinite,
             height: double.maxFinite,
             decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('static/images/bg_register.jpeg'),
-                fit: BoxFit.cover
-              )
-            ),
+                color: Colors.deepPurple),
           ),
            Padding(
             padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
@@ -153,20 +149,25 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
             )
           ),
           Center(
-              child:
-              _isVerify ?
-              PasswordAndName(
-                handleRegister: _handleRegister,
-                passwordEditingController: passwordCtr,
-                ensurePasswordEditingController: ensPswCtr,
-                nameEditingController: nameCtr,
-              )
-                  :
-              EmailVerify(
-                sendVerifyCode:_sendVerifyCode,
-                handleVerify:_handleVerify,
-                verifyCodeEditingController: verifyCtr,
-                emailEditingController: emailCtr,)
+            child: Container(
+                height: _isVerify ? 450 : 350,
+                padding: const EdgeInsets.only(top: 0),
+                margin: const EdgeInsets.symmetric(horizontal: 20),
+                decoration:
+                    BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(30)),
+                child: _isVerify
+                    ? PasswordAndName(
+                        handleRegister: _handleRegister,
+                        passwordEditingController: passwordCtr,
+                        ensurePasswordEditingController: ensPswCtr,
+                        nameEditingController: nameCtr,
+                      )
+                    : EmailVerify(
+                        sendVerifyCode: _sendVerifyCode,
+                        handleVerify: _handleVerify,
+                        verifyCodeEditingController: verifyCtr,
+                        emailEditingController: emailCtr,
+                      )),
           )
         ],
       ),

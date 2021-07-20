@@ -6,22 +6,22 @@ import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/modules/message.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
-
+import 'package:myapp/utils/local_notification.dart';
 
 Function useSocket(){
   Logger logger = Logger();
   final GetxState getX = Get.find();
+  final MyLocalNotifications localNotifications = MyLocalNotifications();
 
-  return (){
+  return () {
     IO.Socket socket;
-    if(getX.socket.value!=null){
-        logger.i('连接已存在');
-        socket = getX.socket.value;
-        getX.socket.value.connect();
-    } else{
+    if (getX.socket.value != null) {
+      logger.i('连接已存在');
+      socket = getX.socket.value;
+      getX.socket.value.connect();
+    } else {
       socket = IO.io('ws://47.103.211.10:8080?userId=1&userName=sky',
-          OptionBuilder().setTransports(['websocket']).build()
-      );
+          OptionBuilder().setTransports(['websocket']).build());
       socket.connect();
     }
     socket.on('connect',(d) {
@@ -35,9 +35,10 @@ Function useSocket(){
     });
 
     //私聊信息
-    socket.on('message', (res){
-      BotToast.showSimpleNotification(title: res);
-      logger.i('收到消息'+res);
+    socket.on('message', (res) {
+      localNotifications.show();
+      // BotToast.showSimpleNotification(title: res);
+      logger.i('收到消息' + res);
     });
 
     //服务端通知

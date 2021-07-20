@@ -9,24 +9,29 @@ import 'package:socket_io_client/socket_io_client.dart';
 class GetxState extends GetxController{
   var count = 1.obs;
   var currentIndex = 0.obs;
-  var isShowCarousel =false.obs;
-  var socket =Rx<dynamic>(null);
+  var isShowCarousel = false.obs;
+  var socket = Rx<dynamic>(null);
+  var isShowAppbar = true.obs;
 
   increment() => count++;
 
-  changeIndex(index){
+  changeIndex(index) {
     currentIndex.value = index;
   }
 
-  changeIsShowCarousel(status){
+  changeIsShowCarousel(status) {
     isShowCarousel.value = status;
   }
 
-  setSocket(dynamic socketInstance){
+  setSocket(dynamic socketInstance) {
     socket.value = socketInstance;
   }
 
-  clearSocket(){
+  clearSocket() {
     socket.value = null;
+  }
+
+  changeIsShowAppBar(bool status) {
+    isShowAppbar.value = status;
   }
 }

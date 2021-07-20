@@ -34,14 +34,20 @@ class MyDrawerStatePage extends State<MyDrawer>{
           const SizedBox(height: 20),
           const Divider(),
           Container(
-            height: 450,
+            height: 480,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ListView(
-              children:const [
+              children: const [
                 ListTile(
                   title: Cell(
-                        title: Text('情侣空间',style: TextStyle(fontSize: 22),),
-                        icon: Icon(Icons.favorite,size: 26,)),
+                      title: Text(
+                        '情侣空间',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      icon: Icon(
+                        Icons.favorite,
+                        size: 26,
+                      )),
                 ),
                 ListTile(
                   title: Cell(
@@ -72,55 +78,50 @@ class MyDrawerStatePage extends State<MyDrawer>{
               GestureDetector(
                 onTap: (){Get.toNamed('/setting');},
                 child: Container(
-                  width: 90,
-                  height: 40,
-                  padding:const EdgeInsets.only(left: 8),
-                  margin: const EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black,width: 1,style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    children:const [
-                      Icon(Icons.settings,size: 26),
-                      Text('设置',style: TextStyle(fontSize: 22))
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: (){Get.toNamed('/setting');},
-                child: Container(
-                  width: 90,
-                  height: 40,
-                  padding:const EdgeInsets.only(left: 8),
-                  margin: const EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black,width: 1,style: BorderStyle.solid),
-                    borderRadius: BorderRadius.circular(10)),
-                  child: Row(
-                    children:const [
-                      Icon(Icons.dark_mode,size: 26),
-                      Text('主题',style: TextStyle(fontSize: 22))
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: (){Get.toNamed('/setting');},
-                child: Container(
-                  width: 90,
+                  width: 70,
                   height: 80,
-                  padding:const EdgeInsets.only(left: 8),
-                  margin: const EdgeInsets.only(left: 20),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black,width: 1,style: BorderStyle.solid),
-                      borderRadius: BorderRadius.circular(10)),
+                  padding: const EdgeInsets.only(left: 8),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children:const [
-                      Icon(Icons.settings,size: 35),
-                      Text('天气',style: TextStyle(fontSize: 16))
+                    children: const [
+                      Icon(Icons.settings, size: 28),
+                      Text('设置', style: TextStyle(fontSize: 15))
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (){Get.toNamed('/setting');},
+                child: Container(
+                  width: 70,
+                  height: 80,
+                  padding: const EdgeInsets.only(left: 8),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.settings, size: 28),
+                      Text('天气', style: TextStyle(fontSize: 15))
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: (){Get.toNamed('/setting');},
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  padding: const EdgeInsets.only(left: 8),
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.settings, size: 35),
+                      Text('天气', style: TextStyle(fontSize: 16))
                     ],
                   ),
                 ),

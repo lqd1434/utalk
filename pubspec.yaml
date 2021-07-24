@@ -53,6 +53,19 @@ dependencies:
   percent_indicator: 3.0.1
   animate_do: 2.0.0
   font_awesome_flutter: 9.1.0
+  argon_buttons_flutter: 1.1.0
+  shimmer: 2.0.0
+  sticky_headers: 0.2.0
+  extended_image: 4.1.0
+  flutter_staggered_animations: ^1.0.0
+  image_gallery_saver: 1.6.9
+  permission_handler: 8.1.4+1
+  rive: 0.7.23
+  path_provider: 2.0.2
+  slimy_card:
+    git:
+      url: git://github.com/imejiasoft/SlimyCard-Animated-Flutter-Package.git
+
 
 
 
@@ -87,6 +100,13 @@ flutter:
     - static/images/bgcube.png
     - static/images/bg_login.jpg
     - static/images/bg_register.jpeg
+    - static/images/520-990-teddy-login-screen.riv
+    - static/images/teddy_login_screen.riv
+    - static/flare/bottomSlime.flr
+    - static/flare/topSlime.flr
+    - static/flare/blueplanet.riv
 
 flutter_native_splash:
-  background_image: "static/images/bgcube.png"
+  background_image: "static/images/splash.png"
+  android_gravity: fill
+  fullscreen: true

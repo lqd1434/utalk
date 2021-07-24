@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/block_btn.dart';
 import 'package:myapp/components/cell.dart';
 import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/save_login_data.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -40,51 +42,75 @@ class SettingStatePage extends State<Setting> {
              child: Text('账号',style: TextStyle(fontSize: 17)),
            ),
            const Divider(),
-           const ListTile(
-            title: Cell(
-              title: Text('切换账号',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.account_circle,size: 26,)),
-            ),
-          const ListTile(
-            title: Cell(
-                title: Text('绑定手机',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.call,size: 26,)),
-          ),
-          const ListTile(
-            title: Cell(
-                title: Text('账号安全',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.security,size: 26,)),
-          ),
+          ListTile(
+          title: Cell(
+              title: Text(
+                '切换账号',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
+          ListTile(
+          title: Cell(
+              title: const Text(
+                '绑定手机',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
+          ListTile(
+          title: Cell(
+              title: const Text(
+                '账号安全',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
           const SizedBox(height: 10,),
           const Padding(padding:  EdgeInsets.only(left: 10),
             child: Text('系统',style: TextStyle(fontSize: 17)),
           ),
           const Divider(),
-          const ListTile(
-            title: Cell(
-                title: Text('声音设置',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.volume_up,size: 26,)),
-          ),
-          const ListTile(
-            title: Cell(
-                title: Text('隐私设置',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.beenhere,size: 26,)),
-          ),
-          const ListTile(
-            title: Cell(
-                title: Text('用户协议',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.article,size: 26,)),
-          ),
-          const ListTile(
-            title: Cell(
-                title: Text('关于我们',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.person,size: 26,)),
-          ),
-          const ListTile(
-            title: Cell(
-                title: Text('清除缓存',style: TextStyle(fontSize: 22),),
-                icon: Icon(Icons.delete,size: 26,)),
-          ),
+          ListTile(
+          title: Cell(
+              title: const Text(
+                '声音设置',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
+          ListTile(
+          title: Cell(
+              title: Text(
+                '隐私设置',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
+          ListTile(
+          title: Cell(
+              title: Text(
+                '用户协议',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
+          ListTile(
+          title: Cell(
+              title: Text(
+                '关于我们',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
+          ListTile(
+          title: Cell(
+              title: Text(
+                '清除缓存',
+                style: TextStyle(fontSize: 22),
+              ),
+              icon: Icon(FontAwesomeIcons.heart, color: HexColor('#00E3E4'))),
+        ),
           Container(
             margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 30),
             child: BlockButton(

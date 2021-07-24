@@ -19,8 +19,8 @@ class _BottomBarStatePage extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration:
-          const BoxDecoration(border: Border.fromBorderSide(BorderSide(color: Colors.deepPurple))),
+      decoration: const BoxDecoration(
+          color: Colors.white, border: Border.fromBorderSide(BorderSide(color: Colors.deepPurple))),
       child: GNav(
         gap: 5,
         rippleColor: Colors.deepPurple,

@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/components/my_animation.dart';
 import 'package:myapp/utils/local_notification.dart';
@@ -12,8 +16,7 @@ class HomeHeader extends StatefulWidget {
   final bool visible;
   final double topPadding;
 
-  const HomeHeader(
-      {Key? key, required this.visible, required this.topPadding, this.animationController})
+  const HomeHeader({Key? key, required this.visible, required this.topPadding, this.animationController})
       : super(key: key);
 
   @override
@@ -21,6 +24,7 @@ class HomeHeader extends StatefulWidget {
 }
 
 class _HomeHeaderStatePage extends State<HomeHeader> {
+  Logger logger = Logger();
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -46,8 +50,7 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
     // flutterLocalNotificationsPlugin.show(0, 'hello', 'body', platformChannelSpecifics);
   }
 
-  Future onDidReceiveLocalNotification(
-      int i, String? payload, String? payloa3, String? payload2) async {
+  Future onDidReceiveLocalNotification(int i, String? payload, String? payloa3, String? payload2) async {
     print('onDidReceiveLocalNotification');
   }
 
@@ -60,6 +63,13 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
     //   context,
     // new MaterialPageRoute(builder: (context) => new SecondScreen(payload)),
     // );
+  }
+
+  void _handleTap() async {
+    File file = File('/data/user/0/com.lqd.myapp/cache/6.jpg');
+    logger.i(await file.exists());
+    Uint8List bytes = await file.readAsBytes();
+    logger.i(bytes);
   }
 
   @override
@@ -148,7 +158,7 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                           SpeedDialChild(
                             child: const Icon(Icons.brush, color: Colors.deepPurple),
                             backgroundColor: Colors.white,
-                            onTap: () => print('SECOND CHILD'),
+                            onTap: _handleTap,
                           ),
                           SpeedDialChild(
                             child: const Icon(Icons.margin, color: Colors.deepPurple),

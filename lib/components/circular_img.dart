@@ -1,16 +1,16 @@
 
 import 'package:flutter/cupertino.dart';
 
-class RadiusImage extends StatefulWidget{
-  final double radius;
-  final double widthAndHeight;
+class RadiusImage extends StatefulWidget {
+  final double? radius;
+  final double? widthAndHeight;
   final ImageProvider image;
   final BoxBorder? border;
 
   const RadiusImage({
     Key? key,
-    required this.radius,
-    required this.widthAndHeight,
+    this.radius = 25,
+    this.widthAndHeight = 50,
     required this.image,
     this.border,
   }) : super(key: key);
@@ -28,7 +28,7 @@ class RadiusImageStatePage extends State<RadiusImage>{
         width: widget.widthAndHeight,
         height: widget.widthAndHeight,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.radius),
+            borderRadius: BorderRadius.circular(widget.radius!),
             border: widget.border,
             image: DecorationImage(
               image: widget.image,

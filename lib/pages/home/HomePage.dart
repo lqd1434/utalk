@@ -19,8 +19,7 @@ import 'bottom_bar.dart';
 import 'home_header.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MyMainPageState();
@@ -132,6 +131,8 @@ class _MyMainPageState extends State<MainPage>
     return WillPopScope(
         onWillPop: _onWillPop,
         child: Obx(() => Scaffold(
+              extendBody: true,
+              extendBodyBehindAppBar: true,
               drawer: const MyDrawer(),
               body: Column(
                 children: [
@@ -143,10 +144,10 @@ class _MyMainPageState extends State<MainPage>
                   Expanded(child: viewBody),
                 ],
               ),
-              bottomNavigationBar: BottomBar(
-                selectedIndex: getX.currentIndex.value,
-                handleItemSelected: handleItemSelected,
-              ),
+          bottomNavigationBar: BottomBar(
+            selectedIndex: getX.currentIndex.value,
+            handleItemSelected: handleItemSelected,
+          ),
             )));
   }
 }

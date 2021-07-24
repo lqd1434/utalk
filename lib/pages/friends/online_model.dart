@@ -1,5 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class OnlineModelList extends StatefulWidget {
   final AnimationController? animationController;
@@ -15,16 +16,38 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: const Color.fromRGBO(230, 234, 255, 1),
-        child: GridView.builder(
+      color: const Color.fromRGBO(230, 234, 255, 1),
+      child: AnimationLimiter(
+        child: GridView.count(
+          childAspectRatio: 2 / 3,
           padding: const EdgeInsets.only(top: 5),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, childAspectRatio: 2 / 3),
-          itemCount: 20,
-          itemBuilder: (BuildContext context, int index) {
-            return const OnlineModel();
-          },
-        ));
+          crossAxisCount: 2,
+          children: List.generate(
+            100,
+            (int index) {
+              return AnimationConfiguration.staggeredGrid(
+                position: index,
+                duration: const Duration(milliseconds: 375),
+                columnCount: 2,
+                child: const ScaleAnimation(
+                  child: FadeInAnimation(
+                    child: OnlineModel(),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ),
+      // GridView.builder(
+      //   padding: const EdgeInsets.only(top: 5),
+      //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      //       crossAxisCount: 2, childAspectRatio: 2 / 3),
+      //   itemCount: 20,
+      //   itemBuilder: (BuildContext context, int index) {
+      //     return OnlineModel();
+      //     )
+    );
   }
 }
 

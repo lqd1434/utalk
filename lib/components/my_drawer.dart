@@ -2,10 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/cell.dart';
 import 'package:myapp/components/circular_img.dart';
-
+import 'package:myapp/utils/hex_color.dart';
 
 class MyDrawer extends StatefulWidget{
 
@@ -19,17 +20,43 @@ class MyDrawerStatePage extends State<MyDrawer>{
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Color.fromRGBO(233, 245, 254, 1),
+      decoration: BoxDecoration(
+        color: HexColor('#FFFFFF'),
       ),
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(vertical: 80),
         children: [
-           const RadiusImage(
-              radius: 50,
-              widthAndHeight: 100,
-              image: AssetImage('static/images/avatar.png')
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const SizedBox(width: 15),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/personalHome');
+                },
+                child: RadiusImage(
+                    radius: 40,
+                    widthAndHeight: 80,
+                    border: Border.all(color: HexColor('#653CB3')),
+                    image: const AssetImage('static/images/avatar.png')),
+              ),
+              const SizedBox(width: 15),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('sky', style: TextStyle(fontSize: 22, color: HexColor('#653CB3'))),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 150,
+                    child: Text('一个人的爱总是如此的无力',
+                        style: TextStyle(fontSize: 16, color: HexColor('#8DA4DD')),
+                        overflow: TextOverflow.ellipsis),
+                  )
+                ],
+              )
+            ],
           ),
           const SizedBox(height: 20),
           const Divider(),
@@ -37,37 +64,46 @@ class MyDrawerStatePage extends State<MyDrawer>{
             height: 480,
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: ListView(
-              children: const [
+              children: [
                 ListTile(
                   title: Cell(
-                      title: Text(
+                      title: const Text(
                         '情侣空间',
                         style: TextStyle(fontSize: 22),
                       ),
-                      icon: Icon(
-                        Icons.favorite,
-                        size: 26,
-                      )),
+                      icon: Icon(FontAwesomeIcons.solidHeart, color: HexColor('#E40100'))),
                 ),
                 ListTile(
                   title: Cell(
-                      title: Text('我的收藏',style: TextStyle(fontSize: 22),),
-                      icon: Icon(Icons.category,size: 26,)),
+                      title: const Text(
+                        '我的收藏',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      icon: Icon(FontAwesomeIcons.boxOpen, color: HexColor('#00E3E4'))),
                 ),
                 ListTile(
                   title: Cell(
-                      title: Text('我的相册',style: TextStyle(fontSize: 22),),
-                      icon: Icon(Icons.collections,size: 26,)),
+                      title: const Text(
+                        '我的相册',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      icon: Icon(FontAwesomeIcons.images, color: HexColor('#805AC8'))),
                 ),
                 ListTile(
                   title: Cell(
-                      title: Text('装扮商店',style: TextStyle(fontSize: 22),),
-                      icon: Icon(Icons.palette,size: 26,)),
+                      title: const Text(
+                        '装扮商店',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      icon: Icon(FontAwesomeIcons.palette, color: HexColor('#FFB1B1'))),
                 ),
                 ListTile(
                   title: Cell(
-                      title: Text('系统消息',style: TextStyle(fontSize: 22),),
-                      icon: Icon(Icons.notifications,size: 26,)),
+                      title: const Text(
+                        '系统消息',
+                        style: TextStyle(fontSize: 22),
+                      ),
+                      icon: Icon(FontAwesomeIcons.infoCircle, color: HexColor('#00DC88'))),
                 )
               ],
             ),
@@ -85,9 +121,9 @@ class MyDrawerStatePage extends State<MyDrawer>{
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.settings, size: 28),
-                      Text('设置', style: TextStyle(fontSize: 15))
+                    children: [
+                      FaIcon(FontAwesomeIcons.cog, color: HexColor('#00E3E4')),
+                      Text('设置', style: TextStyle(fontSize: 15, color: HexColor('#00E3E4')))
                     ],
                   ),
                 ),
@@ -97,31 +133,31 @@ class MyDrawerStatePage extends State<MyDrawer>{
                 child: Container(
                   width: 70,
                   height: 80,
-                  padding: const EdgeInsets.only(left: 8),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.settings, size: 28),
-                      Text('天气', style: TextStyle(fontSize: 15))
+                    children: [
+                      Icon(FontAwesomeIcons.calendarAlt, color: HexColor('#FF7F7E')),
+                      Text('签到', style: TextStyle(fontSize: 15, color: HexColor('#FF7F7E')))
                     ],
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: (){Get.toNamed('/setting');},
+                onTap: () {
+                  Get.toNamed('/rive');
+                },
                 child: Container(
                   width: 80,
                   height: 80,
-                  padding: const EdgeInsets.only(left: 8),
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.settings, size: 35),
-                      Text('天气', style: TextStyle(fontSize: 16))
+                    children: [
+                      Icon(FontAwesomeIcons.cloud, color: HexColor('#8DA4DD')),
+                      Text('天气', style: TextStyle(fontSize: 15, color: HexColor('#8DA4DD')))
                     ],
                   ),
                 ),

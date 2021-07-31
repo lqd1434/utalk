@@ -5,5 +5,7 @@
 
 
 页面截图:
-![QQ20210731-0](https://user-images.githubusercontent.com/66897781/127733403-fb21b1a0-2373-4c00-85ab-83408e57acc8.jpg)
+
+![截屏2021-07-31 下午4 05 19](https://user-images.githubusercontent.com/66897781/127733431-132b7525-a3fb-4ff8-a9e0-0ff34f749b46.png)
+
 

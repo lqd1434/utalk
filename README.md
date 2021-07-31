@@ -1,16 +1,9 @@
 # myapp
 
-A new Flutter project.
+学习 flutter 的小demo.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+页面截图:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![D68AC8B8723CFB596D7E641794A167F7](https://user-images.githubusercontent.com/66897781/127733305-61c639f1-4227-41c3-9049-5219a9c804c1.jpg)

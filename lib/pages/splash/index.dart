@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -12,17 +11,17 @@ class Splash extends StatefulWidget {
 }
 
 class SplashStatePage extends State<Splash> {
+  Logger logger = Logger();
 
-  Logger logger =Logger();
   @override
   void initState() {
     super.initState();
     _handleCheck();
   }
 
-  void _handleCheck()async{
-    final value=await getSharedData('name');
-    if(value.isEmpty){
+  void _handleCheck() async {
+    final value = await getSharedData('name');
+    if (value.isEmpty) {
       logger.e('没有数据');
       Get.toNamed('/auth');
     } else {
@@ -38,12 +37,10 @@ class SplashStatePage extends State<Splash> {
         width: double.maxFinite,
         height: double.maxFinite,
         child: Image(
-          image: AssetImage('static/images/bgcube.png'),
+          image: NetworkImage('http://47.103.211.10:9090/static/images/bgcube.png'),
           fit: BoxFit.cover,
         ),
       ),
     );
   }
-
-
 }

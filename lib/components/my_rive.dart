@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rive/rive.dart';
 
 class MyRive extends StatefulWidget {
@@ -12,7 +10,7 @@ class MyRive extends StatefulWidget {
 }
 
 class _MyRiveStatePage extends State<MyRive> {
-  final String url = 'static/images/teddy_login_screen.riv';
+  final String url = 'http://47.103.211.10:9090/static/rive/teddy_login_screen.riv';
   Artboard? _riveArtBoard;
   RiveAnimationController? _controller;
 
@@ -22,12 +20,12 @@ class _MyRiveStatePage extends State<MyRive> {
   @override
   void initState() {
     super.initState();
-    rootBundle.load(url).then((value) async {
-      final file = RiveFile.import(value);
-      final artBoard = file.mainArtboard;
-      artBoard.addController(_controller = SimpleAnimation('idle'));
-      setState(() => _riveArtBoard = artBoard);
-    });
+    // rootBundle.load(url).then((value) async {
+    //   final file = RiveFile.network(value);
+    //   final artBoard = file.mainArtboard;
+    //   artBoard.addController(_controller = SimpleAnimation('idle'));
+    //   setState(() => _riveArtBoard = artBoard);
+    // });
   }
 
   @override
@@ -39,17 +37,14 @@ class _MyRiveStatePage extends State<MyRive> {
         color: Colors.deepPurple,
         child: Rive(
           artboard: _riveArtBoard!,
-          // animations:const ['idle', 'success','fail'],
-          // controllers: [_controller],
           fit: BoxFit.contain,
           alignment: Alignment.center,
-          // onInit: (_) => setState(() {}),
         ),
       ),
       floatingActionButton: SpeedDial(
-        icon: FontAwesomeIcons.minus,
+        icon: Icons.add,
         foregroundColor: Colors.deepPurple,
-        child: const Icon(FontAwesomeIcons.star, color: Colors.deepPurple, size: 20),
+        child: const Icon(Icons.star, color: Colors.deepPurple, size: 20),
         spaceBetweenChildren: 6,
         buttonSize: 45,
         childrenButtonSize: 50,
@@ -62,7 +57,7 @@ class _MyRiveStatePage extends State<MyRive> {
         children: [
           SpeedDialChild(
               label: '添加',
-              child: const Icon(FontAwesomeIcons.plus, color: Colors.deepPurple, size: 14),
+              child: const Icon(Icons.add, color: Colors.deepPurple, size: 14),
               backgroundColor: Colors.white,
               onTap: () {
                 setState(() {
@@ -72,7 +67,7 @@ class _MyRiveStatePage extends State<MyRive> {
               }),
           SpeedDialChild(
             label: '样式',
-            child: const Icon(FontAwesomeIcons.diceTwo, color: Colors.deepPurple, size: 20),
+            child: const Icon(Icons.add, color: Colors.deepPurple, size: 20),
             backgroundColor: Colors.white,
             onTap: () {
               setState(() {
@@ -82,7 +77,7 @@ class _MyRiveStatePage extends State<MyRive> {
           ),
           SpeedDialChild(
               label: '切换',
-              child: const Icon(FontAwesomeIcons.diceTwo, color: Colors.deepPurple, size: 20),
+              child: const Icon(Icons.add, color: Colors.deepPurple, size: 20),
               backgroundColor: Colors.white,
               onTap: () {
                 setState(

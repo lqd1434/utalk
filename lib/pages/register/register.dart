@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -16,7 +15,6 @@ class RegisterCreate extends StatefulWidget {
 }
 
 class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixin {
-
   TextEditingController nameCtr = TextEditingController();
   TextEditingController emailCtr = TextEditingController();
   TextEditingController passwordCtr = TextEditingController();
@@ -26,98 +24,85 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
 
   bool _isVerify = false;
 
-  _sendVerifyCode() async{
-    final response =await sendRegisterEmail(emailCtr.value.text);
+  _sendVerifyCode() async {
+    final response = await sendRegisterEmail(emailCtr.value.text);
     NestRes res = NestRes.fromJson(response.data);
-    if(res.statusCode==200){
+    if (res.statusCode == 200) {
       BotToast.showText(
-          text:res.description,
+          text: res.description,
           contentColor: const Color.fromRGBO(179, 247, 110, 1),
-          textStyle: const TextStyle(color: Color.fromRGBO(76, 145, 8, 1))
-      );
-    } else{
+          textStyle: const TextStyle(color: Color.fromRGBO(76, 145, 8, 1)));
+    } else {
       BotToast.showText(
-          text:res.description,
+          text: res.description,
           contentColor: const Color.fromRGBO(245, 62, 62, 1),
-          textStyle: const TextStyle(color: Colors.white)
-      );
+          textStyle: const TextStyle(color: Colors.white));
     }
   }
 
-  void _handleVerify() async{
-    if(emailCtr.value.text.isEmail){
-      if(verifyCtr.value.text.isNotEmpty){
+  void _handleVerify() async {
+    if (emailCtr.value.text.isEmail) {
+      if (verifyCtr.value.text.isNotEmpty) {
         setState(() {
           _isVerify = true;
         });
-      } else{
+      } else {
         BotToast.showText(
-            text:"验证码不能为空",
+            text: "验证码不能为空",
             contentColor: const Color.fromRGBO(245, 62, 62, 1),
-            textStyle: const TextStyle(color: Colors.white)
-        );
+            textStyle: const TextStyle(color: Colors.white));
       }
-    } else{
+    } else {
       BotToast.showText(
-          text:"邮箱格式错误",
+          text: "邮箱格式错误",
           contentColor: const Color.fromRGBO(245, 62, 62, 1),
-          textStyle: const TextStyle(color: Colors.white)
-      );
+          textStyle: const TextStyle(color: Colors.white));
     }
   }
 
-
-  _handleRegister() async{
+  _handleRegister() async {
     logger.i(nameCtr.value.text);
-    if(nameCtr.value.text.trim().isNotEmpty
-        &&passwordCtr.value.text.trim().isNotEmpty
-        &&ensPswCtr.value.text.trim().isNotEmpty
-    ) {
-      if(passwordCtr.value.text.trim()==ensPswCtr.value.text.trim()){
-        final response=await doRegister(
-            emailCtr.value.text.trim(),
-            nameCtr.value.text.trim(),
-            passwordCtr.value.text.trim(),
-            verifyCtr.value.text.trim()
-        );
+    if (nameCtr.value.text.trim().isNotEmpty &&
+        passwordCtr.value.text.trim().isNotEmpty &&
+        ensPswCtr.value.text.trim().isNotEmpty) {
+      if (passwordCtr.value.text.trim() == ensPswCtr.value.text.trim()) {
+        final response = await doRegister(emailCtr.value.text.trim(), nameCtr.value.text.trim(),
+            passwordCtr.value.text.trim(), verifyCtr.value.text.trim());
         NestRes res = NestRes.fromJson(response.data);
-        if(res.statusCode == 200){
+        if (res.statusCode == 200) {
           BotToast.showSimpleNotification(
             title: res.description,
             backgroundColor: const Color.fromRGBO(179, 255, 102, 1),
-            titleStyle:const TextStyle(color:  Color.fromRGBO(76, 153, 0, 1)),
+            titleStyle: const TextStyle(color: Color.fromRGBO(76, 153, 0, 1)),
           );
           Get.offAllNamed("/home");
-        } else{
+        } else {
           BotToast.showSimpleNotification(
             title: res.description,
             backgroundColor: const Color.fromRGBO(245, 62, 62, 1),
-            titleStyle:const TextStyle(color:  Colors.white),
+            titleStyle: const TextStyle(color: Colors.white),
           );
         }
-      } else{
+      } else {
         BotToast.showText(
-            text:"两次输入的密码不一致",
+            text: "两次输入的密码不一致",
             contentColor: const Color.fromRGBO(245, 62, 62, 1),
-            textStyle: const TextStyle(color: Colors.white)
-        );
+            textStyle: const TextStyle(color: Colors.white));
       }
-    } else{
+    } else {
       BotToast.showText(
-          text:"输入不能为空",
+          text: "输入不能为空",
           contentColor: const Color.fromRGBO(245, 62, 62, 1),
-          textStyle: const TextStyle(color: Colors.white)
-      );
+          textStyle: const TextStyle(color: Colors.white));
     }
   }
 
-
-  void _handleBack(){
-    if(_isVerify){
+  void _handleBack() {
+    if (_isVerify) {
       setState(() {
         _isVerify = false;
       });
-    } else{
+    } else {
       Get.toNamed('/auth');
     }
   }
@@ -125,29 +110,35 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: (){FocusScope.of(context).requestFocus(FocusNode());},
-        child:Stack(
+        body: GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () {
+        FocusScope.of(context).requestFocus(FocusNode());
+      },
+      child: Stack(
         children: [
           Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            decoration: const BoxDecoration(
-                color: Colors.deepPurple),
+            decoration: const BoxDecoration(color: Colors.deepPurple),
           ),
-           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
-            child:  GestureDetector(
-              onTap: _handleBack,
-              child: Row(
-                children:const [
-                  Icon(Icons.arrow_back_ios_new,color: Colors.white,),
-                  Text('返回',style: TextStyle(color: Colors.white,fontSize: 17),)
-                ],
-              ),
-            )
-          ),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(20, 50, 0, 0),
+              child: GestureDetector(
+                onTap: _handleBack,
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.arrow_back_ios_new,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      '返回',
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    )
+                  ],
+                ),
+              )),
           Center(
             child: Container(
                 height: _isVerify ? 450 : 350,
@@ -171,9 +162,6 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
           )
         ],
       ),
-      )
-    );
+    ));
   }
 }
-
-

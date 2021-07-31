@@ -17,7 +17,7 @@ class Message extends StatefulWidget {
   State<StatefulWidget> createState() => MessageStatePage();
 }
 
-class MessageStatePage extends State<Message>{
+class MessageStatePage extends State<Message> {
   final Logger logger = Logger();
   final GetxState gexState = Get.find();
 
@@ -41,7 +41,7 @@ class MessageStatePage extends State<Message>{
           children: [
             MyFadeTransition(
                 myAnimationController: widget.animationController!,
-                myAnimation: myAnimation(widget.animationController, 2),
+                myAnimation: myAnimation(widget.animationController, 1),
                 child: Container(
                   height: 70,
                   padding: const EdgeInsets.only(left: 20),

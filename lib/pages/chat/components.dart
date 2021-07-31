@@ -1,91 +1,88 @@
-
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:getwidget/getwidget.dart';
 import 'package:myapp/components/circular_img.dart';
-import 'package:myapp/modules/message.dart';
-import 'package:myapp/socket/index.dart';
+import 'package:myapp/utils/hex_color.dart';
 
-import 'index.dart';
-
-class ChatBubbleLeft extends StatefulWidget{
-  final dynamic text;
+class ChatBubbleLeft extends StatelessWidget {
+  final String text;
   final Color color;
   final Color bgColor;
   final BubbleNip? nip;
   final Alignment? alignment;
   final ImageProvider img;
-  const ChatBubbleLeft({Key? key,
-    this.alignment=Alignment.centerLeft,
-    this.nip, this.text,
-    this.bgColor=Colors.white,
-    this.color=Colors.blue,
+  final double? topMargin;
+
+  const ChatBubbleLeft({
+    Key? key,
+    this.alignment = Alignment.centerLeft,
+    this.nip,
+    required this.text,
+    this.bgColor = Colors.white,
+    this.color = Colors.blue,
     required this.img,
-  }):super(key: key);
-
-  @override
-  State<StatefulWidget> createState()=>ChatBubbleLeftStatePage();
-
-}
-
-class ChatBubbleLeftStatePage extends State<ChatBubbleLeft>{
+    this.topMargin = 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-         RadiusImage(
-            radius: 8,
-            widthAndHeight: 50,
-            image: widget.img
-        ),
-        SizedBox(
-          width: 200,
-          child: Bubble(
-            color:widget.bgColor,
-            margin: const BubbleEdges.only(top: 10),
-            padding: const BubbleEdges.all(12),
-            alignment: widget.alignment,
-            nip: widget.nip,
-            child:Text(widget.text,
-              style: TextStyle(color: widget.color),
-              textAlign:TextAlign.left,),
-            nipRadius: 4,
-            nipWidth: 12,
-            elevation: 1,
+    return Container(
+      padding: EdgeInsets.only(top: topMargin!),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.only(left: 2),
+            margin: const EdgeInsets.only(right: 2),
+            child: RadiusImage(
+                radius: 8,
+                widthAndHeight: 50,
+                image: img,
+                boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1)]),
           ),
-        ),
-      ],
+          SizedBox(
+            width: 200,
+            child: Bubble(
+              color: bgColor,
+              margin: const BubbleEdges.only(top: 10),
+              padding: const BubbleEdges.all(12),
+              alignment: alignment,
+              nip: nip,
+              child: Text(
+                text,
+                style: TextStyle(color: color),
+                textAlign: TextAlign.left,
+              ),
+              nipRadius: 4,
+              nipWidth: 12,
+              elevation: 1,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
-
-class ChatBubbleRight extends StatefulWidget{
-  final dynamic text;
+class ChatBubbleRight extends StatelessWidget {
+  final String text;
   final Color color;
   final Color bgColor;
   final BubbleNip? nip;
   final Alignment? alignment;
   final ImageProvider img;
   final double? bottomPadding;
-  const ChatBubbleRight({Key? key,
-    this.alignment=Alignment.centerLeft,
-    this.nip, this.text,
-    this.bgColor=Colors.white,
-    this.color=Colors.blue,
+
+  const ChatBubbleRight({
+    Key? key,
+    this.alignment = Alignment.centerLeft,
+    this.nip,
+    required this.text,
+    this.bgColor = Colors.white,
+    this.color = Colors.blue,
     required this.img,
-    this.bottomPadding=0,
-  }):super(key: key);
-
-  @override
-  State<StatefulWidget> createState()=>ChatBubbleRightStatePage();
-
-}
-
-class ChatBubbleRightStatePage extends State<ChatBubbleRight>{
+    this.bottomPadding = 0,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -97,136 +94,62 @@ class ChatBubbleRightStatePage extends State<ChatBubbleRight>{
         SizedBox(
           width: 200,
           child: Bubble(
-            color:widget.bgColor,
-            margin: BubbleEdges.fromLTRB(0,10,0,widget.bottomPadding),
+            color: bgColor,
+            margin: BubbleEdges.fromLTRB(0, 10, 0, bottomPadding),
             padding: const BubbleEdges.all(12),
-            alignment: widget.alignment,
-            nip: widget.nip,
+            alignment: alignment,
+            nip: nip,
             nipWidth: 12,
-            child:Text(widget.text,
-              style: TextStyle(color: widget.color),
-              textAlign:TextAlign.left),
+            child: Text(text, style: TextStyle(color: color), textAlign: TextAlign.left),
             nipRadius: 4,
             elevation: 1,
           ),
         ),
-        RadiusImage(
-            radius: 8,
-            widthAndHeight: 50,
-            image: widget.img
+        Container(
+          padding: const EdgeInsets.only(right: 2),
+          margin: const EdgeInsets.only(left: 2),
+          child: RadiusImage(
+              radius: 8,
+              widthAndHeight: 50,
+              image: img,
+              boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1)]),
         ),
       ],
     );
   }
 }
 
-class ChatBottom extends StatefulWidget {
-  final double bottomPadding;
-  final TextEditingController? controller;
-  const ChatBottom({Key? key, required this.bottomPadding, this.controller}) : super(key: key);
+class ChatList extends StatefulWidget {
+  const ChatList({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => ChatBottomStatePage();
+  State<StatefulWidget> createState() => _ChatListStatePage();
 }
 
-class ChatBottomStatePage extends State<ChatBottom> {
-
-  void handleSend(){
-    final MessageBody message = MessageBody('1', '2', 'hello');
-    sendMessage(message);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: widget.bottomPadding),
-      child: Container(
-          height: 95,
-          color: const Color.fromRGBO(233, 245, 254, 1),
-          padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Flexible(
-                      child: SizedBox(
-                        height: 40,
-                        child: TextField(
-                          controller: widget.controller,
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.fromLTRB(8,0,0,0),
-                            fillColor: Colors.white,
-                            filled: true,
-                            border: inputBorder,
-                            focusedBorder: inputBorder,
-                            enabledBorder: inputBorder,
-                          ),
-                        ),
-                      )),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15),
-                    width: 100,
-                    child: GFButton(
-                      onPressed: handleSend,
-                      text: "发送",
-                      color: Colors.blue,
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 16, 0),
-                    child: Icon(Icons.mic),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18),
-                    child: Icon(Icons.image),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18),
-                    child: Icon(Icons.photo_camera),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18),
-                    child: Icon(Icons.image),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 18),
-                    child: Icon(Icons.add_circle),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(13, 0, 0, 0),
-                    child: Icon(Icons.delete),
-                  ),
-                ],
-              )
-            ],
-          )),
-    );
-  }
-}
-
-class MessageList extends StatefulWidget {
-  const MessageList({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => MessageListStatePage();
-}
-
-class MessageListStatePage extends State<MessageList> {
+class _ChatListStatePage extends State<ChatList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (BuildContext context, int index) {
         if (index % 2 == 0) {
-          return const ChatBubbleLeft(
+          if (index == 0) {
+            return ChatBubbleLeft(
+              text: '开心',
+              bgColor: HexColor('#9181D6'),
+              color: Colors.white,
+              nip: BubbleNip.leftTop,
+              topMargin: 10,
+              alignment: Alignment.centerLeft,
+              img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+            );
+          }
+          return ChatBubbleLeft(
             text: '开心',
+            bgColor: HexColor('#9181D6'),
+            color: Colors.white,
             nip: BubbleNip.leftTop,
             alignment: Alignment.centerLeft,
-            img: AssetImage('static/images/avatar.png'),
+            img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
           );
         } else {
           if (index == 19) {
@@ -235,14 +158,14 @@ class MessageListStatePage extends State<MessageList> {
               nip: BubbleNip.rightTop,
               alignment: Alignment.centerRight,
               bottomPadding: 10,
-              img: AssetImage('static/images/avatar.png'),
+              img: NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
             );
           }
           return const ChatBubbleRight(
             text: '今天真的好开心',
             nip: BubbleNip.rightTop,
             alignment: Alignment.centerRight,
-            img:  AssetImage('static/images/avatar.png'),
+            img: NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
           );
         }
       },

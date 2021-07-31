@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class RegisterInput extends StatelessWidget {
   final String labelText;
@@ -67,7 +65,8 @@ class EmailVerify extends StatefulWidget {
       {Key? key,
       required this.emailEditingController,
       required this.verifyCodeEditingController,
-      required this.handleVerify, required this.sendVerifyCode})
+      required this.handleVerify,
+      required this.sendVerifyCode})
       : super(key: key);
 
   @override
@@ -77,7 +76,6 @@ class EmailVerify extends StatefulWidget {
 class EmailVerifyStatePage extends State<EmailVerify> {
   int _timeCount = 60;
   Timer? countDownTimer;
-
 
   _sendVerifyCode() {
     if (widget.emailEditingController.value.text.isNotEmpty) {
@@ -108,7 +106,7 @@ class EmailVerifyStatePage extends State<EmailVerify> {
   @override
   void dispose() {
     super.dispose();
-    if(countDownTimer!=null){
+    if (countDownTimer != null) {
       countDownTimer!.cancel();
     }
   }
@@ -246,52 +244,52 @@ class PasswordAndNameStatePage extends State<PasswordAndName> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: RegisterInput(
-          controller: widget.nameEditingController,
-          labelText: '昵称',
-          prefixIcon: const Icon(
+            child: RegisterInput(
+              controller: widget.nameEditingController,
+              labelText: '昵称',
+              prefixIcon: const Icon(
                 Icons.person,
                 color: Colors.deepPurple,
               ),
-          obscureText: false,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        child: RegisterInput(
-          controller: widget.passwordEditingController,
-          labelText: '密码',
-          prefixIcon: const Icon(
-            Icons.lock,
+              obscureText: false,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            child: RegisterInput(
+              controller: widget.passwordEditingController,
+              labelText: '密码',
+              prefixIcon: const Icon(
+                Icons.lock,
                 color: Colors.deepPurple,
               ),
-          obscureText: false,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
-        child: RegisterInput(
-          controller: widget.ensurePasswordEditingController,
-          labelText: '确认密码',
-          prefixIcon: const Icon(
+              obscureText: false,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: RegisterInput(
+              controller: widget.ensurePasswordEditingController,
+              labelText: '确认密码',
+              prefixIcon: const Icon(
                 Icons.security,
                 color: Colors.deepPurple,
               ),
-          obscureText: false,
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
-        child: DecoratedBox(
-            decoration: BoxDecoration(
-                color: Colors.deepPurple,
+              obscureText: false,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 30, 0),
+            child: DecoratedBox(
+                decoration: BoxDecoration(
+                    color: Colors.deepPurple,
                     borderRadius: BorderRadius.circular(10.0), //3像素圆角
                     boxShadow: const [
                       //阴影
                       BoxShadow(color: Colors.deepPurpleAccent, blurRadius: 4.0)
                     ]),
-            child: SizedBox(
-              width: double.maxFinite,
+                child: SizedBox(
+                  width: double.maxFinite,
                   height: 56,
                   child: TextButton(
                     onPressed: widget.handleRegister,

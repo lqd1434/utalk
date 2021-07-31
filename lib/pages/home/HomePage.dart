@@ -1,6 +1,5 @@
 // ignore_for_file: file_names
 
-import 'package:animate_do/animate_do.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -141,13 +140,13 @@ class _MyMainPageState extends State<MainPage>
                     topPadding: MediaQuery.of(context).padding.top + 10,
                     animationController: animationController!,
                   ),
-                  Expanded(child: viewBody),
+                  Flexible(child: viewBody),
                 ],
               ),
-          bottomNavigationBar: BottomBar(
-            selectedIndex: getX.currentIndex.value,
-            handleItemSelected: handleItemSelected,
-          ),
+              bottomNavigationBar: BottomBar(
+                selectedIndex: getX.currentIndex.value,
+                handleItemSelected: handleItemSelected,
+              ),
             )));
   }
 }

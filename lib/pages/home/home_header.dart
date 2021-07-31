@@ -7,7 +7,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/components/my_animation.dart';
-import 'package:myapp/utils/local_notification.dart';
 
 import 'HomePage.dart';
 
@@ -16,7 +15,8 @@ class HomeHeader extends StatefulWidget {
   final bool visible;
   final double topPadding;
 
-  const HomeHeader({Key? key, required this.visible, required this.topPadding, this.animationController})
+  const HomeHeader(
+      {Key? key, required this.visible, required this.topPadding, this.animationController})
       : super(key: key);
 
   @override
@@ -50,7 +50,8 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
     // flutterLocalNotificationsPlugin.show(0, 'hello', 'body', platformChannelSpecifics);
   }
 
-  Future onDidReceiveLocalNotification(int i, String? payload, String? payloa3, String? payload2) async {
+  Future onDidReceiveLocalNotification(
+      int i, String? payload, String? payloa3, String? payload2) async {
     print('onDidReceiveLocalNotification');
   }
 
@@ -104,7 +105,8 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                                 const RadiusImage(
                                     radius: 25,
                                     widthAndHeight: 50,
-                                    image: AssetImage('static/images/avatar.png')),
+                                    image: NetworkImage(
+                                        'http://47.103.211.10:9090/static/images/avatar.png')),
                                 Container(
                                   width: 170,
                                   padding: const EdgeInsets.only(left: 10),
@@ -131,15 +133,9 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 5),
-                      // child:IconButton(
-                      //     highlightColor:Colors.deepOrange,
-                      //     onPressed: () {  },
-                      //     icon: const Icon(Icons.add_circle_outline,size: 35,color: Colors.white),
-                      // ),
                       child: SpeedDial(
                         icon: Icons.add,
                         foregroundColor: Colors.deepPurple,
-                        // child: const Icon(color: Colors.deepPurple,size: 30),
                         spaceBetweenChildren: 6,
                         buttonSize: 50,
                         childrenButtonSize: 50,

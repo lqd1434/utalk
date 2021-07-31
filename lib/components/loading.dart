@@ -11,8 +11,8 @@ class Loading extends StatelessWidget {
         body: SizedBox.expand(
           child: Stack(
             children: [
-              const RiveAnimation.asset(
-                'static/flare/blueplanet.riv',
+              const RiveAnimation.network(
+                'http://47.103.211.10:9090/static/rive/blueplanet.riv',
                 fit: BoxFit.cover,
               ),
               Container(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/components/circular_img.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:myapp/components/list_tile.dart';
 import 'package:myapp/components/swiper_action.dart';
 import 'package:myapp/utils/hex_color.dart';
@@ -71,11 +71,18 @@ Widget loadingShimmer() {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
-                              width: 70,
-                              height: 20,
-                              margin: const EdgeInsets.only(bottom: 10),
-                              color: HexColor('#9E80D5')),
-                          Container(width: 250, height: 16, color: HexColor('#9E80D5'))
+                            width: 70,
+                            height: 20,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            decoration: BoxDecoration(
+                                color: HexColor('#9E80D5'), borderRadius: BorderRadius.circular(3)),
+                          ),
+                          Container(
+                            width: 150,
+                            height: 16,
+                            decoration: BoxDecoration(
+                                color: HexColor('#9E80D5'), borderRadius: BorderRadius.circular(3)),
+                          )
                         ],
                       )
                     ],
@@ -86,28 +93,38 @@ Widget loadingShimmer() {
 
 Widget messageListView() {
   return Container(
-      margin: const EdgeInsets.only(top: 10, left: 10),
-      child: ListView.builder(
-          padding: const EdgeInsets.all(0),
-          itemCount: 20,
-          itemBuilder: (BuildContext context, int index) {
-            return SwiperAction(
-              valueKey: ValueKey(index),
-              child: UserTile(
-                image: const NetworkImage(
-                  'http://47.103.211.10:9090/static/images/avatar.png',
-                ),
-                title: Text('sky',
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: HexColor('#653CB3'),
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.5)),
-                subText: Text('今天真的好开心!',
-                    style: TextStyle(fontSize: 13, color: HexColor('#8C9EE9')),
-                    softWrap: false,
-                    overflow: TextOverflow.ellipsis),
-              ),
-            );
-          }));
+      margin: const EdgeInsets.only(top: 10, left: 10, bottom: 65),
+      padding: EdgeInsets.zero,
+      child: AnimationLimiter(
+        child: ListView.builder(
+            padding: const EdgeInsets.all(0),
+            itemCount: 10,
+            itemBuilder: (BuildContext context, int index) {
+              return AnimationConfiguration.staggeredList(
+                  position: index,
+                  duration: const Duration(milliseconds: 375),
+                  child: SlideAnimation(
+                      verticalOffset: 50.0,
+                      child: FadeInAnimation(
+                        child: SwiperAction(
+                          valueKey: ValueKey(index),
+                          child: UserTile(
+                            image: const NetworkImage(
+                              'http://47.103.211.10:9090/static/images/avatar.png',
+                            ),
+                            title: Text('sky',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: HexColor('#653CB3'),
+                                    fontWeight: FontWeight.w500,
+                                    letterSpacing: 0.5)),
+                            subText: Text('今天真的好开心!',
+                                style: TextStyle(fontSize: 13, color: HexColor('#8C9EE9')),
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                        ),
+                      )));
+            }),
+      ));
 }

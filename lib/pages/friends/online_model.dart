@@ -1,6 +1,6 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:myapp/utils/hex_color.dart';
 
 class OnlineModelList extends StatefulWidget {
   final AnimationController? animationController;
@@ -13,17 +13,28 @@ class OnlineModelList extends StatefulWidget {
 }
 
 class _OnlineModelListStatePage extends State<OnlineModelList> {
+  // final GlobalKey _key = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    // if (mounted) {
+    //   print(_key.currentContext!.size);
+    // }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(230, 234, 255, 1),
+      color: const Color.fromRGBO(241, 242, 249, 1),
+      padding: const EdgeInsets.only(bottom: 70),
       child: AnimationLimiter(
         child: GridView.count(
-          childAspectRatio: 2 / 3,
+          childAspectRatio: 2 / 2.6,
           padding: const EdgeInsets.only(top: 5),
           crossAxisCount: 2,
           children: List.generate(
-            100,
+            30,
             (int index) {
               return AnimationConfiguration.staggeredGrid(
                 position: index,
@@ -39,14 +50,6 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
           ),
         ),
       ),
-      // GridView.builder(
-      //   padding: const EdgeInsets.only(top: 5),
-      //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      //       crossAxisCount: 2, childAspectRatio: 2 / 3),
-      //   itemCount: 20,
-      //   itemBuilder: (BuildContext context, int index) {
-      //     return OnlineModel();
-      //     )
     );
   }
 }
@@ -70,16 +73,11 @@ class _OnlineModelStatePage extends State<OnlineModel> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 400,
         margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.deepPurpleAccent),
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(color: Color.fromRGBO(191, 199, 231, 1), blurRadius: 5.0),
-              BoxShadow(color: Color.fromRGBO(191, 199, 231, 1), blurRadius: 5.0)
-            ]),
+        decoration:
+            BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), boxShadow: [
+          BoxShadow(color: HexColor('#8CA1EB'), blurRadius: 5),
+        ]),
         child: Column(
           children: [
             Container(
@@ -100,10 +98,11 @@ class _OnlineModelStatePage extends State<OnlineModel> {
                 ],
               ),
             ),
-            Image.network(
-              'http://47.103.211.10:9090/static/images/suitMan.png',
-              height: 170,
-              fit: BoxFit.cover,
+            Expanded(
+              child: Image.network(
+                'http://47.103.211.10:9090/static/images/suitMan.png',
+                fit: BoxFit.cover,
+              ),
             ),
             Row(
               children: [

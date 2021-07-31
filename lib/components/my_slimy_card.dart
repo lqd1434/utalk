@@ -171,6 +171,7 @@ class _MySlimyCardStatePage extends State<MySlimyCard> with TickerProviderStateM
                                 stops: isOpen ? [0, 0, 1] : [0.3, 0.3, 0.3])
                             : null,
                         borderRadius: BorderRadius.circular(widget.borderRadius),
+                        boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 3)],
                       ),
                       alignment: Alignment.center,
                       padding: const EdgeInsets.all(10),

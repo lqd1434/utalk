@@ -1,22 +1,18 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/cell.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/utils/hex_color.dart';
 
-class MyDrawer extends StatefulWidget{
+class MyDrawer extends StatefulWidget {
+  const MyDrawer({Key? key}) : super(key: key);
 
-  const MyDrawer({Key? key}):super(key: key);
   @override
-  State<StatefulWidget> createState()=>MyDrawerStatePage();
-  
+  State<StatefulWidget> createState() => MyDrawerStatePage();
 }
 
-class MyDrawerStatePage extends State<MyDrawer>{
+class MyDrawerStatePage extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,13 +29,14 @@ class MyDrawerStatePage extends State<MyDrawer>{
               const SizedBox(width: 15),
               GestureDetector(
                 onTap: () {
-                  Get.toNamed('/personalHome');
+                  Get.toNamed('/personalHome', arguments: '/personalHome');
                 },
                 child: RadiusImage(
                     radius: 40,
                     widthAndHeight: 80,
                     border: Border.all(color: HexColor('#653CB3')),
-                    image: const AssetImage('static/images/avatar.png')),
+                    image:
+                        const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png')),
               ),
               const SizedBox(width: 15),
               Column(
@@ -62,57 +59,74 @@ class MyDrawerStatePage extends State<MyDrawer>{
           const Divider(),
           Container(
             height: 480,
-            padding: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 5),
             child: ListView(
               children: [
                 ListTile(
                   title: Cell(
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      boxShadowColor: Colors.transparent,
                       title: const Text(
                         '情侣空间',
                         style: TextStyle(fontSize: 22),
                       ),
-                      icon: Icon(FontAwesomeIcons.solidHeart, color: HexColor('#E40100'))),
+                      icon: Icon(Icons.favorite, color: HexColor('#E40100'))),
                 ),
                 ListTile(
                   title: Cell(
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      boxShadowColor: Colors.transparent,
                       title: const Text(
                         '我的收藏',
                         style: TextStyle(fontSize: 22),
                       ),
-                      icon: Icon(FontAwesomeIcons.boxOpen, color: HexColor('#00E3E4'))),
+                      icon: Icon(Icons.library_add, color: HexColor('#00E3E4'))),
                 ),
                 ListTile(
                   title: Cell(
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      boxShadowColor: Colors.transparent,
                       title: const Text(
                         '我的相册',
                         style: TextStyle(fontSize: 22),
                       ),
-                      icon: Icon(FontAwesomeIcons.images, color: HexColor('#805AC8'))),
+                      icon: Icon(Icons.collections, color: HexColor('#805AC8'))),
                 ),
                 ListTile(
                   title: Cell(
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      boxShadowColor: Colors.transparent,
                       title: const Text(
                         '装扮商店',
                         style: TextStyle(fontSize: 22),
                       ),
-                      icon: Icon(FontAwesomeIcons.palette, color: HexColor('#FFB1B1'))),
+                      icon: Icon(Icons.palette, color: HexColor('#FFB1B1'))),
                 ),
                 ListTile(
                   title: Cell(
+                      margin: EdgeInsets.zero,
+                      padding: EdgeInsets.zero,
+                      boxShadowColor: Colors.transparent,
                       title: const Text(
                         '系统消息',
                         style: TextStyle(fontSize: 22),
                       ),
-                      icon: Icon(FontAwesomeIcons.infoCircle, color: HexColor('#00DC88'))),
+                      icon: Icon(Icons.info, color: HexColor('#00DC88'))),
                 )
               ],
             ),
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
-            children:[
+            children: [
               GestureDetector(
-                onTap: (){Get.toNamed('/setting');},
+                onTap: () {
+                  Get.toNamed('/setting');
+                },
                 child: Container(
                   width: 70,
                   height: 80,
@@ -122,14 +136,16 @@ class MyDrawerStatePage extends State<MyDrawer>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      FaIcon(FontAwesomeIcons.cog, color: HexColor('#00E3E4')),
+                      Icon(Icons.settings, color: HexColor('#00E3E4')),
                       Text('设置', style: TextStyle(fontSize: 15, color: HexColor('#00E3E4')))
                     ],
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: (){Get.toNamed('/setting');},
+                onTap: () {
+                  Get.toNamed('/setting');
+                },
                 child: Container(
                   width: 70,
                   height: 80,
@@ -138,7 +154,7 @@ class MyDrawerStatePage extends State<MyDrawer>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(FontAwesomeIcons.calendarAlt, color: HexColor('#FF7F7E')),
+                      Icon(Icons.event_available, color: HexColor('#FF7F7E')),
                       Text('签到', style: TextStyle(fontSize: 15, color: HexColor('#FF7F7E')))
                     ],
                   ),
@@ -156,7 +172,7 @@ class MyDrawerStatePage extends State<MyDrawer>{
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(FontAwesomeIcons.cloud, color: HexColor('#8DA4DD')),
+                      Icon(Icons.cloud, color: HexColor('#8DA4DD')),
                       Text('天气', style: TextStyle(fontSize: 15, color: HexColor('#8DA4DD')))
                     ],
                   ),
@@ -168,5 +184,4 @@ class MyDrawerStatePage extends State<MyDrawer>{
       ),
     );
   }
-  
 }

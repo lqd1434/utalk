@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:dio/src/response.dart' as Res;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/components/loading.dart';
 import 'package:myapp/utils/constant.dart';

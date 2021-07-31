@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:myapp/utils/hex_color.dart';
 
 class UserInfo extends StatefulWidget {
@@ -23,7 +22,7 @@ class _UserInfoStatePage extends State<UserInfo> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Icon(
-                  FontAwesomeIcons.user,
+                  Icons.person,
                   color: HexColor('#666666'),
                   size: 18,
                 ),
@@ -33,8 +32,7 @@ class _UserInfoStatePage extends State<UserInfo> {
                 Container(
                   padding: const EdgeInsets.only(right: 12, top: 0),
                   decoration: const BoxDecoration(
-                      border:
-                      Border(right: BorderSide(color: Colors.black, width: 1.5))),
+                      border: Border(right: BorderSide(color: Colors.black, width: 1.5))),
                   child: Text(
                     '男',
                     style: TextStyle(
@@ -47,8 +45,7 @@ class _UserInfoStatePage extends State<UserInfo> {
                 Container(
                   padding: const EdgeInsets.only(right: 12, top: 0, left: 12),
                   decoration: const BoxDecoration(
-                      border:
-                      Border(right: BorderSide(color: Colors.black, width: 1.5))),
+                      border: Border(right: BorderSide(color: Colors.black, width: 1.5))),
                   child: Text(
                     '摩羯座',
                     style: TextStyle(
@@ -61,8 +58,7 @@ class _UserInfoStatePage extends State<UserInfo> {
                 Container(
                   padding: const EdgeInsets.only(right: 12, top: 0, left: 12),
                   decoration: const BoxDecoration(
-                      border:
-                      Border(right: BorderSide(color: Colors.black, width: 1.5))),
+                      border: Border(right: BorderSide(color: Colors.black, width: 1.5))),
                   child: Text(
                     '南昌大学',
                     style: TextStyle(
@@ -75,8 +71,7 @@ class _UserInfoStatePage extends State<UserInfo> {
                 Container(
                   padding: const EdgeInsets.only(right: 12, top: 0, left: 12),
                   decoration: const BoxDecoration(
-                      border:
-                      Border(right: BorderSide(color: Colors.black, width: 1.5))),
+                      border: Border(right: BorderSide(color: Colors.black, width: 1.5))),
                   child: Text(
                     '现居江西',
                     style: TextStyle(
@@ -88,7 +83,7 @@ class _UserInfoStatePage extends State<UserInfo> {
                 ),
                 const SizedBox(width: 20),
                 Icon(
-                  FontAwesomeIcons.chevronRight,
+                  Icons.chevron_right,
                   size: 18,
                   color: HexColor('#666666'),
                 )

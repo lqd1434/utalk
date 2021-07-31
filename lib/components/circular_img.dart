@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
 
-import 'package:flutter/cupertino.dart';
-
-class RadiusImage extends StatefulWidget {
+class RadiusImage extends StatelessWidget {
   final double? radius;
   final double? widthAndHeight;
   final ImageProvider image;
   final BoxBorder? border;
+  final List<BoxShadow>? boxShadow;
 
   const RadiusImage({
     Key? key,
@@ -13,29 +13,24 @@ class RadiusImage extends StatefulWidget {
     this.widthAndHeight = 50,
     required this.image,
     this.border,
+    this.boxShadow,
   }) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => RadiusImageStatePage();
-}
-
-class RadiusImageStatePage extends State<RadiusImage>{
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        width: widget.widthAndHeight,
-        height: widget.widthAndHeight,
+        width: widthAndHeight,
+        height: widthAndHeight,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(widget.radius!),
-            border: widget.border,
+            borderRadius: BorderRadius.circular(radius!),
+            border: border,
+            boxShadow: boxShadow,
             image: DecorationImage(
-              image: widget.image,
+              image: image,
               fit: BoxFit.cover,
             )),
       ),
     );
   }
-
 }

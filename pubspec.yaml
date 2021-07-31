@@ -30,9 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   dio: ^4.0.0
-  logger: 1.0.0
   video_player: ^2.1.10
-  getwidget: ^2.0.3
   get: 4.1.4
   flutter_native_splash: ^1.2.0
   flutter_slidable: 1.0.0-dev.2
@@ -52,10 +50,7 @@ dependencies:
   progress_state_button: 1.0.3
   percent_indicator: 3.0.1
   animate_do: 2.0.0
-  font_awesome_flutter: 9.1.0
-  argon_buttons_flutter: 1.1.0
   shimmer: 2.0.0
-  sticky_headers: 0.2.0
   extended_image: 4.1.0
   flutter_staggered_animations: ^1.0.0
   image_gallery_saver: 1.6.9
@@ -77,7 +72,14 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  logger: 1.0.0
   flutter_lints: ^1.0.4
+  flutter_ume: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
+  flutter_ume_kit_ui: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
+  flutter_ume_kit_device: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
+  flutter_ume_kit_perf: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
+  flutter_ume_kit_show_code: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
+  flutter_ume_kit_console: ^0.2.0-dev.0
 
 flutter:
   uses-material-design: true
@@ -91,20 +93,8 @@ flutter:
 
 
   assets:
-    - static/images/girl2.png
-    - static/images/bg_login_header.png
-    - static/images/welcome_bg.jpeg
-    - static/images/ningmeng.png
-    - static/images/drink.png
-    - static/images/avatar.png
-    - static/images/bgcube.png
-    - static/images/bg_login.jpg
-    - static/images/bg_register.jpeg
-    - static/images/520-990-teddy-login-screen.riv
-    - static/images/teddy_login_screen.riv
     - static/flare/bottomSlime.flr
     - static/flare/topSlime.flr
-    - static/flare/blueplanet.riv
 
 flutter_native_splash:
   background_image: "static/images/splash.png"

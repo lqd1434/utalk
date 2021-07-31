@@ -1,7 +1,5 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getwidget/components/carousel/gf_carousel.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
 
@@ -15,7 +13,6 @@ class MoodSpace extends StatefulWidget {
 }
 
 class MoodSpaceStatePage extends State<MoodSpace> {
-
   final _scrollController = ScrollController();
   final Logger logger = Logger();
   final GetxState getX = Get.find();
@@ -31,7 +28,7 @@ class MoodSpaceStatePage extends State<MoodSpace> {
         setState(() {
           _isShowTitle = false;
         });
-      } else if(_scrollController.offset >=200.0){
+      } else if (_scrollController.offset >= 200.0) {
         setState(() {
           _isShowTitle = true;
         });
@@ -64,26 +61,6 @@ class MoodSpaceStatePage extends State<MoodSpace> {
                   background: Column(
                     children: [
                       SizedBox(height: MediaQuery.of(context).padding.top),
-                      GFCarousel(
-                        viewportFraction: 1.0,
-                        autoPlay: true,
-                        items: imageList.map(
-                          (url) {
-                            return Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 8),
-                              child: ClipRRect(
-                                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                                child: Image.network(url, fit: BoxFit.cover, width: 800.0),
-                              ),
-                            );
-                          },
-                        ).toList(),
-                        onPageChanged: (index) {
-                          setState(() {
-                            index;
-                          });
-                        },
-                      ),
                     ],
                   )),
             )

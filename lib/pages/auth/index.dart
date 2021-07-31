@@ -6,12 +6,9 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:myapp/components/block_btn.dart';
-import 'package:myapp/components/block_input.dart';
-import 'package:myapp/components/bottomThirdIcons.dart';
 import 'package:myapp/response/response.dart';
+import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/save_login_data.dart';
 import 'package:progress_state_button/iconed_button.dart';
 import 'package:progress_state_button/progress_button.dart';
@@ -28,37 +25,55 @@ class AuthPageStatePage extends State<AuthPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   ButtonState? state = ButtonState.idle;
+  bool onLoading = false;
 
   void _handlePress() async {
-    setState(() {
-      state = ButtonState.loading;
-    });
-    try {
-      var response = await Dio().post(
-        'http://47.103.211.10:8080/login',
-        data: {'email': _emailController.value.text, 'password': _passwordController.value.text},
-      );
-      NestRes res = NestRes.fromJson(response.data);
-      if (res.statusCode == 200) {
-        saveLoginData(res.dataBody);
-        const timeout = Duration(seconds: 2);
-        Timer(timeout, () {
-          setState(() {
-            state = ButtonState.success;
-          });
-          Timer(const Duration(seconds: 2), () {
-            Get.offAllNamed('/home');
-          });
+    if (_emailController.value.text.isNotEmpty && _passwordController.value.text.isNotEmpty) {
+      if (_emailController.value.text.isEmail) {
+        setState(() {
+          state = ButtonState.loading;
         });
+        try {
+          var response = await Dio().post(
+            'http://47.103.211.10:8080/login',
+            data: {
+              'email': _emailController.value.text,
+              'password': _passwordController.value.text
+            },
+          );
+          NestRes res = NestRes.fromJson(response.data);
+          if (res.statusCode == 200) {
+            saveLoginData(res.dataBody);
+            const timeout = Duration(seconds: 2);
+            Timer(timeout, () {
+              setState(() {
+                state = ButtonState.success;
+              });
+              Timer(const Duration(seconds: 2), () {
+                Get.offAllNamed('/home');
+              });
+            });
+          } else {
+            BotToast.showText(
+                text: res.description,
+                contentColor: const Color.fromRGBO(245, 62, 62, 1),
+                textStyle: const TextStyle(color: Colors.white));
+          }
+        } catch (e) {
+          BotToast.showText(
+              text: '登录失败',
+              contentColor: const Color.fromRGBO(245, 62, 62, 1),
+              textStyle: const TextStyle(color: Colors.white));
+        }
       } else {
         BotToast.showText(
-            text: res.description,
+            text: '邮箱格式错误',
             contentColor: const Color.fromRGBO(245, 62, 62, 1),
             textStyle: const TextStyle(color: Colors.white));
       }
-    } catch (e) {
+    } else {
       BotToast.showText(
-          text: '登录失败',
+          text: '账号和密码不能为空',
           contentColor: const Color.fromRGBO(245, 62, 62, 1),
           textStyle: const TextStyle(color: Colors.white));
     }
@@ -75,9 +90,17 @@ class AuthPageStatePage extends State<AuthPage> {
             child: Stack(
               children: [
                 Container(
-                  color: const Color.fromRGBO(101, 60, 179, 1),
                   width: double.maxFinite,
                   height: double.maxFinite,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                        HexColor('#9181D6'),
+                        HexColor('#8774D5'),
+                        HexColor('#7E83CB'),
+                      ])),
                 ),
                 Container(
                     margin: EdgeInsets.fromLTRB(
@@ -169,7 +192,7 @@ class AuthPageStatePage extends State<AuthPage> {
                           child: const Text('忘记密码?', style: TextStyle(fontSize: 18)),
                         ),
                         Container(
-                            height: 65,
+                            height: 60,
                             width: MediaQuery.of(context).size.width,
                             margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
                             decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
@@ -179,25 +202,24 @@ class AuthPageStatePage extends State<AuthPage> {
                                 textStyle: const TextStyle(fontSize: 27, color: Colors.white),
                                 iconedButtons: {
                                   ButtonState.idle: const IconedButton(
-                                      icon: Icon(FontAwesomeIcons.signInAlt, color: Colors.white),
+                                      icon: Icon(Icons.login, color: Colors.white, size: 30),
                                       text: '登录',
                                       color: Colors.deepPurple),
                                   ButtonState.loading:
                                       IconedButton(color: Colors.deepPurple.shade700),
                                   ButtonState.fail: IconedButton(
                                       text: "登录失败",
-                                      icon: const Icon(FontAwesomeIcons.timesCircle,
-                                          color: Colors.white),
+                                      icon: const Icon(Icons.cancel, color: Colors.white),
                                       color: Colors.red.shade300),
                                   ButtonState.success: IconedButton(
                                       text: "登录成功",
                                       icon: const Icon(
-                                        FontAwesomeIcons.checkCircle,
+                                        Icons.check_circle,
                                         color: Colors.white,
                                       ),
-                                      color: Colors.green.shade400)
+                                      color: HexColor('#3CB552'))
                                 },
-                                onPressed: _handlePress,
+                                onPressed: state == ButtonState.loading ? null : _handlePress,
                                 state: state)),
                         Container(
                             margin: const EdgeInsets.symmetric(vertical: 18),

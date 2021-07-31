@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/socket/index.dart';
 
+import 'chat_bottom.dart';
 import 'components.dart';
 
 class ChatWin extends StatefulWidget {
@@ -15,18 +16,17 @@ class ChatWin extends StatefulWidget {
   State<StatefulWidget> createState() => ChatWinStatePage();
 }
 
-class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver{
+class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
   final TextEditingController contentController = TextEditingController();
   double bottomPadding = 0;
   Logger logger = Logger();
   final GetxState getX = Get.find();
   final conn = useSocket();
 
-
   @override
   void initState() {
     super.initState();
-    if(getX.socket.value == null){
+    if (getX.socket.value == null) {
       conn();
     }
     contentController.addListener(() {
@@ -46,7 +46,6 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver{
     });
   }
 
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
@@ -54,7 +53,7 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver{
         {
           logger.i("app in resumed");
           logger.w(getX.socket.value);
-          if(getX.socket.value == null){
+          if (getX.socket.value == null) {
             conn();
           }
         }
@@ -74,7 +73,7 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+        extendBody: true,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(
@@ -87,37 +86,35 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver{
           ),
           title: const Text('聊天'),
           centerTitle: true,
+          actions: [
+            Container(
+              margin: const EdgeInsets.only(right: 10),
+              child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed("/chatSetting");
+                  },
+                  child: const Icon(Icons.face, size: 27)),
+            )
+          ],
         ),
-        body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () {
-            setState(() {
-              bottomPadding = 0;
-            });
-            FocusScope.of(context).requestFocus(FocusNode());
-          },
-          child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              color: const Color.fromRGBO(243, 243, 243, 1),
-              child: Column(
-                children: [
-                  const Flexible(
-                    child: MessageList()
-                  ),
-                  ChatBottom(
-                    bottomPadding: bottomPadding,
-                    controller: contentController,
-                  )
-                ],
-              )),
+        body: SizedBox(
+          child: GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () {
+              setState(() {
+                bottomPadding = 0;
+              });
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
+            child: Container(
+                color: const Color.fromRGBO(241, 242, 249, 1),
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: const ChatList()),
+          ),
+        ),
+        bottomNavigationBar: ChatBottom(
+          bottomPadding: bottomPadding,
+          controller: contentController,
         ));
   }
 }
-
-InputBorder inputBorder = OutlineInputBorder(
-  borderRadius: BorderRadius.circular(10),
-  borderSide: const BorderSide(
-    width: 1,
-    color: Colors.blueAccent,
-  ),
-);

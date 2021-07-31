@@ -45,28 +45,32 @@ class FriendsStatePage extends State<Friends> with SingleTickerProviderStateMixi
               MyFadeTransition(
                   myAnimationController: widget.animationController!,
                   myAnimation: myAnimation(widget.animationController!, 2),
-                  child: GNav(
-                    gap: 5,
-                    rippleColor: Colors.deepPurple,
-                    color: Colors.deepPurple,
-                    tabBackgroundColor: Colors.deepPurple,
-                    activeColor: Colors.white,
-                    padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-                    tabMargin: const EdgeInsets.symmetric(vertical: 10),
-                    backgroundColor: Colors.white,
-                    selectedIndex: _currentIndex,
-                    onTabChange: (index) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                      _pageController.jumpToPage(index);
-                    },
-                    tabs: const [
-                      GButton(text: '在线', icon: Icons.sms),
-                      GButton(text: '好友', icon: Icons.people),
-                      GButton(text: '群组', icon: Icons.camera),
-                      GButton(text: '特别关心', icon: Icons.favorite)
-                    ],
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 5)]),
+                    child: GNav(
+                      gap: 5,
+                      rippleColor: Colors.deepPurple,
+                      color: Colors.deepPurple,
+                      tabBackgroundColor: Colors.deepPurple,
+                      activeColor: Colors.white,
+                      padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
+                      tabMargin: const EdgeInsets.symmetric(vertical: 10),
+                      backgroundColor: Colors.white,
+                      selectedIndex: _currentIndex,
+                      onTabChange: (index) {
+                        setState(() {
+                          _currentIndex = index;
+                        });
+                        _pageController.jumpToPage(index);
+                      },
+                      tabs: const [
+                        GButton(text: '在线', icon: Icons.sms),
+                        GButton(text: '好友', icon: Icons.people),
+                        GButton(text: '群组', icon: Icons.camera),
+                        GButton(text: '特别关心', icon: Icons.favorite)
+                      ],
+                    ),
                   )),
               Flexible(
                 child: PageView(

@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/utils/hex_color.dart';
@@ -16,18 +17,43 @@ Widget getBgImg() {
 }
 
 Widget getApprove() {
-  return Column(
-    children: const [
-      Icon(
-        FontAwesomeIcons.solidThumbsUp,
-        color: Colors.amberAccent,
+  return Stack(
+    children: [
+      ConstrainedBox(
+          constraints: const BoxConstraints.expand(width: 50, height: 50), child: const SizedBox()),
+      Center(
+        child: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            child: Container(
+              width: 50.0,
+              height: 50.0,
+              decoration: BoxDecoration(color: Colors.grey.shade200.withOpacity(0.1)),
+              child: Center(
+                child: Column(
+                  children: const [
+                    SizedBox(height: 5),
+                    Icon(
+                      Icons.thumb_up_alt,
+                      color: Colors.black,
+                      size: 18,
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      '77789',
+                      style: TextStyle(
+                          fontSize: 14,
+                          letterSpacing: 0,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
-      SizedBox(height: 5),
-      Text(
-        '77789',
-        style: TextStyle(
-            fontSize: 14, letterSpacing: 0, fontWeight: FontWeight.w500, color: Colors.amberAccent),
-      )
     ],
   );
 }
@@ -66,8 +92,8 @@ Widget getUserName() {
 Widget getNickName() {
   return Row(
     children: [
-      FaIcon(
-        FontAwesomeIcons.edit,
+      Icon(
+        Icons.edit,
         color: HexColor('#666666'),
         size: 18,
       ),
@@ -79,8 +105,8 @@ Widget getNickName() {
           style: TextStyle(fontSize: 16, color: HexColor('#666666')),
         ),
       ),
-      FaIcon(
-        FontAwesomeIcons.chevronRight,
+      Icon(
+        Icons.chevron_right,
         color: HexColor('#666666'),
         size: 18,
       ),
@@ -91,8 +117,8 @@ Widget getNickName() {
 Widget getSignText() {
   return Row(
     children: [
-      FaIcon(
-        FontAwesomeIcons.signature,
+      Icon(
+        Icons.whatshot,
         color: HexColor('#666666'),
         size: 18,
       ),
@@ -105,7 +131,7 @@ Widget getSignText() {
               TextStyle(fontSize: 16, color: HexColor('#666666'), overflow: TextOverflow.ellipsis),
         ),
       ),
-      FaIcon(FontAwesomeIcons.chevronRight, color: HexColor('#666666'), size: 18),
+      Icon(Icons.chevron_right, color: HexColor('#666666'), size: 18),
     ],
   );
 }
@@ -113,7 +139,7 @@ Widget getSignText() {
 Widget getSpace() {
   return Row(
     children: [
-      FaIcon(FontAwesomeIcons.star, color: HexColor('#666666'), size: 18),
+      Icon(Icons.star, color: HexColor('#666666'), size: 18),
       Container(
         padding: const EdgeInsets.only(left: 11, right: 40),
         width: 290,
@@ -123,7 +149,7 @@ Widget getSpace() {
               TextStyle(fontSize: 16, color: HexColor('#666666'), overflow: TextOverflow.ellipsis),
         ),
       ),
-      FaIcon(FontAwesomeIcons.chevronRight, color: HexColor('#666666'), size: 18),
+      Icon(Icons.chevron_right, color: HexColor('#666666'), size: 18),
     ],
   );
 }
@@ -135,7 +161,7 @@ Widget getGallery() {
     },
     child: Row(
       children: [
-        FaIcon(FontAwesomeIcons.clone, color: HexColor('#666666'), size: 18),
+        Icon(Icons.view_carousel, color: HexColor('#666666'), size: 18),
         Container(
           padding: const EdgeInsets.only(left: 11, right: 40),
           width: 260,
@@ -151,7 +177,7 @@ Widget getGallery() {
               TextStyle(fontSize: 15, color: HexColor('#666666'), overflow: TextOverflow.ellipsis),
         ),
         const SizedBox(width: 10),
-        FaIcon(FontAwesomeIcons.chevronRight, color: HexColor('#666666'), size: 18),
+        Icon(Icons.chevron_right, color: HexColor('#666666'), size: 18),
       ],
     ),
   );
@@ -164,7 +190,7 @@ Widget getPictures() {
     children: [
       Row(
         children: [
-          FaIcon(FontAwesomeIcons.images, color: HexColor('#666666'), size: 18),
+          Icon(Icons.photo_camera, color: HexColor('#666666'), size: 18),
           Container(
             padding: const EdgeInsets.only(left: 11, right: 40),
             width: 290,

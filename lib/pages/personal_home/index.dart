@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/pages/personal_home/user_info.dart';
 import 'package:myapp/utils/hex_color.dart';
-import 'package:sticky_headers/sticky_headers/widget.dart';
 
 import 'components.dart';
 
@@ -20,10 +18,14 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
   final _scrollController = ScrollController();
   Logger logger = Logger();
   bool isShowBg = false;
+  String from = '';
 
   @override
   void initState() {
     super.initState();
+    if (Get.previousRoute == '/chatSetting' || Get.previousRoute == '/home') {
+      from = Get.previousRoute;
+    }
     _scrollController.addListener(() {
       if (_scrollController.offset <= 100) {
         setState(() {
@@ -51,9 +53,13 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
           backgroundColor: isShowBg ? Colors.white : Colors.transparent,
           leading: IconButton(
               onPressed: () {
-                Get.offAndToNamed('/home');
+                logger.i(from);
+                Get.offAndToNamed(from);
               },
-              icon: const Icon(FontAwesomeIcons.chevronLeft)),
+              icon: const Icon(
+                Icons.chevron_left,
+                size: 35,
+              )),
           actions: const [
             Padding(
               padding: EdgeInsets.only(top: 17, right: 10),
@@ -68,7 +74,7 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
           controller: _scrollController,
           child: Stack(children: [
             Container(
-              height: 1100,
+              height: 900,
               color: HexColor('#FFFBFA'),
             ),
             getBgImg(),

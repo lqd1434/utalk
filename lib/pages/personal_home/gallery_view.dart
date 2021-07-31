@@ -1,13 +1,11 @@
+import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
+
 import 'package:animate_do/animate_do.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'dart:math';
-
 import 'package:myapp/utils/hex_color.dart';
 
 class GalleryView extends StatefulWidget {
@@ -51,7 +49,11 @@ class _GalleryViewWidgetState extends State<GalleryView> {
           onTap: () {
             Get.offNamed("/personalHome");
           },
-          child: const Icon(FontAwesomeIcons.chevronLeft, color: Colors.white),
+          child: const Icon(
+            Icons.chevron_left,
+            color: Colors.white,
+            size: 35,
+          ),
         ),
       ),
       backgroundColor: HexColor('#8465BD'),
@@ -131,9 +133,9 @@ class _GalleryViewWidgetState extends State<GalleryView> {
 
 Widget getSpeedDial() {
   return SpeedDial(
-    icon: FontAwesomeIcons.minus,
+    icon: Icons.remove,
     foregroundColor: Colors.deepPurple,
-    child: const Icon(FontAwesomeIcons.star, color: Colors.deepPurple, size: 20),
+    child: const Icon(Icons.star, color: Colors.deepPurple, size: 20),
     spaceBetweenChildren: 6,
     buttonSize: 45,
     childrenButtonSize: 50,
@@ -146,12 +148,12 @@ Widget getSpeedDial() {
     children: [
       SpeedDialChild(
         label: '添加',
-        child: const Icon(FontAwesomeIcons.plus, color: Colors.deepPurple, size: 14),
+        child: const Icon(Icons.add, color: Colors.deepPurple, size: 14),
         backgroundColor: Colors.white,
       ),
       SpeedDialChild(
         label: '样式',
-        child: const Icon(FontAwesomeIcons.diceTwo, color: Colors.deepPurple, size: 20),
+        child: const Icon(Icons.style, color: Colors.deepPurple, size: 20),
         backgroundColor: Colors.white,
         onTap: () => print('SECOND CHILD'),
       ),

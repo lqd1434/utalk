@@ -27,16 +27,17 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
       from = Get.previousRoute;
     }
     _scrollController.addListener(() {
-      if (_scrollController.offset <= 100) {
+      if (_scrollController.offset <= 100 && isShowBg == true) {
         setState(() {
           isShowBg = false;
         });
       } else {
-        setState(() {
-          isShowBg = true;
-        });
+        if (isShowBg == false) {
+          setState(() {
+            isShowBg = true;
+          });
+        }
       }
-      logger.i(_scrollController.offset);
     });
   }
 

@@ -31,7 +31,7 @@ class _MyMainPageState extends State<MainPage>
   final GetxState getX = Get.find();
   final conn = useSocket();
   DateTime lastPopTime = DateTime.now();
-  Widget viewBody = Container(color: Colors.white);
+  Widget view = Container(color: Colors.white);
   AnimationController? animationController;
 
   void handleItemSelected(index) {
@@ -40,48 +40,47 @@ class _MyMainPageState extends State<MainPage>
       if (!mounted) {
         return;
       }
-      switch (index) {
-        case 0:
-          setState(() {
-            viewBody = Message(animationController: animationController!);
-          });
-          break;
-        case 1:
-          setState(() {
-            viewBody = Friends(animationController: animationController!);
-          });
-          break;
-        case 2:
-          setState(() {
-            viewBody = MicroAppPlayGround(animationController: animationController!);
-          });
-          break;
-        case 3:
-          setState(() {
-            viewBody = Mine(animationController: animationController!);
-          });
-          break;
-      }
+      setState(() {
+        view = getView(index);
+      });
     });
+  }
+
+  Widget getView(index) {
+    Widget viewBody;
+    switch (index) {
+      case 0:
+        viewBody = Message(animationController: animationController!);
+        break;
+      case 1:
+        viewBody = Friends(animationController: animationController!);
+        break;
+      case 2:
+        viewBody = MicroAppPlayGround(animationController: animationController!);
+        break;
+      case 3:
+        viewBody = Mine(animationController: animationController!);
+        break;
+      default:
+        viewBody = Message(animationController: animationController!);
+    }
+    return viewBody;
   }
 
   @override
   void initState() {
-    super.initState();
     animationController =
         AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
 
     animationController?.forward();
-    viewBody = Message(
-      animationController: animationController,
-    );
-
+    view = getView(getX.currentIndex.value);
     WidgetsBinding.instance!.addObserver(this);
     getSharedData('name').then((name) {
       if (getX.socket.value == null && name != '') {
         conn();
       }
     });
+    super.initState();
   }
 
   @override
@@ -140,7 +139,7 @@ class _MyMainPageState extends State<MainPage>
                     topPadding: MediaQuery.of(context).padding.top + 10,
                     animationController: animationController!,
                   ),
-                  Flexible(child: viewBody),
+                  Flexible(child: view),
                 ],
               ),
               bottomNavigationBar: BottomBar(
@@ -152,6 +151,8 @@ class _MyMainPageState extends State<MainPage>
 }
 
 Animation<double> myAnimation(AnimationController? animationController, int index) {
+  Logger logger = Logger();
+  // logger.w(animationController);
   return Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: animationController!,
       curve: Interval((1 / 5) * index, 1.0, curve: Curves.fastOutSlowIn)));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myapp/components/cell.dart';
 import 'package:myapp/utils/hex_color.dart';
 
@@ -84,12 +85,15 @@ class MineCellGroupStatePage extends State<MineCellGroup> {
   Widget build(BuildContext context) {
     return Container(
       color: const Color.fromRGBO(241, 242, 249, 1),
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 0),
       margin: const EdgeInsets.only(top: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Cell(
+              onTap: () {
+                Get.toNamed('/space');
+              },
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               leftBorder: true,
               title: const Text(
@@ -122,6 +126,9 @@ class MineCellGroupStatePage extends State<MineCellGroup> {
               ),
               icon: Icon(Icons.loyalty, color: HexColor('#FF3333'))),
           Cell(
+              onTap: () {
+                Get.toNamed('/happy');
+              },
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               leftBorder: true,
               title: const Text(

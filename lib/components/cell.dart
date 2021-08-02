@@ -13,6 +13,7 @@ class Cell extends StatefulWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final Color? boxShadowColor;
+  final VoidCallback? onTap;
 
   const Cell(
       {Key? key,
@@ -26,7 +27,8 @@ class Cell extends StatefulWidget {
       this.leftBorder = false,
       this.boxShadowColor = Colors.grey,
       this.padding,
-      this.margin})
+      this.margin,
+      this.onTap})
       : super(key: key);
 
   @override
@@ -51,8 +53,7 @@ class CellStatePage extends State<Cell> {
         child: Ink(
           color: widget.backgroundColor,
           child: InkWell(
-            splashColor: HexColor('#8774D5'),
-            onTap: () {},
+            onTap: widget.onTap,
             child: Container(
                 margin: EdgeInsets.zero,
                 padding: const EdgeInsets.symmetric(vertical: 5),

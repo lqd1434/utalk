@@ -29,25 +29,25 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
       color: const Color.fromRGBO(241, 242, 249, 1),
       padding: const EdgeInsets.only(bottom: 70),
       child: AnimationLimiter(
-        child: GridView.count(
-          childAspectRatio: 2 / 2.6,
+        child: GridView.builder(
           padding: const EdgeInsets.only(top: 5),
-          crossAxisCount: 2,
-          children: List.generate(
-            30,
-            (int index) {
-              return AnimationConfiguration.staggeredGrid(
-                position: index,
-                duration: const Duration(milliseconds: 375),
-                columnCount: 2,
-                child: const ScaleAnimation(
-                  child: FadeInAnimation(
-                    child: OnlineModel(),
-                  ),
-                ),
-              );
-            },
+          itemCount: 30,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 2 / 2.6,
+            crossAxisCount: 2,
           ),
+          itemBuilder: (BuildContext context, int index) {
+            return AnimationConfiguration.staggeredGrid(
+              position: index,
+              duration: const Duration(milliseconds: 375),
+              columnCount: 2,
+              child: const ScaleAnimation(
+                child: FadeInAnimation(
+                  child: OnlineModel(),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

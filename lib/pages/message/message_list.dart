@@ -14,7 +14,7 @@ class MessageList extends StatefulWidget {
 
 class MessageListStatePage extends State<MessageList> {
   Future<String> _getMessageList() async {
-    return Future.delayed(const Duration(seconds: 3), () => "我是从互联网上获取的数据");
+    return Future.delayed(const Duration(seconds: 2), () => "我是从互联网上获取的数据");
   }
 
   @override
@@ -32,7 +32,7 @@ class MessageListStatePage extends State<MessageList> {
           }
         } else {
           // 请求未结束，显示loading
-          return loadingShimmer();
+          return RepaintBoundary(child: loadingShimmer());
         }
       },
     );

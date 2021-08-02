@@ -65,7 +65,7 @@ class FriendsStatePage extends State<Friends> with SingleTickerProviderStateMixi
                         _pageController.jumpToPage(index);
                       },
                       tabs: const [
-                        GButton(text: '在线', icon: Icons.sms),
+                        GButton(text: '在线', icon: Icons.online_prediction),
                         GButton(text: '好友', icon: Icons.people),
                         GButton(text: '群组', icon: Icons.camera),
                         GButton(text: '特别关心', icon: Icons.favorite)
@@ -82,7 +82,7 @@ class FriendsStatePage extends State<Friends> with SingleTickerProviderStateMixi
                   children: <Widget>[
                     MyFadeTransition(
                         myAnimationController: widget.animationController!,
-                        myAnimation: myAnimation(widget.animationController!, 2),
+                        myAnimation: myAnimation(widget.animationController!, 1),
                         child: OnlineModelList(
                           animationController: widget.animationController,
                         )),

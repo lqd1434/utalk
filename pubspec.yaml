@@ -57,6 +57,10 @@ dependencies:
   permission_handler: 8.1.4+1
   rive: 0.7.23
   path_provider: 2.0.2
+  auto_size_text: 3.0.0-nullsafety.0
+  like_button: ^2.0.2
+  infinite_scroll_pagination: 3.1.0
+  flutter_zoom_drawer: 2.1.0
   slimy_card:
     git:
       url: git://github.com/imejiasoft/SlimyCard-Animated-Flutter-Package.git
@@ -83,18 +87,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  fonts:
-    - family: Raleway
-      fonts:
-        - asset: static/font/modify.ttf
-    - family: iconfont
-      fonts:
-        - asset: static/font/iconfont.ttf
 
 
   assets:
     - static/flare/bottomSlime.flr
     - static/flare/topSlime.flr
+    - static/flare/document_icon.riv
 
 flutter_native_splash:
   background_image: "static/images/splash.png"

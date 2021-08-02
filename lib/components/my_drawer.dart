@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/cell.dart';
 import 'package:myapp/components/circular_img.dart';
@@ -60,19 +61,21 @@ class MyDrawerStatePage extends State<MyDrawer> {
           Container(
             height: 480,
             padding: const EdgeInsets.symmetric(horizontal: 5),
-            child: ListView(
+            child: Column(
               children: [
                 ListTile(
-                  title: Cell(
-                      margin: EdgeInsets.zero,
-                      padding: EdgeInsets.zero,
-                      boxShadowColor: Colors.transparent,
-                      title: const Text(
-                        '情侣空间',
-                        style: TextStyle(fontSize: 22),
-                      ),
-                      icon: Icon(Icons.favorite, color: HexColor('#E40100'))),
-                ),
+                    title: Cell(
+                        onTap: () {
+                          Get.toNamed('/rive');
+                        },
+                        margin: EdgeInsets.zero,
+                        padding: EdgeInsets.zero,
+                        boxShadowColor: Colors.transparent,
+                        title: const Text(
+                          '情侣空间',
+                          style: TextStyle(fontSize: 22),
+                        ),
+                        icon: Icon(Icons.favorite, color: HexColor('#E40100')))),
                 ListTile(
                   title: Cell(
                       margin: EdgeInsets.zero,
@@ -183,5 +186,37 @@ class MyDrawerStatePage extends State<MyDrawer> {
         ],
       ),
     );
+  }
+}
+
+class MyZoomDrawer extends StatefulWidget {
+  const MyZoomDrawer({Key? key}) : super(key: key);
+
+  @override
+  _MyZoomDrawerState createState() => _MyZoomDrawerState();
+}
+
+class _MyZoomDrawerState extends State<MyZoomDrawer> {
+  final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ZoomDrawer(
+        controller: _zoomDrawerController,
+        mainScreen: Container(
+          child: Text('1111'),
+        ),
+        menuScreen: Text('11'),
+        borderRadius: 24.0,
+        showShadow: true,
+        angle: -12.0,
+        isRtl: false,
+        backgroundColor: Colors.white,
+        slideWidth: MediaQuery.of(context).size.width * (false ? .45 : 0.65));
   }
 }

@@ -3,10 +3,10 @@
 import 'dart:async';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myapp/request/my_dio.dart';
 import 'package:myapp/response/response.dart';
 import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/save_login_data.dart';
@@ -34,7 +34,7 @@ class AuthPageStatePage extends State<AuthPage> {
           state = ButtonState.loading;
         });
         try {
-          var response = await Dio().post(
+          var response = await DioManege.getInstance().dio!.post(
             'http://47.103.211.10:8080/login',
             data: {
               'email': _emailController.value.text,
@@ -60,8 +60,9 @@ class AuthPageStatePage extends State<AuthPage> {
                 textStyle: const TextStyle(color: Colors.white));
           }
         } catch (e) {
+          print(e);
           BotToast.showText(
-              text: '登录失败',
+              text: e.toString(),
               contentColor: const Color.fromRGBO(245, 62, 62, 1),
               textStyle: const TextStyle(color: Colors.white));
         }

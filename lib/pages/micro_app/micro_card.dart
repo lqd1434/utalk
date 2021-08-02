@@ -17,106 +17,14 @@ class _MicroCardStatePage extends State<MicroCard> {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: widget.animationController!,
+        child: getChild(),
         builder: (BuildContext context, Widget? child) {
           return FadeTransition(
               opacity: widget.animation!,
               child: Transform(
                   transform:
                       Matrix4.translationValues(100 * (1.0 - widget.animation!.value), 0.0, 0.0),
-                  child: Container(
-                      margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                      child: Stack(
-                        children: [
-                          Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 32, left: 0, right: 8, bottom: 16),
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      width: 120,
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                            colors: [
-                                              Color.fromRGBO(99, 107, 230, 1),
-                                              Color.fromRGBO(108, 115, 221, 1),
-                                              Color.fromRGBO(140, 161, 235, 1)
-                                            ]),
-                                        boxShadow: [
-                                          BoxShadow(
-                                              color: Color.fromRGBO(140, 161, 235, 1),
-                                              blurRadius: 5)
-                                        ],
-                                        borderRadius: BorderRadius.only(
-                                          bottomRight: Radius.circular(8.0),
-                                          bottomLeft: Radius.circular(8.0),
-                                          topLeft: Radius.circular(8.0),
-                                          topRight: Radius.circular(54.0),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 50, left: 10, right: 16, bottom: 8),
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: const [
-                                            Text('大鱼影视',
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white,
-                                                    letterSpacing: 3)),
-                                            SizedBox(height: 5),
-                                            Text('音乐',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white)),
-                                            SizedBox(height: 2),
-                                            Text('放松',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: Colors.white)),
-                                          ],
-                                        ),
-                                      )),
-                                ],
-                              )),
-                          const Positioned(
-                              top: 0,
-                              left: 5,
-                              child: RadiusImage(
-                                image: NetworkImage(
-                                  'http://47.103.211.10:9090/static/images/avatar.png',
-                                ),
-                                widthAndHeight: 60,
-                                radius: 30,
-                              )),
-                          Positioned(
-                              bottom: 20,
-                              left: 13,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: const [
-                                  Text('1568',
-                                      style: TextStyle(
-                                          fontSize: 23,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white,
-                                          letterSpacing: 1)),
-                                  Text('人',
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w500,
-                                          color: Colors.white)),
-                                ],
-                              )),
-                        ],
-                      ))));
+                  child: child));
         });
   }
 }
@@ -177,4 +85,95 @@ class _MicroCardListStatePage extends State<MicroCardList> with TickerProviderSt
               ),
             )));
   }
+}
+
+Widget getChild() {
+  return Container(
+      margin: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+      child: Stack(
+        children: [
+          Padding(
+              padding: const EdgeInsets.only(top: 32, left: 0, right: 8, bottom: 16),
+              child: Stack(
+                children: [
+                  Container(
+                      width: 120,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color.fromRGBO(99, 107, 230, 1),
+                              Color.fromRGBO(108, 115, 221, 1),
+                              Color.fromRGBO(140, 161, 235, 1)
+                            ]),
+                        boxShadow: [
+                          BoxShadow(color: Color.fromRGBO(140, 161, 235, 1), blurRadius: 5)
+                        ],
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(8.0),
+                          bottomLeft: Radius.circular(8.0),
+                          topLeft: Radius.circular(8.0),
+                          topRight: Radius.circular(54.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50, left: 10, right: 16, bottom: 8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text('大鱼影视',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                    letterSpacing: 3)),
+                            SizedBox(height: 5),
+                            Text('音乐',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                            SizedBox(height: 2),
+                            Text('放松',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          ],
+                        ),
+                      )),
+                ],
+              )),
+          const Positioned(
+              top: 0,
+              left: 5,
+              child: RadiusImage(
+                image: NetworkImage(
+                  'http://47.103.211.10:9090/static/images/avatar.png',
+                ),
+                widthAndHeight: 60,
+                radius: 30,
+              )),
+          Positioned(
+              bottom: 20,
+              left: 13,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: const [
+                  Text('1568',
+                      style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                          letterSpacing: 1)),
+                  Text('人',
+                      style: TextStyle(
+                          fontSize: 13, fontWeight: FontWeight.w500, color: Colors.white)),
+                ],
+              )),
+        ],
+      ));
 }

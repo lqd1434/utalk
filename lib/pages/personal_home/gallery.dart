@@ -7,7 +7,7 @@ import 'package:dio/src/response.dart' as Res;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
-import 'package:myapp/components/loading.dart';
+import 'package:myapp/pages/personal_home/loading.dart';
 import 'package:myapp/utils/constant.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';

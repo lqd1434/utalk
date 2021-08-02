@@ -49,6 +49,9 @@ class SettingStatePage extends State<Setting> {
         const Divider(),
         ListTile(
           title: Cell(
+              onTap: () {
+                Get.toNamed('/coupleSpace');
+              },
               title: const Text(
                 '切换账号',
                 style: TextStyle(fontSize: 22),

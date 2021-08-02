@@ -19,19 +19,19 @@ class Mine extends StatefulWidget {
   State<StatefulWidget> createState() => MineStatePage();
 }
 
-class MineStatePage extends State<Mine> {
+class MineStatePage extends State<Mine> with TickerProviderStateMixin {
   final Logger logger = Logger();
-
-  _handleBack() {
-    Navigator.popAndPushNamed(context, '/home');
-  }
 
   final GetxState gexState = Get.find();
 
   @override
   void initState() {
-    super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) => {gexState.changeIsShowAppBar(false)});
+    super.initState();
+  }
+
+  Future<dynamic> _delay() {
+    return Future.delayed(const Duration(milliseconds: 200), () => '11');
   }
 
   @override

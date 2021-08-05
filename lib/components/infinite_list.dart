@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'loading_circul.dart';
+import 'package:myapp/components/rive_loading.dart';
 
 typedef FetchDataFunc = void Function(int lastkey, int limit);
 typedef ListViewBuilder = Widget Function(BuildContext context, int index);
@@ -37,7 +36,9 @@ class _InfiniteListState extends State<InfiniteList> {
           if (index == widget.itemLength - 1) {
             if (widget.itemLength < widget.maxSize) {
               widget.fetchData(widget.itemLength, widget.limit);
-              return const LoadingRound();
+              return const RiveLoading(
+                size: 100,
+              );
             } else {
               return Container(
                 padding: const EdgeInsets.all(16.0),

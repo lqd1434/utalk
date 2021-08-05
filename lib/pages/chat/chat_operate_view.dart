@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/cell.dart';
 import 'package:myapp/components/circular_img.dart';
+import 'package:myapp/components/radius_icon_button.dart';
 import 'package:myapp/utils/hex_color.dart';
 
 class ImageCell extends StatefulWidget {
@@ -32,13 +33,13 @@ class _ImageCellState extends State<ImageCell> {
                   image: widget.img!,
                   widthAndHeight: 50,
                   radius: 25,
-                  boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
+                  border: Border.all(color: HexColor('#786AE3'), width: 1),
                 )
               : Container(
                   width: 50,
                   height: 50,
                   alignment: Alignment.center,
-                  decoration: BoxDecoration(color: HexColor('#DADADA'), shape: BoxShape.circle),
+                  decoration: BoxDecoration(color: HexColor('#E9EDF7'), shape: BoxShape.circle),
                   child: widget.child,
                 ),
           const SizedBox(
@@ -47,7 +48,7 @@ class _ImageCellState extends State<ImageCell> {
           Expanded(
               child: Text(
             widget.text,
-            style: TextStyle(fontSize: widget.fontSize),
+            style: TextStyle(fontSize: widget.fontSize, fontWeight: FontWeight.w400),
           )),
           const SizedBox(
             width: 50,
@@ -70,17 +71,9 @@ class GridSetting extends StatefulWidget {
 }
 
 class _GridSettingState extends State<GridSetting> {
-  final GlobalKey _key = GlobalKey();
-  double _squareHeight = 0;
-
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) => {
-          setState(() {
-            _squareHeight = _key.currentContext!.size!.width;
-          })
-        });
   }
 
   @override
@@ -90,70 +83,87 @@ class _GridSettingState extends State<GridSetting> {
       child: Row(
         children: [
           Expanded(
-            child: Container(
-              key: _key,
-              height: _squareHeight == 0 ? 60 : _squareHeight - 30,
-              margin: const EdgeInsets.only(right: 10, left: 5),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [Icon(Icons.search, size: 30), Text('聊天记录')],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(left: 10, right: 5),
-              height: _squareHeight == 0 ? 60 : _squareHeight - 30,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [Icon(Icons.image, size: 30), Text('聊天背景')],
+            child: Card(
+              elevation: 10,
+              margin: const EdgeInsets.only(right: 10, left: 10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    RadiusIconBtn(
+                      background: HexColor('#E9EDF7'),
+                      color: HexColor('#422CEB'),
+                      icon: Icons.search,
+                      padding: 0,
+                      margin: const EdgeInsets.only(bottom: 0, right: 10),
+                      radius: 13,
+                    ),
+                    const Text('聊天记录')
+                  ],
+                ),
               ),
             ),
           ),
           Expanded(
-            child: Container(
-              margin: const EdgeInsets.only(right: 5, left: 10),
-              height: _squareHeight == 0 ? 60 : _squareHeight - 30,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: const [
-                      Text(
-                        '22',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                      Text(
-                        '天',
-                        style: TextStyle(fontSize: 14, color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  const Text('成为好友')
-                ],
+            child: Card(
+              elevation: 10,
+              margin: const EdgeInsets.only(right: 10, left: 10),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    RadiusIconBtn(
+                      background: HexColor('#E9EDF7'),
+                      color: HexColor('#422CEB'),
+                      icon: Icons.image,
+                      padding: 0,
+                      margin: const EdgeInsets.only(bottom: 0, right: 10),
+                      radius: 13,
+                    ),
+                    const Text('聊天背景')
+                  ],
+                ),
               ),
             ),
-          )
+          ),
+          // Expanded(
+          //   child: Container(
+          //     margin: const EdgeInsets.only(right: 5, left: 10),
+          //     height: _squareHeight == 0 ? 60 : _squareHeight - 30,
+          //     decoration: BoxDecoration(
+          //       color: Colors.white,
+          //       borderRadius: BorderRadius.circular(20),
+          //       boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
+          //     ),
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       crossAxisAlignment: CrossAxisAlignment.center,
+          //       children: [
+          //         Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           crossAxisAlignment: CrossAxisAlignment.end,
+          //           children: const [
+          //             Text(
+          //               '22',
+          //               style: TextStyle(fontSize: 24),
+          //             ),
+          //             Text(
+          //               '天',
+          //               style: TextStyle(fontSize: 14, color: Colors.grey),
+          //             ),
+          //           ],
+          //         ),
+          //         const Text('成为好友')
+          //       ],
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );
@@ -179,7 +189,13 @@ class _OpListState extends State<OpList> {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            blurRadius: 5,
+            offset: Offset(0, 1),
+          )
+        ],
       ),
       child: Column(
         children: [
@@ -194,6 +210,8 @@ class _OpListState extends State<OpList> {
             ),
             rightWidget: CupertinoSwitch(
               value: _switchValue,
+              trackColor: HexColor('#BFB8F8'),
+              activeColor: HexColor('#6C5BEF'),
               onChanged: (value) {
                 setState(() {
                   _switchValue = value;
@@ -212,6 +230,8 @@ class _OpListState extends State<OpList> {
               style: TextStyle(fontSize: 19),
             ),
             rightWidget: CupertinoSwitch(
+              trackColor: HexColor('#BFB8F8'),
+              activeColor: HexColor('#6C5BEF'),
               value: _switchValue,
               onChanged: (value) {
                 setState(() {
@@ -232,6 +252,8 @@ class _OpListState extends State<OpList> {
             ),
             rightWidget: CupertinoSwitch(
               value: _switchValue,
+              trackColor: HexColor('#BFB8F8'),
+              activeColor: HexColor('#6C5BEF'),
               onChanged: (value) {
                 setState(() {
                   _switchValue = value;
@@ -250,6 +272,8 @@ class _OpListState extends State<OpList> {
               style: TextStyle(fontSize: 19),
             ),
             rightWidget: CupertinoSwitch(
+              trackColor: HexColor('#BFB8F8'),
+              activeColor: HexColor('#6C5BEF'),
               value: _switchValue,
               onChanged: (value) {
                 setState(() {
@@ -269,6 +293,8 @@ class _OpListState extends State<OpList> {
               style: TextStyle(fontSize: 19),
             ),
             rightWidget: CupertinoSwitch(
+              trackColor: HexColor('#BFB8F8'),
+              activeColor: HexColor('#6C5BEF'),
               value: _switchValue,
               onChanged: (value) {
                 setState(() {

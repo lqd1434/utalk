@@ -1,12 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/components/my_animation.dart';
+import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/utils/read_file.dart';
 
 import 'HomePage.dart';
 
@@ -25,57 +30,43 @@ class HomeHeader extends StatefulWidget {
 
 class _HomeHeaderStatePage extends State<HomeHeader> {
   Logger logger = Logger();
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  Uint8List? myIconBytes;
+  final GetxState getX = Get.find();
 
   @override
   void initState() {
+    load();
     super.initState();
-    var initializationSettingsAndroid = const AndroidInitializationSettings('app_icon');
-    var initializationSettingsIOS =
-        IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: onSelectNotification);
   }
 
-  void show() {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-        'your channel id', 'your channel name', 'your channel description',
-        importance: Importance.max, priority: Priority.high, ticker: 'ticker');
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-    );
-    // flutterLocalNotificationsPlugin.show(0, 'hello', 'body', platformChannelSpecifics);
-  }
-
-  Future onDidReceiveLocalNotification(
-      int i, String? payload, String? payloa3, String? payload2) async {
-    print('onDidReceiveLocalNotification');
-  }
-
-  Future onSelectNotification(String? payload) async {
-    print('onSelectNotification');
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
+  void load() async {
+    File file = await readMyIcon();
+    if (file.existsSync()) {
+      Uint8List bytes = await file.readAsBytes();
+      getX.setIcon(file.path);
+      setState(() {
+        myIconBytes = bytes;
+      });
+    } else {
+      final bytes = await compute(loadRive, 1);
+      File overFile = await file.writeAsBytes(bytes);
+      getX.setIcon(overFile.path);
+      setState(() {
+        myIconBytes = bytes;
+      });
     }
-    // await Navigator.push(
-    //   context,
-    // new MaterialPageRoute(builder: (context) => new SecondScreen(payload)),
-    // );
   }
 
-  void _handleTap() async {
-    File file = File('/data/user/0/com.lqd.myapp/cache/6.jpg');
-    logger.i(await file.exists());
-    Uint8List bytes = await file.readAsBytes();
-    logger.i(bytes);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+  //  线程隔离（Isolate）使用
+  static Future<Uint8List> loadRive(int x) async {
+    String url = 'http://47.103.211.10:9090/static/images/avatar.png';
+    Dio dio = Dio();
+    dio.options.responseType = ResponseType.bytes;
+    Response response = await dio.get(url);
+    final Uint8List uint8List = response.data;
+    // final bytes = ByteData.view(uint8List.buffer);
+    dio.close();
+    return uint8List;
   }
 
   @override
@@ -102,11 +93,13 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                             },
                             child: Row(
                               children: [
-                                const RadiusImage(
-                                    radius: 25,
-                                    widthAndHeight: 50,
-                                    image: NetworkImage(
-                                        'http://47.103.211.10:9090/static/images/avatar.png')),
+                                myIconBytes == null
+                                    ? const SizedBox(width: 50)
+                                    : RadiusImage(
+                                        radius: 25,
+                                        widthAndHeight: 50,
+                                        image: MemoryImage(myIconBytes!),
+                                      ),
                                 Container(
                                   width: 170,
                                   padding: const EdgeInsets.only(left: 10),
@@ -149,20 +142,15 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                           SpeedDialChild(
                             child: const Icon(Icons.accessibility, color: Colors.deepPurple),
                             backgroundColor: Colors.white,
-                            onTap: show,
                           ),
                           SpeedDialChild(
                             child: const Icon(Icons.brush, color: Colors.deepPurple),
                             backgroundColor: Colors.white,
-                            onTap: _handleTap,
                           ),
                           SpeedDialChild(
                             child: const Icon(Icons.margin, color: Colors.deepPurple),
                             backgroundColor: Colors.white,
                             visible: true,
-                            onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(content: Text(("Third Child Pressed")))),
-                            onLongPress: () => print('THIRD CHILD LONG PRESS'),
                           ),
                         ],
                       ),

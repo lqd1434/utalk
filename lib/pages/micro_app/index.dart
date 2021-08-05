@@ -34,7 +34,7 @@ class MicroAppPlayGroundStatePage extends State<MicroAppPlayGround> with TickerP
   }
 
   Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 50));
+    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
     return true;
   }
 

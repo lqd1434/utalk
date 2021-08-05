@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myapp/utils/hex_color.dart';
 
 import 'chat_operate_view.dart';
 
@@ -45,20 +46,22 @@ class _ChatSettingStatePage extends State<ChatSetting> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
-            Icons.chevron_left,
-            size: 35,
-          ),
+          icon: const Icon(Icons.chevron_left, size: 35, color: Colors.deepPurple),
           onPressed: () {
-            Get.toNamed("/chat");
+            Get.offNamed("/chat");
           },
         ),
-        title: const Text('聊天设置'),
+        title: const Text('聊天设置', style: TextStyle(color: Colors.deepPurple)),
         centerTitle: true,
         actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 10),
-            child: GestureDetector(onTap: _deleteFriend, child: const Icon(Icons.delete, size: 27)),
+          IconButton(
+            padding: const EdgeInsets.only(right: 20),
+            icon: const Icon(
+              Icons.delete,
+              size: 27,
+              color: Colors.deepPurple,
+            ),
+            onPressed: _deleteFriend,
           )
         ],
       ),
@@ -69,18 +72,30 @@ class _ChatSettingStatePage extends State<ChatSetting> {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
-            boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.grey,
+                blurRadius: 5,
+                offset: Offset(0, 1),
+              )
+            ],
           ),
           child: Column(
-            children: const [
-              ImageCell(
+            children: [
+              const ImageCell(
                   img: NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
                   text: 'sky',
                   fontSize: 21),
-              SizedBox(height: 6),
-              Divider(),
-              SizedBox(height: 6),
-              ImageCell(fontSize: 17, text: '发起群聊', child: Icon(Icons.add)),
+              const SizedBox(height: 6),
+              const Divider(),
+              const SizedBox(height: 6),
+              ImageCell(
+                  fontSize: 17,
+                  text: '发起群聊',
+                  child: Icon(
+                    Icons.add,
+                    color: HexColor('#422CEB'),
+                  )),
             ],
           ),
         ),

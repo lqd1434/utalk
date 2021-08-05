@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:myapp/components/rive_loading.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class OnlineModelList extends StatefulWidget {
   final AnimationController? animationController;
@@ -13,7 +15,26 @@ class OnlineModelList extends StatefulWidget {
 }
 
 class _OnlineModelListStatePage extends State<OnlineModelList> {
-  // final GlobalKey _key = GlobalKey();
+  final RefreshController _refreshController = RefreshController(initialRefresh: false);
+  List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(const Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    items.add((items.length + 1).toString());
+    if (mounted) {
+      setState(() {});
+    }
+    _refreshController.loadComplete();
+  }
 
   @override
   void initState() {
@@ -26,31 +47,43 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(241, 242, 249, 1),
-      padding: const EdgeInsets.only(bottom: 70),
-      child: AnimationLimiter(
-        child: GridView.builder(
-          padding: const EdgeInsets.only(top: 5),
-          itemCount: 30,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 2 / 2.6,
-            crossAxisCount: 2,
-          ),
-          itemBuilder: (BuildContext context, int index) {
-            return AnimationConfiguration.staggeredGrid(
-              position: index,
-              duration: const Duration(milliseconds: 375),
-              columnCount: 2,
-              child: const ScaleAnimation(
-                child: FadeInAnimation(
-                  child: OnlineModel(),
-                ),
+        color: const Color.fromRGBO(241, 242, 249, 1),
+        padding: const EdgeInsets.only(bottom: 70),
+        child: AnimationLimiter(
+          child: SmartRefresher(
+            enablePullDown: true,
+            enablePullUp: false,
+            header: CustomHeader(
+              refreshStyle: RefreshStyle.Behind,
+              builder: (BuildContext context, RefreshStatus? mode) {
+                return const RiveLoading();
+              },
+            ),
+            controller: _refreshController,
+            onRefresh: _onRefresh,
+            onLoading: _onLoading,
+            child: GridView.builder(
+              padding: const EdgeInsets.only(top: 5),
+              itemCount: 30,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 2 / 2.6,
+                crossAxisCount: 2,
               ),
-            );
-          },
-        ),
-      ),
-    );
+              itemBuilder: (BuildContext context, int index) {
+                return AnimationConfiguration.staggeredGrid(
+                  position: index,
+                  duration: const Duration(milliseconds: 375),
+                  columnCount: 2,
+                  child: const ScaleAnimation(
+                    child: FadeInAnimation(
+                      child: OnlineModel(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ));
   }
 }
 

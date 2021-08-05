@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/pages/personal_home/user_info.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:myapp/utils/read_file.dart';
 
 import 'components.dart';
 
@@ -23,14 +24,18 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
   @override
   void initState() {
     super.initState();
-    if (Get.previousRoute == '/chatSetting' || Get.previousRoute == '/home') {
+    if (Get.previousRoute == '/chatSetting' ||
+        Get.previousRoute == '/home' ||
+        Get.previousRoute == '/chat') {
       from = Get.previousRoute;
     }
     _scrollController.addListener(() {
-      if (_scrollController.offset <= 100 && isShowBg == true) {
-        setState(() {
-          isShowBg = false;
-        });
+      if (_scrollController.offset <= 100) {
+        if (isShowBg == true) {
+          setState(() {
+            isShowBg = false;
+          });
+        }
       } else {
         if (isShowBg == false) {
           setState(() {
@@ -54,7 +59,6 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
           backgroundColor: isShowBg ? Colors.white : Colors.transparent,
           leading: IconButton(
               onPressed: () {
-                logger.i(from);
                 Get.offAndToNamed(from);
               },
               icon: const Icon(
@@ -88,7 +92,7 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
             Positioned(left: 20, top: 485, child: getSpace()),
             Positioned(left: 20, top: 530, child: getGallery()),
             Positioned(left: 20, top: 575, child: getPictures()),
-            Positioned(left: 30, top: 200, child: getUserIcon()),
+            Positioned(left: 30, top: 200, child: getUserIcon(loadIcon())),
           ]),
         ));
   }

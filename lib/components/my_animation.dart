@@ -21,14 +21,14 @@ class _MyFadeTransitionStatePage extends State<MyFadeTransition> {
   Widget build(BuildContext context) {
     return AnimatedBuilder(
         animation: widget.myAnimationController,
+        child: widget.child,
         builder: (BuildContext context, Widget? child) {
           return FadeTransition(
               opacity: widget.myAnimation,
               child: Transform(
-                transform:
-                    Matrix4.translationValues(0.0, 30 * (1.0 - widget.myAnimation.value), 0.0),
-                child: widget.child,
-              ));
+                  transform:
+                      Matrix4.translationValues(0.0, 30 * (1.0 - widget.myAnimation.value), 0.0),
+                  child: child));
         });
   }
 }

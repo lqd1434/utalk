@@ -82,22 +82,22 @@ class FriendsStatePage extends State<Friends> with SingleTickerProviderStateMixi
                   children: <Widget>[
                     MyFadeTransition(
                         myAnimationController: widget.animationController!,
-                        myAnimation: myAnimation(widget.animationController!, 1),
+                        myAnimation: myAnimation(widget.animationController!, 3),
                         child: OnlineModelList(
                           animationController: widget.animationController,
                         )),
                     MyFadeTransition(
                         myAnimationController: widget.animationController!,
-                        myAnimation: myAnimation(widget.animationController!, 2),
+                        myAnimation: myAnimation(widget.animationController!, 3),
                         child: const AllFriends()),
                     MyFadeTransition(
                       myAnimationController: widget.animationController!,
-                      myAnimation: myAnimation(widget.animationController!, 2),
+                      myAnimation: myAnimation(widget.animationController!, 3),
                       child: const ChatGroup(),
                     ),
                     MyFadeTransition(
                         myAnimationController: widget.animationController!,
-                        myAnimation: myAnimation(widget.animationController!, 2),
+                        myAnimation: myAnimation(widget.animationController!, 3),
                         child: const SpecialPerson()),
                   ],
                 ),

@@ -37,7 +37,7 @@ class _GalleryWidgetState extends State<Gallery> {
 
   void getPer() async {
     if (await Permission.storage.isGranted) {
-      PermissionStatus sts = await Permission.storage.request();
+      await Permission.storage.request();
     }
   }
 
@@ -73,15 +73,17 @@ class _GalleryWidgetState extends State<Gallery> {
     }
     logger.i(state);
     if (state) {
-      Future.delayed(const Duration(seconds: 3), () async {
+      if (mounted) {
+        Future.delayed(const Duration(seconds: 3), () async {
+          setState(() {
+            allImageList = imageList;
+          });
+        });
+      } else {
         setState(() {
           allImageList = imageList;
         });
-      });
-    } else {
-      setState(() {
-        allImageList = imageList;
-      });
+      }
     }
   }
 
@@ -97,7 +99,7 @@ class _GalleryWidgetState extends State<Gallery> {
     final Uint8List bytes = response.data;
     File file = File('$tempPath/$i.jpg');
     //图片暂存到临时目录(系统可随时清除)
-    File file1 = await file.writeAsBytes(bytes);
+    await file.writeAsBytes(bytes);
     return bytes;
   }
 }

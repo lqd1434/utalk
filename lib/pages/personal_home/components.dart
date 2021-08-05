@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -72,12 +73,15 @@ Widget getNumberInfo() {
   );
 }
 
-Widget getUserIcon() {
-  return RadiusImage(
-    border: Border.all(color: Colors.deepPurple),
-    widthAndHeight: 80,
-    radius: 40,
-    image: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+Widget getUserIcon(Uint8List imageData) {
+  return Hero(
+    tag: 'hero',
+    child: RadiusImage(
+      border: Border.all(color: Colors.deepPurple),
+      widthAndHeight: 80,
+      radius: 40,
+      image: MemoryImage(imageData),
+    ),
   );
 }
 

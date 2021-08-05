@@ -20,7 +20,7 @@ class _UserTileStatePage extends State<UserTile> {
     return Container(
         margin: const EdgeInsets.only(bottom: 10),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
@@ -38,24 +38,37 @@ class _UserTileStatePage extends State<UserTile> {
                     )
                   : null,
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: 70,
-                  height: 25,
-                  margin: const EdgeInsets.only(bottom: 0),
-                  color: widget.title == null ? HexColor('#9E80D5') : null,
-                  child: widget.title,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 70,
+                    height: 25,
+                    margin: const EdgeInsets.only(bottom: 0),
+                    color: widget.title == null ? HexColor('#9E80D5') : null,
+                    child: widget.title,
+                  ),
+                  Container(
+                    width: 250,
+                    height: 18,
+                    margin: const EdgeInsets.only(top: 0),
+                    color: widget.title == null ? HexColor('#9E80D5') : null,
+                    child: widget.subText,
+                  )
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: DecoratedBox(
+                child: Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text('3', style: TextStyle(color: Colors.white)),
                 ),
-                Container(
-                  width: 250,
-                  height: 18,
-                  color: widget.title == null ? HexColor('#9E80D5') : null,
-                  child: widget.subText,
-                )
-              ],
+                decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.deepPurpleAccent),
+              ),
             )
           ],
         ));

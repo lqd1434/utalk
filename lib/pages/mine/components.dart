@@ -106,6 +106,9 @@ class MineCellGroupStatePage extends State<MineCellGroup> {
                 size: 28,
               )),
           Cell(
+              onTap: () {
+                Get.toNamed('/meetyou');
+              },
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               leftBorder: true,
               title: const Text(
@@ -118,6 +121,9 @@ class MineCellGroupStatePage extends State<MineCellGroup> {
                 size: 28,
               )),
           Cell(
+              onTap: () {
+                Get.toNamed('/working', arguments: '触人心弦');
+              },
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               leftBorder: true,
               title: const Text(

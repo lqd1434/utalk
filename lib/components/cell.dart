@@ -45,13 +45,13 @@ class CellStatePage extends State<Cell> {
       margin: widget.margin ?? childMargin,
       padding: widget.padding ?? childPadding,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: widget.backgroundColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [BoxShadow(color: widget.boxShadowColor!, blurRadius: 3)],
       ),
       child: Material(
+        color: widget.backgroundColor,
         child: Ink(
-          color: widget.backgroundColor,
           child: InkWell(
             onTap: widget.onTap,
             child: Container(

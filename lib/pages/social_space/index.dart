@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:myapp/components/back_btn.dart';
 import 'package:myapp/components/infinite_list.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/social_space/space_shimmer.dart';
@@ -20,7 +21,6 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
   final Logger logger = Logger();
   final GetxState getX = Get.find();
   bool _isShowTitle = false;
-  final _maxSize = 50;
   final List<ItemType> _items = [];
 
   @override
@@ -74,14 +74,8 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
               SliverAppBar(
                   expandedHeight: 210.0,
                   pinned: true,
-                  leading: IconButton(
-                    icon: const Icon(
-                      Icons.chevron_left,
-                      size: 35,
-                    ),
-                    onPressed: () {
-                      Get.toNamed('/home');
-                    },
+                  leading: const BackBtn(
+                    path: '/home',
                   ),
                   actions: [
                     Padding(
@@ -112,7 +106,7 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
               ? const RepaintBoundary(child: SpaceShimmer())
               : InfiniteList(
                   itemLength: _items.length,
-                  maxSize: 10,
+                  maxSize: 20,
                   fetchData: _fetchPage,
                   listViewFunc: (BuildContext context, int index) {
                     return const RepaintBoundary(child: MoodTell());

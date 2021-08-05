@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:myapp/components/list_tile.dart';
-import 'package:myapp/components/swiper_action.dart';
 import 'package:myapp/utils/hex_color.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'message_list_view.dart';
 
 class MessageList extends StatefulWidget {
   const MessageList({Key? key}) : super(key: key);
@@ -28,7 +27,7 @@ class MessageListStatePage extends State<MessageList> {
             return Text("Error: ${snapshot.error}");
           } else {
             // 请求成功，显示数据
-            return messageListView();
+            return const MessageListView();
           }
         } else {
           // 请求未结束，显示loading
@@ -42,7 +41,7 @@ class MessageListStatePage extends State<MessageList> {
 Widget loadingShimmer() {
   return Container(
     width: double.maxFinite,
-    margin: const EdgeInsets.only(top: 10, left: 10),
+    margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
     child: Shimmer.fromColors(
         baseColor: HexColor('#CCCCCC'),
         highlightColor: HexColor('#FFFFFF'),
@@ -89,42 +88,4 @@ Widget loadingShimmer() {
                   ));
             })),
   );
-}
-
-Widget messageListView() {
-  return Container(
-      margin: const EdgeInsets.only(top: 10, left: 10, bottom: 65),
-      padding: EdgeInsets.zero,
-      child: AnimationLimiter(
-        child: ListView.builder(
-            padding: const EdgeInsets.all(0),
-            itemCount: 10,
-            itemBuilder: (BuildContext context, int index) {
-              return AnimationConfiguration.staggeredList(
-                  position: index,
-                  duration: const Duration(milliseconds: 375),
-                  child: SlideAnimation(
-                      verticalOffset: 50.0,
-                      child: FadeInAnimation(
-                        child: SwiperAction(
-                          valueKey: ValueKey(index),
-                          child: UserTile(
-                            image: const NetworkImage(
-                              'http://47.103.211.10:9090/static/images/avatar.png',
-                            ),
-                            title: Text('sky',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: HexColor('#653CB3'),
-                                    fontWeight: FontWeight.w500,
-                                    letterSpacing: 0.5)),
-                            subText: Text('今天真的好开心!',
-                                style: TextStyle(fontSize: 13, color: HexColor('#8C9EE9')),
-                                softWrap: false,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                        ),
-                      )));
-            }),
-      ));
 }

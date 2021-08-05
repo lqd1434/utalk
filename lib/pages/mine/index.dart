@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -7,6 +9,7 @@ import 'package:myapp/components/my_slimy_card.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/home/HomePage.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:myapp/utils/read_file.dart';
 
 import 'components.dart';
 
@@ -28,10 +31,6 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((_) => {gexState.changeIsShowAppBar(false)});
     super.initState();
-  }
-
-  Future<dynamic> _delay() {
-    return Future.delayed(const Duration(milliseconds: 200), () => '11');
   }
 
   @override
@@ -57,7 +56,7 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
                   topCardHeight: 260,
                   bottomCardHeight: 100,
                   borderRadius: 30,
-                  topCardWidget: topWidget(),
+                  topCardWidget: topWidget(loadIcon()),
                   bottomCardWidget: const MyCountInfo(),
                   slimeEnabled: true,
                 ),
@@ -72,7 +71,7 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
   }
 }
 
-Widget topWidget() {
+Widget topWidget(Uint8List imageData) {
   return Container(
       padding: EdgeInsets.zero,
       margin: EdgeInsets.zero,
@@ -83,8 +82,8 @@ Widget topWidget() {
             width: 115,
             height: 130,
             child: Stack(children: [
-              const RadiusImage(
-                image: NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+              RadiusImage(
+                image: MemoryImage(imageData),
                 widthAndHeight: 110,
                 radius: 55,
               ),

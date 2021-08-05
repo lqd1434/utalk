@@ -1,7 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:myapp/components/loading_circul.dart';
+import 'package:myapp/components/back_btn.dart';
+import 'package:myapp/components/rive_loading.dart';
 import 'package:myapp/utils/hex_color.dart';
 import 'package:rive/rive.dart';
 
@@ -15,25 +19,35 @@ class HappYEveryDay extends StatefulWidget {
 class _HappYEveryDayState extends State<HappYEveryDay> {
   Artboard? _riveArtBoard;
   RiveAnimationController? _controller;
-  final String url = 'http://47.103.211.10:9090/static/rive/teddy_login_screen.riv';
+
   bool _handsUp = false;
 
   @override
   void initState() {
+    load();
     super.initState();
-    loadRive();
   }
 
-  Future<void> loadRive() async {
-    final file = await RiveFile.network(url);
-    final artBoard = file.mainArtboard;
-    artBoard.addController(_controller = SimpleAnimation('fail'));
-    await Future.delayed(const Duration(seconds: 2), () {
-      return;
-    });
+  void load() async {
+    final bytes = await compute(loadRive, 1);
+    RiveFile file = RiveFile.import(bytes);
+    Artboard artboard = file.mainArtboard;
+    artboard.addController(_controller = SimpleAnimation('fail'));
     setState(() {
-      _riveArtBoard = artBoard;
+      _riveArtBoard = artboard;
     });
+  }
+
+  //  线程隔离（Isolate）使用
+  static Future<ByteData> loadRive(int x) async {
+    String url = 'http://47.103.211.10:9090/static/rive/teddy_login_screen.riv';
+    Dio dio = Dio();
+    dio.options.responseType = ResponseType.bytes;
+    Response response = await dio.get(url);
+    final Uint8List uint8List = response.data;
+    final bytes = ByteData.view(uint8List.buffer);
+    dio.close();
+    return bytes;
   }
 
   void _changeBeerState(String state) {
@@ -75,7 +89,7 @@ class _HappYEveryDayState extends State<HappYEveryDay> {
                 riveArtBoard: _riveArtBoard!,
                 changeFunc: _changeBeerState,
               )
-            : const LoadingRound());
+            : const RiveLoading());
   }
 }
 
@@ -98,23 +112,13 @@ class _HappyViewState extends State<HappyView> {
     return Column(
       children: [
         Container(
-          height: 30,
-          margin: const EdgeInsets.only(left: 10, top: 40, bottom: 10),
-          padding: EdgeInsets.zero,
-          alignment: Alignment.topLeft,
-          child: IconButton(
-              splashColor: Colors.deepPurple,
-              highlightColor: Colors.deepPurple,
-              padding: EdgeInsets.zero,
-              iconSize: 30,
-              onPressed: () {
-                Get.toNamed('/home');
-              },
-              icon: const Icon(
-                Icons.chevron_left,
-                size: 38,
-              )),
-        ),
+            height: 30,
+            margin: const EdgeInsets.only(left: 10, top: 30, bottom: 10),
+            padding: EdgeInsets.zero,
+            alignment: Alignment.topLeft,
+            child: const BackBtn(
+              path: '/home',
+            )),
         Container(
           height: 260,
           alignment: Alignment.center,

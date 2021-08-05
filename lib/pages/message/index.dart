@@ -36,34 +36,40 @@ class MessageStatePage extends State<Message> {
     widget.animationController?.forward();
     return Scaffold(
         backgroundColor: const Color.fromRGBO(101, 60, 179, 1),
-        extendBody: true,
         body: Column(
           children: [
             MyFadeTransition(
                 myAnimationController: widget.animationController!,
-                myAnimation: myAnimation(widget.animationController, 1),
+                myAnimation: myAnimation(widget.animationController, 2),
                 child: Container(
-                  height: 70,
-                  padding: const EdgeInsets.only(left: 20),
-                  child: GNav(
-                      onTabChange: _handleGNavChange,
-                      gap: 5,
-                      padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
-                      rippleColor: Colors.deepPurple,
-                      color: Colors.white,
-                      activeColor: Colors.deepPurpleAccent,
-                      tabBackgroundColor: Colors.white,
+                    height: 70,
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      tabMargin: const EdgeInsets.only(right: 10),
-                      tabs: const [
-                        GButton(text: '最近消息', icon: Icons.chat),
-                        GButton(text: '特别关心', icon: Icons.favorite),
-                      ]),
-                )),
+                      children: [
+                        GNav(
+                            onTabChange: _handleGNavChange,
+                            gap: 5,
+                            padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
+                            rippleColor: Colors.deepPurple,
+                            color: Colors.white,
+                            activeColor: Colors.deepPurpleAccent,
+                            tabBackgroundColor: Colors.white,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            tabMargin: const EdgeInsets.only(right: 10),
+                            tabs: const [
+                              GButton(
+                                text: '最近消息',
+                                icon: Icons.chat,
+                              ),
+                              GButton(text: '特别关心', icon: Icons.favorite),
+                            ]),
+                      ],
+                    ))),
             Expanded(
                 child: MyFadeTransition(
                     myAnimationController: widget.animationController!,
-                    myAnimation: myAnimation(widget.animationController, 2),
+                    myAnimation: myAnimation(widget.animationController, 3),
                     child: Container(
                         decoration: const BoxDecoration(
                             color: Colors.white,

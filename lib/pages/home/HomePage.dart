@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:myapp/components/my_drawer.dart';
 import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/pages/drawer/index.dart';
 import 'package:myapp/pages/friends/index.dart';
 import 'package:myapp/pages/message/index.dart';
 import 'package:myapp/pages/micro_app/index.dart';
@@ -151,8 +151,6 @@ class _MyMainPageState extends State<MainPage>
 }
 
 Animation<double> myAnimation(AnimationController? animationController, int index) {
-  Logger logger = Logger();
-  // logger.w(animationController);
   return Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
       parent: animationController!,
       curve: Interval((1 / 5) * index, 1.0, curve: Curves.fastOutSlowIn)));

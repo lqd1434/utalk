@@ -18,8 +18,8 @@ class GalleryView extends StatefulWidget {
 }
 
 class _GalleryViewWidgetState extends State<GalleryView> {
-  double _page = 5;
-  final PageController pageController = PageController(initialPage: 5);
+  double _page = 3;
+  final PageController pageController = PageController(initialPage: 3);
 
   @override
   void initState() {
@@ -72,7 +72,7 @@ class _GalleryViewWidgetState extends State<GalleryView> {
                 child: LayoutBuilder(
                   builder: (context, boxConstraints) {
                     List<Widget> cards = <Widget>[];
-                    for (int i = 0; i <= 6; i++) {
+                    for (int i = 0; i <= 3; i++) {
                       double currentPageValue = i - _page;
                       bool pageLocation = currentPageValue > 0;
                       double start = 20 +

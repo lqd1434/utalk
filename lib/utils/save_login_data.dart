@@ -1,7 +1,7 @@
 import 'package:myapp/response/DataBody.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void saveLoginData(DataBody? dataBody) async{
+void saveLoginData(DataBody? dataBody) async {
   var prefs = await SharedPreferences.getInstance();
   final keys = dataBody!.user!.toJson().keys;
   final json = dataBody.user!.toJson();
@@ -10,12 +10,17 @@ void saveLoginData(DataBody? dataBody) async{
   }
 }
 
-Future<String> getSharedData(String key) async{
+void setSharedDataForString(String key, String value) async {
+  var prefs = await SharedPreferences.getInstance();
+  prefs.setString(key, value);
+}
+
+Future<String> getSharedData(String key) async {
   var prefs = await SharedPreferences.getInstance();
   return prefs.getString(key) ?? '';
 }
 
-void removeAllSharedData() async{
+void removeAllSharedData() async {
   var prefs = await SharedPreferences.getInstance();
   prefs.clear();
 }

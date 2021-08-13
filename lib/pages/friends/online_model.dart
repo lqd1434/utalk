@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:myapp/components/rive_loading.dart';
@@ -36,9 +37,25 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
     _refreshController.loadComplete();
   }
 
+  int count = 0;
+
+  void load() async {
+    int c = await compute(delay, 1);
+    setState(() {
+      count = c;
+    });
+  }
+
+  static Future<int> delay(int i) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return 10;
+  }
+
   @override
   void initState() {
+    load();
     super.initState();
+
     // if (mounted) {
     //   print(_key.currentContext!.size);
     // }
@@ -62,26 +79,28 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
             controller: _refreshController,
             onRefresh: _onRefresh,
             onLoading: _onLoading,
-            child: GridView.builder(
-              padding: const EdgeInsets.only(top: 5),
-              itemCount: 30,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                childAspectRatio: 2 / 2.6,
-                crossAxisCount: 2,
-              ),
-              itemBuilder: (BuildContext context, int index) {
-                return AnimationConfiguration.staggeredGrid(
-                  position: index,
-                  duration: const Duration(milliseconds: 375),
-                  columnCount: 2,
-                  child: const ScaleAnimation(
-                    child: FadeInAnimation(
-                      child: OnlineModel(),
+            child: count == 0
+                ? const RiveLoading()
+                : GridView.builder(
+                    padding: const EdgeInsets.only(top: 5),
+                    itemCount: count,
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      childAspectRatio: 2 / 2.6,
+                      crossAxisCount: 2,
                     ),
+                    itemBuilder: (BuildContext context, int index) {
+                      return AnimationConfiguration.staggeredGrid(
+                        position: index,
+                        duration: const Duration(milliseconds: 375),
+                        columnCount: 2,
+                        child: const ScaleAnimation(
+                          child: FadeInAnimation(
+                            child: OnlineModel(),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ));
   }

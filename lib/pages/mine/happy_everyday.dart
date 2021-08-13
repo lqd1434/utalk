@@ -109,6 +109,7 @@ class HappyView extends StatefulWidget {
 class _HappyViewState extends State<HappyView> {
   @override
   Widget build(BuildContext context) {
+    print('11');
     return Column(
       children: [
         Container(

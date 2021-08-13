@@ -111,26 +111,7 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
                   listViewFunc: (BuildContext context, int index) {
                     return const RepaintBoundary(child: MoodTell());
                   },
-                )
-          // : ListView.builder(
-          // itemCount: _items.length,
-          // padding: const EdgeInsets.only(top: 10),
-          // itemBuilder: (BuildContext context, int index) {
-          //   if (index == _items.length - 1) {
-          //     if (_items.length < _maxSize) {
-          //       _fetchPage(_items.length);
-          //       return const LoadingRound();
-          //     } else {
-          //       return Container(
-          //         padding: const EdgeInsets.all(16.0),
-          //         alignment: Alignment.center,
-          //         child: const Text('到底啦~'),
-          //       );
-          //     }
-          //   }
-          //   return const MoodTell();
-          // }),
-          ),
+                )),
     );
   }
 }

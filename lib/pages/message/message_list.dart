@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:myapp/utils/save_login_data.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'message_list_view.dart';
@@ -13,7 +14,16 @@ class MessageList extends StatefulWidget {
 
 class MessageListStatePage extends State<MessageList> {
   Future<String> _getMessageList() async {
-    return Future.delayed(const Duration(seconds: 2), () => "我是从互联网上获取的数据");
+    return Future.delayed(const Duration(seconds: 2), () {
+      setSharedDataForString('cache', 'true');
+      return '11';
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getSharedData('cache').then((value) => {});
   }
 
   @override

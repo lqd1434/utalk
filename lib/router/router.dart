@@ -1,5 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:myapp/components/test.dart';
 import 'package:myapp/components/working.dart';
 import 'package:myapp/pages/auth/index.dart';
 import 'package:myapp/pages/chat/chat_operate.dart';
@@ -33,6 +34,7 @@ List<GetPage> routes = [
   GetPage(name: '/happy', page: () => const HappYEveryDay(), transition: Transition.fade),
   GetPage(name: '/meetyou', page: () => const RadarPage(), transition: Transition.fadeIn),
   GetPage(name: '/working', page: () => const Working(), transition: Transition.fadeIn),
+  GetPage(name: '/test', page: () => const Test(), transition: Transition.fadeIn),
   GetPage(
       name: '/chatSetting', page: () => const ChatSetting(), transition: Transition.rightToLeft),
 ];

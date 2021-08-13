@@ -9,6 +9,7 @@ class RadiusIconBtn extends StatelessWidget {
   final IconData? icon;
   final double padding;
   final EdgeInsetsGeometry? margin;
+  final List<BoxShadow>? boxShadow;
   final VoidCallback? onPressed;
 
   const RadiusIconBtn(
@@ -21,14 +22,16 @@ class RadiusIconBtn extends StatelessWidget {
       this.padding = 8,
       this.onPressed,
       this.splashColor,
-      this.margin})
+      this.margin,
+      this.boxShadow})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: margin,
-        decoration: BoxDecoration(color: background, borderRadius: BorderRadius.circular(radius)),
+        decoration: BoxDecoration(
+            color: background, borderRadius: BorderRadius.circular(radius), boxShadow: boxShadow),
         child: IconButton(
           padding: EdgeInsets.all(padding),
           splashColor: splashColor,

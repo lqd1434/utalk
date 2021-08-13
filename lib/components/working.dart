@@ -31,9 +31,11 @@ class _WorkingState extends State<Working> {
     RiveFile file = RiveFile.import(bytes);
     Artboard artboard = file.mainArtboard;
     artboard.addController(_controller = SimpleAnimation('Animation 1'));
-    setState(() {
-      _riveArtBoard = artboard;
-    });
+    if (mounted) {
+      setState(() {
+        _riveArtBoard = artboard;
+      });
+    }
   }
 
   //  线程隔离（Isolate）使用

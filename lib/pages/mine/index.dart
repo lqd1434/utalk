@@ -1,15 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/components/my_animation.dart';
 import 'package:myapp/components/my_slimy_card.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/home/HomePage.dart';
+import 'package:myapp/pages/mine/top_info_card.dart';
 import 'package:myapp/utils/hex_color.dart';
-import 'package:myapp/utils/read_file.dart';
 
 import 'components.dart';
 
@@ -56,7 +53,7 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
                   topCardHeight: 260,
                   bottomCardHeight: 100,
                   borderRadius: 30,
-                  topCardWidget: topWidget(loadIcon()),
+                  topCardWidget: const TopInfoCard(),
                   bottomCardWidget: const MyCountInfo(),
                   slimeEnabled: true,
                 ),
@@ -69,48 +66,4 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
           ],
         )));
   }
-}
-
-Widget topWidget(Uint8List imageData) {
-  return Container(
-      padding: EdgeInsets.zero,
-      margin: EdgeInsets.zero,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 115,
-            height: 130,
-            child: Stack(children: [
-              RadiusImage(
-                image: MemoryImage(imageData),
-                widthAndHeight: 110,
-                radius: 55,
-              ),
-              Positioned(
-                  left: 40,
-                  bottom: -5,
-                  child: Container(
-                    width: 35,
-                    height: 35,
-                    decoration: const BoxDecoration(
-                      color: Colors.transparent,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.camera_alt,
-                      color: HexColor('#7D62E7'),
-                    ),
-                  ))
-            ]),
-          ),
-          const SizedBox(height: 10),
-          Text('爱哭的鱼',
-              style: TextStyle(
-                  color: HexColor('#D5FA65'),
-                  fontSize: 25,
-                  letterSpacing: 1.5,
-                  fontWeight: FontWeight.w500)),
-        ],
-      ));
 }

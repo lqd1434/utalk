@@ -53,7 +53,7 @@ class MyDrawerMenu extends StatelessWidget {
         ),
         Cell(
           onTap: () {
-            Get.toNamed('/working', arguments: '装扮商店');
+            Get.toNamed('/test', arguments: '装扮商店');
           },
           margin: const EdgeInsets.only(bottom: 10),
           padding: EdgeInsets.zero,

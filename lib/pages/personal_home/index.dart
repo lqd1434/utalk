@@ -19,7 +19,10 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
   final _scrollController = ScrollController();
   Logger logger = Logger();
   bool isShowBg = false;
+
+  // GlobalKey<_AppBarState> _barKey = GlobalKey();
   String from = '';
+  late StateSetter _appBarSetter;
 
   @override
   void initState() {
@@ -31,17 +34,17 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
     }
     _scrollController.addListener(() {
       if (_scrollController.offset <= 100) {
-        if (isShowBg == true) {
-          setState(() {
-            isShowBg = false;
-          });
+        if (isShowBg) {
+          isShowBg = false;
+          _appBarSetter(() {});
         }
+        // _barKey.currentState!.changeShow(false);
       } else {
-        if (isShowBg == false) {
-          setState(() {
-            isShowBg = true;
-          });
+        if (!isShowBg) {
+          isShowBg = true;
+          _appBarSetter(() {});
         }
+        // _barKey.currentState!.changeShow(true);
       }
     });
   }
@@ -51,29 +54,35 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
     return Scaffold(
         extendBodyBehindAppBar: true,
         extendBody: true,
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 3,
-          title: isShowBg ? const Text('我的资料', style: TextStyle(fontSize: 18)) : null,
-          shadowColor: isShowBg ? Colors.grey : Colors.transparent,
-          backgroundColor: isShowBg ? Colors.white : Colors.transparent,
-          leading: IconButton(
-              onPressed: () {
-                Get.offAndToNamed(from);
-              },
-              icon: const Icon(
-                Icons.chevron_left,
-                size: 35,
-              )),
-          actions: const [
-            Padding(
-              padding: EdgeInsets.only(top: 17, right: 10),
-              child: Text(
-                '更多',
-                style: TextStyle(fontSize: 18),
-              ),
-            )
-          ],
+        appBar: PreferredSize(
+          preferredSize: Size(MediaQuery.of(context).size.width, 50),
+          child: StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
+            _appBarSetter = setState;
+            return AppBar(
+              centerTitle: true,
+              elevation: 3,
+              title: isShowBg ? const Text('我的资料', style: TextStyle(fontSize: 18)) : null,
+              shadowColor: isShowBg ? Colors.grey : Colors.transparent,
+              backgroundColor: isShowBg ? Colors.white : Colors.transparent,
+              leading: IconButton(
+                  onPressed: () {
+                    Get.offAndToNamed(from);
+                  },
+                  icon: const Icon(
+                    Icons.chevron_left,
+                    size: 35,
+                  )),
+              actions: const [
+                Padding(
+                  padding: EdgeInsets.only(top: 17, right: 10),
+                  child: Text(
+                    '更多',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              ],
+            );
+          }),
         ),
         body: SingleChildScrollView(
           controller: _scrollController,
@@ -97,3 +106,72 @@ class _PersonalHomeStatePage extends State<PersonalHome> {
         ));
   }
 }
+
+// class _AppBar extends StatefulWidget {
+//   final Key key;
+//
+//   const _AppBar(this.key);
+//
+//   @override
+//   _AppBarState createState() => _AppBarState();
+// }
+//
+// class _AppBarState extends State<_AppBar> {
+//   bool _isShowBg = false;
+//   String from = '';
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     String from = '';
+//     if (Get.previousRoute == '/chatSetting' ||
+//         Get.previousRoute == '/home' ||
+//         Get.previousRoute == '/chat') {
+//       from = Get.previousRoute;
+//     }
+//   }
+//
+//   void changeShow(bool isShowBg) {
+//     if (isShowBg) {
+//       if (!_isShowBg) {
+//         setState(() {
+//           _isShowBg = true;
+//         });
+//       }
+//     } else {
+//       if (_isShowBg) {
+//         setState(() {
+//           _isShowBg = false;
+//         });
+//       }
+//     }
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return AppBar(
+//       centerTitle: true,
+//       elevation: 3,
+//       title: _isShowBg ? const Text('我的资料', style: TextStyle(fontSize: 18)) : null,
+//       shadowColor: _isShowBg ? Colors.grey : Colors.transparent,
+//       backgroundColor: _isShowBg ? Colors.white : Colors.transparent,
+//       leading: IconButton(
+//           onPressed: () {
+//             Get.offAndToNamed(from);
+//           },
+//           icon: const Icon(
+//             Icons.chevron_left,
+//             size: 35,
+//           )),
+//       actions: const [
+//         Padding(
+//           padding: EdgeInsets.only(top: 17, right: 10),
+//           child: Text(
+//             '更多',
+//             style: TextStyle(fontSize: 18),
+//           ),
+//         )
+//       ],
+//     );
+//   }
+// }

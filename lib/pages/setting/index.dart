@@ -7,6 +7,8 @@ import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/save_login_data.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
+import 'change_account.dart';
+
 class Setting extends StatefulWidget {
   const Setting({Key? key}) : super(key: key);
 
@@ -23,6 +25,20 @@ class SettingStatePage extends State<Setting> {
     getX.clearSocket();
     removeAllSharedData();
     Get.toNamed('/auth');
+  }
+
+  Future<String> showChangeAccount(BuildContext context) async {
+    String? name = await showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+              title: const Text("账号:"),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))
+              children: const[AccountRow()]);
+        }
+    );
+    print(name);
+    return name ?? '';
   }
 
   @override
@@ -50,7 +66,7 @@ class SettingStatePage extends State<Setting> {
         ListTile(
           title: Cell(
               onTap: () {
-                Get.toNamed('/coupleSpace');
+                showChangeAccount(context);
               },
               title: const Text(
                 '切换账号',

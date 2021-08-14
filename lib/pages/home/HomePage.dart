@@ -29,10 +29,10 @@ class _MyMainPageState extends State<MainPage>
   Logger logger = Logger();
 
   final GetxState getX = Get.find();
-  final conn = useSocket();
   DateTime lastPopTime = DateTime.now();
   Widget view = Container(color: Colors.white);
   AnimationController? animationController;
+  Function conn = () {};
 
   void handleItemSelected(index) {
     getX.changeIndex(index);
@@ -75,12 +75,17 @@ class _MyMainPageState extends State<MainPage>
     animationController?.forward();
     view = getView(getX.currentIndex.value);
     WidgetsBinding.instance!.addObserver(this);
+    _init();
+    super.initState();
+  }
+
+  _init() async {
+    conn = await useSocket(getX.userInfo.value.id, getX.userInfo.value.name);
     getSharedData('name').then((name) {
       if (getX.socket.value == null && name != '') {
         conn();
       }
     });
-    super.initState();
   }
 
   @override

@@ -51,7 +51,7 @@ class MessageListStatePage extends State<MessageList> {
 Widget loadingShimmer() {
   return Container(
     width: double.maxFinite,
-    margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
+    padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
     child: Shimmer.fromColors(
         baseColor: HexColor('#CCCCCC'),
         highlightColor: HexColor('#FFFFFF'),

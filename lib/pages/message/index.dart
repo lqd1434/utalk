@@ -77,7 +77,6 @@ class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin
                         decoration: const BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
-                        margin: const EdgeInsets.only(top: 0),
                         child: const MessageList())))
           ],
         ));

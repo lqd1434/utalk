@@ -39,8 +39,7 @@ class _MessageListViewState extends State<MessageListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 10, left: 10, bottom: 65, right: 10),
-      padding: EdgeInsets.zero,
+      padding: const EdgeInsets.only(top: 10, left: 10, bottom: 65, right: 10),
       child: AnimationLimiter(
           child: SmartRefresher(
         enablePullDown: true,
@@ -57,6 +56,7 @@ class _MessageListViewState extends State<MessageListView> {
         child: ListView.builder(
             padding: EdgeInsets.zero,
             itemCount: 30,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             itemBuilder: (BuildContext context, int index) {
               return Material(
                 color: Colors.white,

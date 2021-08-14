@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/socket/index.dart';
+import 'package:myapp/utils/save_login_data.dart';
 
 import 'chat_bottom.dart';
 import 'components.dart';
@@ -21,14 +22,12 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
   double bottomPadding = 0;
   Logger logger = Logger();
   final GetxState getX = Get.find();
-  final conn = useSocket();
+  Function conn = () {};
 
   @override
   void initState() {
     super.initState();
-    if (getX.socket.value == null) {
-      conn();
-    }
+    _init();
     contentController.addListener(() {
       logger.i(contentController.text);
     });
@@ -42,6 +41,15 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
         setState(() {
           bottomPadding = 0;
         });
+      }
+    });
+  }
+
+  _init() async {
+    conn = await useSocket(getX.userInfo.value.id, getX.userInfo.value.name);
+    getSharedData('name').then((name) {
+      if (getX.socket.value == null && name != '') {
+        conn();
       }
     });
   }

@@ -6,6 +6,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myapp/components/input_field.dart';
+import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/request/my_dio.dart';
 import 'package:myapp/response/response.dart';
 import 'package:myapp/utils/hex_color.dart';
@@ -26,6 +28,7 @@ class AuthPageStatePage extends State<AuthPage> {
   final TextEditingController _passwordController = TextEditingController();
   ButtonState? state = ButtonState.idle;
   bool onLoading = false;
+  final GetxState getX = Get.find();
 
   void _handlePress() async {
     if (_emailController.value.text.isNotEmpty && _passwordController.value.text.isNotEmpty) {
@@ -44,6 +47,7 @@ class AuthPageStatePage extends State<AuthPage> {
           NestRes res = NestRes.fromJson(response.data);
           if (res.statusCode == 200) {
             saveLoginData(res.dataBody);
+            getX.setUserInfo(res.dataBody!.user!);
             const timeout = Duration(seconds: 2);
             Timer(timeout, () {
               setState(() {
@@ -60,9 +64,8 @@ class AuthPageStatePage extends State<AuthPage> {
                 textStyle: const TextStyle(color: Colors.white));
           }
         } catch (e) {
-          print(e);
           BotToast.showText(
-              text: e.toString(),
+              text: '密码错误',
               contentColor: const Color.fromRGBO(245, 62, 62, 1),
               textStyle: const TextStyle(color: Colors.white));
         }
@@ -130,63 +133,33 @@ class AuthPageStatePage extends State<AuthPage> {
                         BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20)),
                     child: Column(
                       children: [
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                          padding: const EdgeInsets.fromLTRB(6, 5, 10, 5),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(235, 231, 252, 1),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: TextField(
-                            controller: _emailController,
-                            cursorColor: Colors.black45,
-                            style: const TextStyle(fontSize: 18, letterSpacing: 1),
-                            decoration: const InputDecoration(
-                                hintText: "请输入邮箱",
-                                prefixIcon: Icon(
-                                  Icons.account_circle,
-                                  size: 30,
-                                  color: Colors.black45,
-                                ),
-                                border: InputBorder.none),
-                          ),
+                        InputField(
+                          controller: _emailController,
+                          prefixIcon: Icons.account_circle,
+                          hintText: "请输入邮箱",
                         ),
-                        Container(
-                          margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                          padding: const EdgeInsets.fromLTRB(6, 5, 10, 5),
-                          decoration: BoxDecoration(
-                              color: const Color.fromRGBO(235, 231, 252, 1),
-                              borderRadius: BorderRadius.circular(50)),
-                          child: TextField(
-                            controller: _passwordController,
-                            obscureText: !_visibility,
-                            style: const TextStyle(fontSize: 18, letterSpacing: 1),
-                            decoration: InputDecoration(
-                                hintText: "请输入密码",
-                                focusColor: Colors.black,
-                                prefixIcon: const Icon(
-                                  Icons.lock,
-                                  size: 30,
-                                  color: Colors.black45,
-                                ),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _visibility = !_visibility;
-                                      });
-                                    },
-                                    icon: _visibility
-                                        ? const Icon(
-                                            Icons.visibility,
-                                            color: Colors.black45,
-                                            size: 30,
-                                          )
-                                        : const Icon(
-                                            Icons.visibility_off,
-                                            color: Colors.black45,
-                                            size: 27,
-                                          )),
-                                border: InputBorder.none),
-                          ),
+                        InputField(
+                          controller: _passwordController,
+                          obscureText: !_visibility,
+                          prefixIcon: Icons.lock,
+                          hintText: "请输入密码",
+                          suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _visibility = !_visibility;
+                                });
+                              },
+                              icon: _visibility
+                                  ? const Icon(
+                                      Icons.visibility,
+                                      color: Colors.black45,
+                                      size: 30,
+                                    )
+                                  : const Icon(
+                                      Icons.visibility_off,
+                                      color: Colors.black45,
+                                      size: 27,
+                                    )),
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 20),

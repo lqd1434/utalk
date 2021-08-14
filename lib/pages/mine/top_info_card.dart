@@ -39,24 +39,57 @@ class _TopInfoCardState extends State<TopInfoCard> {
     int? choice = await showDialog<int>(
         context: context,
         builder: (BuildContext context) {
-          return SimpleDialog(title: const Text("提示"), children: [
-            Container(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context, 1);
-                },
-                child: const Text('从相册中选择'),
+          return SimpleDialog(
+              title: const Text(
+                "提示",
+                style: TextStyle(color: Colors.blueGrey, fontSize: 18),
               ),
-            ),
-            Container(
-              child: TextButton(
-                onPressed: () {
-                  Navigator.pop(context, 2);
-                },
-                child: const Text('使用相机拍照'),
-              ),
-            )
-          ]);
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, 1);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.collections,
+                        size: 20,
+                        color: Colors.deepPurpleAccent,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '从相册中选择',
+                        style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context, 2);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.photo_camera,
+                        size: 20,
+                        color: Colors.green,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        '使用相机拍照',
+                        style: TextStyle(color: Colors.green, fontSize: 18),
+                      ),
+                    ],
+                  ),
+                )
+              ]);
         });
     _pickImage(choice ?? 0);
     logger.i(choice);

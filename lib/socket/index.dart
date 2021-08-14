@@ -1,14 +1,13 @@
-
-import 'package:bot_toast/bot_toast.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/modules/message.dart';
+import 'package:myapp/utils/local_notification.dart';
+import 'package:myapp/utils/save_login_data.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
-import 'package:myapp/utils/local_notification.dart';
 
-Function useSocket(){
+Future<Function> useSocket(int userId, String userName) async {
   Logger logger = Logger();
   final GetxState getX = Get.find();
   final MyLocalNotifications localNotifications = MyLocalNotifications();
@@ -20,11 +19,11 @@ Function useSocket(){
       socket = getX.socket.value;
       getX.socket.value.connect();
     } else {
-      socket = IO.io('ws://47.103.211.10:8080?userId=1&userName=sky',
+      socket = IO.io('ws://47.103.211.10:8080?userId=$userId&userName=$userName',
           OptionBuilder().setTransports(['websocket']).build());
       socket.connect();
     }
-    socket.on('connect',(d) {
+    socket.on('connect', (d) {
       getX.setSocket(socket);
     });
 
@@ -42,29 +41,36 @@ Function useSocket(){
     });
 
     //服务端通知
-    socket.on('info', (res){
+    socket.on('info', (res) {
       logger.i('收到服务端通知' + res);
     });
 
-    socket.onDisconnect((data) => {
-      logger.i('关闭连接' + data)
-    });
+    socket.onDisconnect((data) => {logger.i('关闭连接' + data)});
 
     //错误处理
-    socket.onError((data){
+    socket.onError((data) {
       logger.e(data);
     });
   };
 }
 
-void sendMessage(MessageBody message){
+void sendMessage(MessageBody message) async {
   final GetxState getX = Get.find();
-  final conn = useSocket();
-  if(getX.socket.value!=null){
+  final userName = await getSharedData('name');
+  final userId = int.parse(await getSharedData('id'));
+  final state = await getConnState();
+  final conn = await useSocket(userId, userName);
+  if (getX.socket.value != null) {
     final socket = getX.socket.value as Socket;
-    socket.emit('message',message);
-  } else{
+    socket.emit('message', message);
+  } else {
     conn();
     sendMessage(message);
   }
+}
+
+getConnState() async {
+  final userName = await getSharedData('name');
+  final userId = int.parse(await getSharedData('id'));
+  return {'userId': userId, 'userName': userName};
 }

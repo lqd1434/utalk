@@ -11,9 +11,9 @@ class DioManege {
       connectTimeout: 5000,
       receiveTimeout: 5000,
       sendTimeout: 5000,
-      //设置请求头
+      // 设置请求头
       // headers: {
-      //   "resource":"android"
+      //   HttpHeaders.authorizationHeader: 'Bearer${' '}$token'
       // },
       //默认值是"application/json; charset=utf-8",Headers.formUrlEncodedContentType会自动编码请求体.
       // contentType: Headers.formUrlEncodedContentType,

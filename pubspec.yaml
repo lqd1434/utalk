@@ -63,6 +63,9 @@ dependencies:
   pull_to_refresh: ^2.0.0
   badges: 2.0.1
   image_picker: 0.8.3+2
+  webview_flutter: 2.0.12
+  sqflite: 2.0.0+3
+  event_bus: 2.0.0
   slimy_card:
     git:
       url: git://github.com/imejiasoft/SlimyCard-Animated-Flutter-Package.git

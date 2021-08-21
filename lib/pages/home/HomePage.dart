@@ -75,17 +75,18 @@ class _MyMainPageState extends State<MainPage>
     animationController?.forward();
     view = getView(getX.currentIndex.value);
     WidgetsBinding.instance!.addObserver(this);
-    _init();
+    // _init();
     super.initState();
   }
 
   _init() async {
-    conn = await useSocket(getX.userInfo.value.id, getX.userInfo.value.name);
-    getSharedData('name').then((name) {
-      if (getX.socket.value == null && name != '') {
-        conn();
-      }
-    });
+    final name = await getSharedData('name');
+    final id = int.parse(await getSharedData('id'));
+    logger.i(getX.socket.value);
+    conn = await useSocket(id, name);
+    if (getX.socket.value == null && name != '') {
+      conn();
+    }
   }
 
   @override

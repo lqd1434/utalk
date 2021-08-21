@@ -22,7 +22,7 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
   double bottomPadding = 0;
   Logger logger = Logger();
   final GetxState getX = Get.find();
-  Function conn = () {};
+  Function conn = () => {};
 
   @override
   void initState() {
@@ -46,7 +46,9 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
   }
 
   _init() async {
-    conn = await useSocket(getX.userInfo.value.id, getX.userInfo.value.name);
+    final name = await getSharedData('name');
+    final id = int.parse(await getSharedData('id'));
+    conn = await useSocket(id, name);
     getSharedData('name').then((name) {
       if (getX.socket.value == null && name != '') {
         conn();

@@ -1,11 +1,17 @@
 import 'dart:typed_data';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
+import 'package:myapp/request/post.dart';
+import 'package:myapp/response/response.dart';
 import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/read_file.dart';
+
+import 'bottom_sheet.dart';
 
 class TopInfoCard extends StatefulWidget {
   const TopInfoCard({Key? key}) : super(key: key);
@@ -30,69 +36,20 @@ class _TopInfoCardState extends State<TopInfoCard> {
         image = await _picker.pickImage(source: ImageSource.camera);
         break;
     }
-    imageData = await image?.readAsBytes();
-    setState(() {});
-    logger.w(image);
+    if (image != null) {
+      imageData = await image.readAsBytes();
+      var response = await uploadFile(image);
+      final res = NestRes<String>.fromJson(response.data);
+      setState(() {});
+      BotToast.showText(
+          text: res.description,
+          contentColor: const Color.fromRGBO(245, 62, 62, 1),
+          textStyle: const TextStyle(color: Colors.white));
+    }
   }
 
   void _pickChoice() async {
-    int? choice = await showDialog<int>(
-        context: context,
-        builder: (BuildContext context) {
-          return SimpleDialog(
-              title: const Text(
-                "提示",
-                style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-              ),
-              children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, 1);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.collections,
-                        size: 20,
-                        color: Colors.deepPurpleAccent,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '从相册中选择',
-                        style: TextStyle(color: Colors.deepPurpleAccent, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, 2);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(
-                        Icons.photo_camera,
-                        size: 20,
-                        color: Colors.green,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        '使用相机拍照',
-                        style: TextStyle(color: Colors.green, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                )
-              ]);
-        });
-    _pickImage(choice ?? 0);
-    logger.i(choice);
+    Get.bottomSheet(choiceSheet(_pickImage));
   }
 
   @override

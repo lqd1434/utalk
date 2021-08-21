@@ -17,6 +17,7 @@ import 'package:myapp/pages/setting/index.dart';
 import 'package:myapp/pages/social_space/index.dart';
 import 'package:myapp/pages/splash/index.dart';
 import 'package:myapp/pages/videoPage/video.dart';
+import 'package:myapp/pages/webview/index.dart';
 
 List<GetPage> routes = [
   GetPage(name: '/', page: () => const Splash(), transition: Transition.fadeIn),
@@ -35,6 +36,7 @@ List<GetPage> routes = [
   GetPage(name: '/meetyou', page: () => const RadarPage(), transition: Transition.fadeIn),
   GetPage(name: '/working', page: () => const Working(), transition: Transition.fadeIn),
   GetPage(name: '/test', page: () => const Test(), transition: Transition.fadeIn),
+  GetPage(name: '/webview', page: () => const MyWebVie(), transition: Transition.fadeIn),
   GetPage(
       name: '/chatSetting', page: () => const ChatSetting(), transition: Transition.rightToLeft),
 ];

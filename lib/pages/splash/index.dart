@@ -1,6 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/socket/index.dart';
+import 'package:myapp/utils/event_bus_event.dart';
+import 'package:myapp/utils/event_manage.dart';
 import 'package:myapp/utils/save_login_data.dart';
 
 class Splash extends StatefulWidget {
@@ -12,6 +17,7 @@ class Splash extends StatefulWidget {
 
 class SplashStatePage extends State<Splash> {
   Logger logger = Logger();
+  final GetxState getX = Get.find();
 
   @override
   void initState() {
@@ -22,11 +28,21 @@ class SplashStatePage extends State<Splash> {
   void _handleCheck() async {
     final value = await getSharedData('name');
     if (value.isEmpty) {
-      logger.e('没有数据');
       Get.toNamed('/auth');
     } else {
-      logger.i(value);
-      Get.toNamed('/home');
+      doConn();
+      EventManager.getInstance().eventBus!.on<StringEvent>().listen((event) {
+        Get.offAllNamed('/home');
+      });
+    }
+  }
+
+  Future<void> doConn() async {
+    final name = await getSharedData('name');
+    final id = int.parse(await getSharedData('id'));
+    final conn = await useSocket(id, name);
+    if (getX.socket.value == null && name != '') {
+      conn();
     }
   }
 

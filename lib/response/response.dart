@@ -2,16 +2,23 @@
 
 import 'DataBody.dart';
 
-class NestRes {
-  DataBody? dataBody;
+class NestRes<T> {
+  T? dataBody;
   String description;
   int statusCode;
 
   NestRes({required this.dataBody, required this.description, required this.statusCode});
 
   factory NestRes.fromJson(Map<String, dynamic> json) {
+    if (T == String) {
+      return NestRes(
+        dataBody: json['dataBody'],
+        description: json['description'],
+        statusCode: json['statusCode'],
+      );
+    }
     return NestRes(
-      dataBody: json['dataBody'] != null ? DataBody.fromJson(json['dataBody']) : null,
+      dataBody: json['dataBody'] != null ? (DataBody.fromJson(json['dataBody']) as T) : null,
       description: json['description'],
       statusCode: json['statusCode'],
     );
@@ -21,8 +28,14 @@ class NestRes {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['description'] = description;
     data['statusCode'] = statusCode;
-    if (dataBody != null) {
-      data['dataBody'] = dataBody!.toJson();
+    if (T == String) {
+      if (dataBody != null) {
+        data['dataBody'] = data['dataBody'];
+      }
+    } else {
+      if (dataBody != null) {
+        data['dataBody'] = (dataBody as DataBody).toJson();
+      }
     }
     return data;
   }

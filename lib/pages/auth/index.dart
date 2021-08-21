@@ -6,6 +6,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:myapp/components/input_field.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/request/my_dio.dart';
@@ -46,17 +47,16 @@ class AuthPageStatePage extends State<AuthPage> {
           );
           NestRes res = NestRes.fromJson(response.data);
           if (res.statusCode == 200) {
-            saveLoginData(res.dataBody);
+            Logger().i(response.data);
             getX.setUserInfo(res.dataBody!.user!);
-            const timeout = Duration(seconds: 2);
-            Timer(timeout, () {
-              setState(() {
-                state = ButtonState.success;
-              });
-              Timer(const Duration(seconds: 2), () {
-                Get.offAllNamed('/home');
-              });
-            });
+            saveLoginData(res.dataBody).then((value) => {
+                  setState(() {
+                    state = ButtonState.success;
+                  }),
+                  Timer(const Duration(seconds: 2), () {
+                    Get.offAllNamed('/home');
+                  })
+                });
           } else {
             BotToast.showText(
                 text: res.description,

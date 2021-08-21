@@ -33,7 +33,6 @@ class _InputFieldState extends State<InputField> {
       setState(() {
         _isFocus = _focusNode.hasFocus;
       });
-      logger.i(_focusNode.hasFocus);
     });
   }
 

@@ -11,7 +11,7 @@ class SpaceShimmer extends StatelessWidget {
       width: double.maxFinite,
       margin: const EdgeInsets.only(top: 10, left: 10),
       child: Shimmer.fromColors(
-          baseColor: HexColor('#9C78DD'),
+          baseColor: HexColor('#DADCF6'),
           highlightColor: HexColor('#BBA6E2'),
           direction: ShimmerDirection.ltr,
           loop: 100,

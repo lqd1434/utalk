@@ -50,11 +50,12 @@ class _ImageCellState extends State<ImageCell> {
             widget.text,
             style: TextStyle(fontSize: widget.fontSize, fontWeight: FontWeight.w400),
           )),
-          const SizedBox(
+          SizedBox(
             width: 50,
             child: Icon(
               Icons.chevron_right,
               size: 30,
+              color: HexColor('#7F7FDA'),
             ),
           )
         ],
@@ -84,7 +85,7 @@ class _GridSettingState extends State<GridSetting> {
         children: [
           Expanded(
             child: Card(
-              elevation: 10,
+              elevation: 3,
               margin: const EdgeInsets.only(right: 10, left: 10),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: Padding(
@@ -95,7 +96,7 @@ class _GridSettingState extends State<GridSetting> {
                   children: [
                     RadiusIconBtn(
                       background: HexColor('#E9EDF7'),
-                      color: HexColor('#422CEB'),
+                      color: HexColor('#7F7FDA'),
                       icon: Icons.search,
                       padding: 0,
                       margin: const EdgeInsets.only(bottom: 0, right: 10),
@@ -109,7 +110,7 @@ class _GridSettingState extends State<GridSetting> {
           ),
           Expanded(
             child: Card(
-              elevation: 10,
+              elevation: 3,
               margin: const EdgeInsets.only(right: 10, left: 10),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
               child: Padding(
@@ -120,8 +121,8 @@ class _GridSettingState extends State<GridSetting> {
                   children: [
                     RadiusIconBtn(
                       background: HexColor('#E9EDF7'),
-                      color: HexColor('#422CEB'),
-                      icon: Icons.image,
+                      color: HexColor('#7F7FDA'),
+                      icon: Icons.crop_original,
                       padding: 0,
                       margin: const EdgeInsets.only(bottom: 0, right: 10),
                       radius: 13,
@@ -210,8 +211,8 @@ class _OpListState extends State<OpList> {
             ),
             rightWidget: CupertinoSwitch(
               value: _switchValue,
-              trackColor: HexColor('#BFB8F8'),
-              activeColor: HexColor('#6C5BEF'),
+              trackColor: HexColor('#D6DFE6'),
+              activeColor: HexColor('#7F7FDA'),
               onChanged: (value) {
                 setState(() {
                   _switchValue = value;
@@ -230,8 +231,8 @@ class _OpListState extends State<OpList> {
               style: TextStyle(fontSize: 19),
             ),
             rightWidget: CupertinoSwitch(
-              trackColor: HexColor('#BFB8F8'),
-              activeColor: HexColor('#6C5BEF'),
+              trackColor: HexColor('#D6DFE6'),
+              activeColor: HexColor('#7F7FDA'),
               value: _switchValue,
               onChanged: (value) {
                 setState(() {
@@ -252,8 +253,8 @@ class _OpListState extends State<OpList> {
             ),
             rightWidget: CupertinoSwitch(
               value: _switchValue,
-              trackColor: HexColor('#BFB8F8'),
-              activeColor: HexColor('#6C5BEF'),
+              trackColor: HexColor('#D6DFE6'),
+              activeColor: HexColor('#7F7FDA'),
               onChanged: (value) {
                 setState(() {
                   _switchValue = value;
@@ -272,8 +273,8 @@ class _OpListState extends State<OpList> {
               style: TextStyle(fontSize: 19),
             ),
             rightWidget: CupertinoSwitch(
-              trackColor: HexColor('#BFB8F8'),
-              activeColor: HexColor('#6C5BEF'),
+              trackColor: HexColor('#D6DFE6'),
+              activeColor: HexColor('#7F7FDA'),
               value: _switchValue,
               onChanged: (value) {
                 setState(() {
@@ -293,8 +294,8 @@ class _OpListState extends State<OpList> {
               style: TextStyle(fontSize: 19),
             ),
             rightWidget: CupertinoSwitch(
-              trackColor: HexColor('#BFB8F8'),
-              activeColor: HexColor('#6C5BEF'),
+              trackColor: HexColor('#D6DFE6'),
+              activeColor: HexColor('#7F7FDA'),
               value: _switchValue,
               onChanged: (value) {
                 setState(() {

@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/socket/index.dart';
+import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/save_login_data.dart';
 
 import 'chat_bottom.dart';
@@ -46,7 +48,6 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
   }
 
   _init() async {
-    final name = await getSharedData('name');
     final id = int.parse(await getSharedData('id'));
     conn = await useSocket(id);
     getSharedData('name').then((name) {
@@ -85,25 +86,41 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
     return Scaffold(
         extendBody: true,
         appBar: AppBar(
+          backgroundColor: HexColor('#7F7FDA'),
           leading: IconButton(
+            splashColor: HexColor('#D8DAF8'),
             icon: const Icon(
               Icons.chevron_left,
               size: 35,
+              color: Colors.white,
             ),
             onPressed: () {
-              Get.toNamed("/home");
+              Get.toNamed('/home');
             },
           ),
-          title: const Text('聊天'),
+          title: DefaultTextStyle(
+            style: const TextStyle(fontSize: 18, fontFamily: 'Roboto', color: Colors.white),
+            child: AnimatedTextKit(
+              repeatForever: true,
+              animatedTexts: [
+                RotateAnimatedText('AWESOME'),
+                RotateAnimatedText('OPTIMISTIC'),
+                RotateAnimatedText('DIFFERENT'),
+              ],
+              onTap: () {
+                print("Tap Event");
+              },
+            ),
+          ),
           centerTitle: true,
           actions: [
             Container(
               margin: const EdgeInsets.only(right: 10),
-              child: GestureDetector(
-                  onTap: () {
+              child: IconButton(
+                  onPressed: () {
                     Get.toNamed("/chatSetting");
                   },
-                  child: const Icon(Icons.face, size: 27)),
+                  icon: Icon(Icons.face, size: 27, color: HexColor('#FFFFFF'))),
             )
           ],
         ),

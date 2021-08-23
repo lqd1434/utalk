@@ -79,17 +79,40 @@ class MoodTellStatePage extends State<MoodTell> {
             alignment: Alignment.topLeft,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                Padding(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
                   padding: EdgeInsets.only(right: 5),
                   child: Icon(Icons.thumb_up_alt, size: 26),
                 ),
                 Expanded(
-                  child: AutoSizeText(
-                    '马云,马化腾觉得很赞',
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const AutoSizeText(
+                        '马云,马化腾觉得很赞',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Container(
+                        height: 35,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(),
+                        margin: const EdgeInsets.only(top: 15),
+                        child: const TextField(
+                          style: TextStyle(fontSize: 18, letterSpacing: 1),
+                          textAlign: TextAlign.start,
+                          decoration: InputDecoration(
+                            hintText: '评论',
+                            focusedBorder: InputBorder.none,
+                            fillColor: Colors.grey,
+                            filled: true,
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ],

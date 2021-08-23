@@ -45,21 +45,22 @@ class _ChatSettingStatePage extends State<ChatSetting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: HexColor('#7F7FDA'),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left, size: 35, color: Colors.deepPurple),
+          icon: const Icon(Icons.chevron_left, size: 35, color: Colors.white),
           onPressed: () {
-            Get.offNamed("/chat");
+            Get.offNamed(Get.previousRoute);
           },
         ),
-        title: const Text('聊天设置', style: TextStyle(color: Colors.deepPurple)),
+        title: const Text('聊天设置', style: TextStyle(color: Colors.white)),
         centerTitle: true,
         actions: [
           IconButton(
             padding: const EdgeInsets.only(right: 20),
             icon: const Icon(
               Icons.delete,
-              size: 27,
-              color: Colors.deepPurple,
+              size: 25,
+              color: Colors.white,
             ),
             onPressed: _deleteFriend,
           )
@@ -75,7 +76,7 @@ class _ChatSettingStatePage extends State<ChatSetting> {
             boxShadow: const [
               BoxShadow(
                 color: Colors.grey,
-                blurRadius: 5,
+                blurRadius: 2,
                 offset: Offset(0, 1),
               )
             ],
@@ -94,7 +95,7 @@ class _ChatSettingStatePage extends State<ChatSetting> {
                   text: '发起群聊',
                   child: Icon(
                     Icons.add,
-                    color: HexColor('#422CEB'),
+                    color: HexColor('#7F7FDA'),
                   )),
             ],
           ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:myapp/components/back_btn.dart';
 import 'package:myapp/components/infinite_list.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/social_space/space_shimmer.dart';
@@ -66,7 +65,7 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor('#7F7FDA'),
+      backgroundColor: HexColor('#F6F5FC'),
       body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -74,14 +73,24 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
               SliverAppBar(
                   expandedHeight: 210.0,
                   pinned: true,
-                  leading: const BackBtn(
-                    path: '/home',
-                  ),
+                  leading: IconButton(
+                      splashColor: HexColor('#7F7FDA'),
+                      onPressed: () {
+                        Get.toNamed(Get.previousRoute);
+                      },
+                      icon: Icon(
+                        Icons.chevron_left,
+                        size: 35,
+                        color: HexColor('#7F7FDA'),
+                      )),
                   actions: [
                     Padding(
                         padding: const EdgeInsets.only(right: 0),
                         child: IconButton(
-                          icon: const Icon(Icons.notifications),
+                          icon: Icon(
+                            Icons.notifications,
+                            color: HexColor('#7F7FDA'),
+                          ),
                           onPressed: () {
                             Get.toNamed('');
                           },
@@ -89,9 +98,10 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
                     Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: IconButton(
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.add_circle_outline,
                             size: 26,
+                            color: HexColor('#7F7FDA'),
                           ),
                           onPressed: () {
                             Get.toNamed('');

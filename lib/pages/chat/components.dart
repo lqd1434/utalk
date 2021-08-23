@@ -135,37 +135,39 @@ class _ChatListStatePage extends State<ChatList> {
           if (index == 0) {
             return ChatBubbleLeft(
               text: '开心',
-              bgColor: HexColor('#9181D6'),
-              color: Colors.white,
+              color: HexColor('#B2B6EB'),
               nip: BubbleNip.leftTop,
               topMargin: 10,
               alignment: Alignment.centerLeft,
-              img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+              img: const NetworkImage('http://47.103.211.10:9090/static/icons/1.jpg'),
             );
           }
           return ChatBubbleLeft(
             text: '开心',
-            bgColor: HexColor('#9181D6'),
-            color: Colors.white,
+            color: HexColor('#B2B6EB'),
             nip: BubbleNip.leftTop,
             alignment: Alignment.centerLeft,
-            img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+            img: const NetworkImage('http://47.103.211.10:9090/static/icons/1.jpg'),
           );
         } else {
           if (index == 19) {
-            return const ChatBubbleRight(
+            return ChatBubbleRight(
               text: '今天真的好开心',
+              color: Colors.white,
+              bgColor: HexColor('#898FE1'),
               nip: BubbleNip.rightTop,
               alignment: Alignment.centerRight,
-              bottomPadding: 10,
-              img: NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+              bottomPadding: 15,
+              img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
             );
           }
-          return const ChatBubbleRight(
+          return ChatBubbleRight(
             text: '今天真的好开心',
+            color: Colors.white,
             nip: BubbleNip.rightTop,
+            bgColor: HexColor('#898FE1'),
             alignment: Alignment.centerRight,
-            img: NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+            img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
           );
         }
       },

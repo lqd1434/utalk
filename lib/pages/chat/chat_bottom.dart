@@ -60,7 +60,7 @@ class ChatBottomStatePage extends State<ChatBottom> {
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                             boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
-                            color: Colors.deepPurpleAccent,
+                            color: HexColor('#898FE1'),
                             borderRadius: BorderRadius.circular(10)),
                         child: const Text(
                           "发送",
@@ -72,36 +72,17 @@ class ChatBottomStatePage extends State<ChatBottom> {
                 ],
               ),
             ),
-            Row(
-              children: const [
-                Padding(
-                  padding: EdgeInsets.fromLTRB(5, 0, 16, 0),
-                  child: Icon(
-                    Icons.keyboard_voice,
-                    size: 24,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18),
-                  child: Icon(Icons.image),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18),
-                  child: Icon(Icons.photo_camera),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18),
-                  child: Icon(Icons.image),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18),
-                  child: Icon(Icons.add_circle),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(13, 0, 0, 0),
-                  child: Icon(Icons.delete),
-                ),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: const [
+                  Icon(Icons.crop_original),
+                  Icon(Icons.filter_center_focus),
+                  Icon(Icons.mood),
+                  Icon(Icons.dehaze),
+                ],
+              ),
             )
           ],
         ));
@@ -110,8 +91,8 @@ class ChatBottomStatePage extends State<ChatBottom> {
 
 InputBorder inputBorder = OutlineInputBorder(
   borderRadius: BorderRadius.circular(10),
-  borderSide: const BorderSide(
+  borderSide: BorderSide(
     width: 1,
-    color: Colors.deepPurpleAccent,
+    color: HexColor('#898FE1'),
   ),
 );

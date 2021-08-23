@@ -12,6 +12,7 @@ import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/components/my_animation.dart';
 import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/utils/hex_color.dart';
 import 'package:myapp/utils/read_file.dart';
 import 'package:myapp/utils/save_login_data.dart';
 
@@ -76,13 +77,12 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(101, 60, 179, 1),
+      color: HexColor('#7F7FDA'),
       child: Visibility(
           visible: widget.visible,
           maintainSize: false,
           child: Container(
             margin: EdgeInsets.fromLTRB(15, widget.topPadding, 10, 0),
-            color: Colors.deepPurple,
             child: MyFadeTransition(
                 myAnimationController: widget.animationController!,
                 myAnimation: myAnimation(widget.animationController, 1),
@@ -150,9 +150,11 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                                 Get.toNamed('/webview');
                               }),
                           SpeedDialChild(
-                            child: const Icon(Icons.brush, color: Colors.deepPurple),
-                            backgroundColor: Colors.white,
-                          ),
+                              child: const Icon(Icons.brush, color: Colors.deepPurple),
+                              backgroundColor: Colors.white,
+                              onTap: () {
+                                Get.toNamed('/test');
+                              }),
                           SpeedDialChild(
                             child: const Icon(Icons.margin, color: Colors.deepPurple),
                             backgroundColor: Colors.white,

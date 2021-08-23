@@ -14,7 +14,7 @@ class MessageListView extends StatefulWidget {
   _MessageListViewState createState() => _MessageListViewState();
 }
 
-class _MessageListViewState extends State<MessageListView> {
+class _MessageListViewState extends State<MessageListView> with TickerProviderStateMixin {
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
   List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
@@ -36,10 +36,25 @@ class _MessageListViewState extends State<MessageListView> {
     _refreshController.loadComplete();
   }
 
+  AnimationController? animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController =
+        AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
+  }
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 10, left: 10, bottom: 65, right: 10),
+      padding: const EdgeInsets.only(top: 15, bottom: 73),
       child: AnimationLimiter(
           child: SmartRefresher(
         enablePullDown: true,
@@ -59,13 +74,13 @@ class _MessageListViewState extends State<MessageListView> {
             clipBehavior: Clip.antiAliasWithSaveLayer,
             itemBuilder: (BuildContext context, int index) {
               return Material(
-                color: Colors.white,
+                color: Colors.transparent,
                 child: Ink(
                   child: InkWell(
                     onTap: () {
                       Get.toNamed('/chat');
                     },
-                    splashColor: HexColor('#653CB3'),
+                    splashColor: HexColor('#7F7FDA'),
                     child: AnimationConfiguration.staggeredList(
                         position: index,
                         duration: const Duration(milliseconds: 375),
@@ -74,20 +89,26 @@ class _MessageListViewState extends State<MessageListView> {
                             child: FadeInAnimation(
                               child: SwiperAction(
                                 valueKey: ValueKey(index),
-                                child: UserTile(
-                                  image: const NetworkImage(
-                                    'http://47.103.211.10:9090/static/images/avatar.png',
+                                child: Container(
+                                  padding: const EdgeInsets.only(
+                                    left: 10,
+                                    right: 10,
                                   ),
-                                  title: Text('sky',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: HexColor('#653CB3'),
-                                          fontWeight: FontWeight.w500,
-                                          letterSpacing: 0.5)),
-                                  subText: Text('今天真的好开心!',
-                                      style: TextStyle(fontSize: 13, color: HexColor('#8C9EE9')),
-                                      softWrap: false,
-                                      overflow: TextOverflow.ellipsis),
+                                  child: UserTile(
+                                    image: const NetworkImage(
+                                      'http://47.103.211.10:9090/static/images/avatar.png',
+                                    ),
+                                    title: Text('sky',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: HexColor('#653CB3'),
+                                            fontWeight: FontWeight.w500,
+                                            letterSpacing: 0.5)),
+                                    subText: Text('今天真的好开心!',
+                                        style: TextStyle(fontSize: 13, color: HexColor('#8C9EE9')),
+                                        softWrap: false,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
                                 ),
                               ),
                             ))),

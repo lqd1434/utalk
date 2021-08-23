@@ -4,6 +4,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:myapp/components/my_animation.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/home/HomePage.dart';
+import 'package:myapp/utils/hex_color.dart';
 
 import 'components.dart';
 import 'online_model.dart';
@@ -50,9 +51,9 @@ class FriendsStatePage extends State<Friends> with SingleTickerProviderStateMixi
                         boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 5)]),
                     child: GNav(
                       gap: 5,
-                      rippleColor: Colors.deepPurple,
-                      color: Colors.deepPurple,
-                      tabBackgroundColor: Colors.deepPurple,
+                      rippleColor: HexColor('#7F7FDA'),
+                      color: HexColor('#7F7FDA'),
+                      tabBackgroundColor: HexColor('#7F7FDA'),
                       activeColor: Colors.white,
                       padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
                       tabMargin: const EdgeInsets.symmetric(vertical: 10),

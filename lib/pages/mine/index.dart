@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/components/my_animation.dart';
-import 'package:myapp/components/my_slimy_card.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/home/HomePage.dart';
 import 'package:myapp/pages/mine/top_info_card.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 import 'components.dart';
 
@@ -35,34 +36,67 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
     widget.animationController?.forward();
     return Scaffold(
         backgroundColor: const Color.fromRGBO(241, 242, 249, 1),
+        extendBody: true,
         body: SingleChildScrollView(
             child: Column(
           children: [
             MyFadeTransition(
               myAnimation: myAnimation(widget.animationController, 1),
               myAnimationController: widget.animationController!,
-              child: Container(
-                margin: const EdgeInsets.only(left: 10, right: 10, top: 30),
-                child: MySlimyCard(
-                  threeBgGradient: [
-                    HexColor('#7D62E7'),
-                    HexColor('#7E83CB'),
-                    HexColor('#C6BAF5'),
-                  ],
-                  width: MediaQuery.of(context).size.width,
-                  topCardHeight: 260,
-                  bottomCardHeight: 100,
-                  borderRadius: 30,
-                  topCardWidget: const TopInfoCard(),
-                  bottomCardWidget: const MyCountInfo(),
-                  slimeEnabled: true,
-                ),
-              ),
+              child: const TopInfoCard(),
+              // child: MySlimyCard(
+              //   threeBgGradient: [
+              //     HexColor('#7D62E7'),
+              //     HexColor('#7E83CB'),
+              //     HexColor('#C6BAF5'),
+              //   ],
+              //   width: MediaQuery.of(context).size.width,
+              //   topCardHeight: 260,
+              //   bottomCardHeight: 100,
+              //   borderRadius: 30,
+              //   topCardWidget: const TopInfoCard(),
+              //   bottomCardWidget: const MyCountInfo(),
+              //   slimeEnabled: true,
+              // ),
             ),
-            MyFadeTransition(
-                myAnimation: myAnimation(widget.animationController, 2),
-                myAnimationController: widget.animationController!,
-                child: const SizedBox(height: 500, child: MineCellGroup())),
+            Stack(
+              children: [
+                Positioned(
+                  top: -220,
+                  child: MyFadeTransition(
+                    myAnimation: myAnimation(widget.animationController, 2),
+                    myAnimationController: widget.animationController!,
+                    child: WaveWidget(
+                      config: CustomConfig(
+                        gradients: [
+                          [HexColor('#D6D8FA'), HexColor('#A8ADF5')],
+                          [HexColor('#575ED9'), HexColor('#A8ADF5')],
+                          [HexColor('#F3D4F5'), HexColor('#FDFDFF')],
+                          [HexColor('#FDFDFF'), HexColor('#D4D5F5')],
+                        ],
+                        durations: [35000, 19440, 10800, 6000],
+                        heightPercentages: [0.20, 0.23, 0.25, 0.30],
+                        blur: const MaskFilter.blur(BlurStyle.solid, 10),
+                        gradientBegin: Alignment.bottomLeft,
+                        gradientEnd: Alignment.topRight,
+                      ),
+                      waveAmplitude: 0,
+                      size: Size(
+                        MediaQuery.of(context).size.width,
+                        800,
+                      ),
+                    ),
+                  ),
+                ),
+                MyFadeTransition(
+                    myAnimation: myAnimation(widget.animationController, 2),
+                    myAnimationController: widget.animationController!,
+                    child: Container(
+                        height: 500,
+                        margin: const EdgeInsets.only(top: 50),
+                        child: const MineCellGroup())),
+              ],
+            )
           ],
         )));
   }

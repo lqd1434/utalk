@@ -66,7 +66,7 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: HexColor('#D6D1EC'),
+      backgroundColor: HexColor('#7F7FDA'),
       body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -120,7 +120,7 @@ Widget getFlexibleSpaceBar(bool isShowTitle, double paddingTop) {
   return FlexibleSpaceBar(
       centerTitle: true,
       title: isShowTitle ? const Text('好友动态', style: TextStyle(fontSize: 18)) : null,
-      background: Container(
+      background: SizedBox(
         child: Image.network(
           'http://47.103.211.10:9090/static/images/pexels-eberhard-grossgasteiger-1287145.jpg',
           fit: BoxFit.cover,

@@ -8,7 +8,7 @@ import 'package:myapp/utils/save_login_data.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
 
-Future<Function> useSocket(int userId, String userName) async {
+Future<Function> useSocket(int userId) async {
   Logger logger = Logger();
   final GetxState getX = Get.find();
   return () {
@@ -60,9 +60,8 @@ void sendMessage(MessageBody message) async {
     final socket = getX.socket.value as Socket;
     socket.emit('message', message);
   } else {
-    final userName = await getSharedData('name');
     final userId = int.parse(await getSharedData('id'));
-    final conn = await useSocket(userId, userName);
+    final conn = await useSocket(userId);
     conn();
     sendMessage(message);
   }

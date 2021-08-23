@@ -84,7 +84,6 @@ class MineCellGroupStatePage extends State<MineCellGroup> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(241, 242, 249, 1),
       padding: const EdgeInsets.only(top: 0),
       margin: const EdgeInsets.only(top: 10),
       child: Column(

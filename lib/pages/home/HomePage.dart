@@ -83,7 +83,7 @@ class _MyMainPageState extends State<MainPage>
     final name = await getSharedData('name');
     final id = int.parse(await getSharedData('id'));
     logger.i(getX.socket.value);
-    conn = await useSocket(id, name);
+    conn = await useSocket(id);
     if (getX.socket.value == null && name != '') {
       conn();
     }

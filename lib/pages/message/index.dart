@@ -5,6 +5,9 @@ import 'package:logger/logger.dart';
 import 'package:myapp/components/my_animation.dart';
 import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/home/HomePage.dart';
+import 'package:myapp/utils/hex_color.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 import 'message_list.dart';
 
@@ -38,7 +41,7 @@ class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin
   Widget build(BuildContext context) {
     widget.animationController?.forward();
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(101, 60, 179, 1),
+        backgroundColor: HexColor('#7F7FDA'),
         body: Column(
           children: [
             MyFadeTransition(
@@ -54,18 +57,18 @@ class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin
                             onTabChange: _handleGNavChange,
                             gap: 5,
                             padding: const EdgeInsets.fromLTRB(12, 8, 10, 8),
-                            rippleColor: Colors.deepPurple,
+                            rippleColor: HexColor('#7F7FDA'),
                             color: Colors.white,
-                            activeColor: Colors.deepPurpleAccent,
+                            activeColor: HexColor('#7F7FDA'),
                             tabBackgroundColor: Colors.white,
                             mainAxisAlignment: MainAxisAlignment.start,
                             tabMargin: const EdgeInsets.only(right: 10),
                             tabs: const [
                               GButton(
-                                text: '最近消息',
+                                text: '好友消息',
                                 icon: Icons.chat,
                               ),
-                              GButton(text: '特别关心', icon: Icons.favorite),
+                              GButton(text: '群聊消息', icon: Icons.forum),
                             ]),
                       ],
                     ))),
@@ -73,11 +76,39 @@ class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin
                 child: MyFadeTransition(
                     myAnimationController: widget.animationController!,
                     myAnimation: myAnimation(widget.animationController, 3),
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
-                        child: const MessageList())))
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          top: -240,
+                          child: WaveWidget(
+                            config: CustomConfig(
+                              gradients: [
+                                [HexColor('#D6D8FA'), HexColor('#A8ADF5')],
+                                [HexColor('#575ED9'), HexColor('#A8ADF5')],
+                                [HexColor('#F3D4F5'), HexColor('#FDFDFF')],
+                                [HexColor('#FDFDFF'), HexColor('#FFFFFF')],
+                              ],
+                              durations: [35000, 19440, 10800, 6000],
+                              heightPercentages: [0.20, 0.23, 0.25, 0.30],
+                              blur: const MaskFilter.blur(BlurStyle.solid, 10),
+                              gradientBegin: Alignment.bottomLeft,
+                              gradientEnd: Alignment.topRight,
+                            ),
+                            waveAmplitude: 0,
+                            size: Size(
+                              MediaQuery.of(context).size.width,
+                              800,
+                            ),
+                          ),
+                        ),
+                        Container(
+                            margin: const EdgeInsets.only(top: 0),
+                            decoration: const BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(30))),
+                            child: const MessageList())
+                      ],
+                    )))
           ],
         ));
   }

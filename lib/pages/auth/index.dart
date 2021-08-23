@@ -54,7 +54,7 @@ class AuthPageStatePage extends State<AuthPage> {
                     state = ButtonState.success;
                   }),
                   Timer(const Duration(seconds: 2), () {
-                    Get.offAllNamed('/home');
+                    Get.offAllNamed('/');
                   })
                 });
           } else {

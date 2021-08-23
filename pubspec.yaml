@@ -66,6 +66,8 @@ dependencies:
   webview_flutter: 2.0.12
   sqflite: 2.0.0+3
   event_bus: 2.0.0
+  animated_text_kit: 4.2.1
+  wave: 0.2.0
   slimy_card:
     git:
       url: git://github.com/imejiasoft/SlimyCard-Animated-Flutter-Package.git

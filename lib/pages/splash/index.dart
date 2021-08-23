@@ -40,7 +40,7 @@ class SplashStatePage extends State<Splash> {
   Future<void> doConn() async {
     final name = await getSharedData('name');
     final id = int.parse(await getSharedData('id'));
-    final conn = await useSocket(id, name);
+    final conn = await useSocket(id);
     if (getX.socket.value == null && name != '') {
       conn();
     }

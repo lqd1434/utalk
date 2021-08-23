@@ -3,7 +3,7 @@ import 'package:myapp/utils/hex_color.dart';
 
 import 'drawe_footer.dart';
 import 'drawer_header.dart';
-import 'drawer_menu.dart';
+import 'drawer_menus.dart';
 
 class MyDrawer extends StatefulWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -18,26 +18,23 @@ class _MyDrawerState extends State<MyDrawer> {
     return Container(
       padding: const EdgeInsets.only(top: 60),
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          HexColor('#CE9FFC'),
-          HexColor('#B2A7E2'),
-          HexColor('#7367F0'),
-        ]),
+        gradient: LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            stops: const [0.5, 0.5, 1],
+            colors: [HexColor('#8289E8'), HexColor('#7F7FDA'), HexColor('#ADB1F0')]),
       ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          MyDrawerHeader(),
-          const SizedBox(height: 20),
-          const Divider(),
+          const MyDrawerHeader(),
           Container(
-            height: 300,
-            padding: const EdgeInsets.symmetric(horizontal: 5),
-            margin: const EdgeInsets.only(top: 50, left: 15, right: 10),
-            child: const MyDrawerMenu(),
+            height: 350,
+            width: double.maxFinite,
+            margin: const EdgeInsets.only(top: 60, left: 30, right: 0),
+            child: const DrawMenus(),
           ),
-          const Padding(
-              padding: EdgeInsets.only(top: 130, left: 10, bottom: 20), child: MyDrawerFooter())
+          const Padding(padding: EdgeInsets.only(top: 50, left: 10), child: MyDrawerFooter()),
         ],
       ),
     );

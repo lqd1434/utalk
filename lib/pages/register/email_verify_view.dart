@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/components/input_field.dart';
 import 'package:myapp/request/post.dart';
 import 'package:myapp/response/response.dart';
+import 'package:myapp/utils/hex_color.dart';
 
 typedef ChangeViewFunc = void Function(String email, String verifyCode);
 
@@ -109,11 +110,11 @@ class _EmailVerifyViewState extends State<EmailVerifyView> {
                   onTap: handleClick,
                   child: Container(
                     width: 90,
-                    height: 55,
+                    height: 53,
                     alignment: Alignment.center,
                     margin: const EdgeInsets.only(right: 20, top: 15),
                     decoration: BoxDecoration(
-                        color: Colors.deepPurple, borderRadius: BorderRadius.circular(50)),
+                        color: HexColor('#7F7FDA'), borderRadius: BorderRadius.circular(50)),
                     child: Text(
                       _timeCount == 60 ? '获取' : '$_timeCount秒',
                       style: const TextStyle(color: Colors.white, fontSize: 18),
@@ -129,8 +130,8 @@ class _EmailVerifyViewState extends State<EmailVerifyView> {
               height: 60,
               alignment: Alignment.center,
               margin: const EdgeInsets.fromLTRB(20, 40, 20, 0),
-              decoration:
-                  BoxDecoration(color: Colors.deepPurple, borderRadius: BorderRadius.circular(50)),
+              decoration: BoxDecoration(
+                  color: HexColor('#7F7FDA'), borderRadius: BorderRadius.circular(50)),
               child: const Text(
                 '验证',
                 style: TextStyle(color: Colors.white, fontSize: 20),

@@ -127,9 +127,10 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                  HexColor('#9181D6'),
-                  HexColor('#8774D5'),
+                  HexColor('#7F7FDA'),
+                  HexColor('#8787D2'),
                   HexColor('#7E83CB'),
+                  HexColor('#A1A1EB'),
                 ])),
           ),
           Container(
@@ -155,11 +156,11 @@ class _Register extends State<RegisterCreate> with SingleTickerProviderStateMixi
                   children: const [
                     Icon(
                       Icons.arrow_back_ios_new,
-                      color: Colors.amber,
+                      color: Colors.white,
                     ),
                     Text(
                       '返回',
-                      style: TextStyle(color: Colors.amber, fontSize: 17),
+                      style: TextStyle(color: Colors.white, fontSize: 17),
                     )
                   ],
                 ),

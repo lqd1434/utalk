@@ -132,7 +132,7 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                       padding: const EdgeInsets.fromLTRB(0, 0, 20, 5),
                       child: SpeedDial(
                         icon: Icons.add,
-                        foregroundColor: Colors.deepPurple,
+                        foregroundColor: HexColor('#7F7FDA'),
                         spaceBetweenChildren: 6,
                         buttonSize: 50,
                         childrenButtonSize: 50,
@@ -144,19 +144,19 @@ class _HomeHeaderStatePage extends State<HomeHeader> {
                         elevation: 10,
                         children: [
                           SpeedDialChild(
-                              child: const Icon(Icons.accessibility, color: Colors.deepPurple),
+                              child: Icon(Icons.accessibility, color: HexColor('#7F7FDA')),
                               backgroundColor: Colors.white,
                               onTap: () {
                                 Get.toNamed('/webview');
                               }),
                           SpeedDialChild(
-                              child: const Icon(Icons.brush, color: Colors.deepPurple),
+                              child: Icon(Icons.brush, color: HexColor('#7F7FDA')),
                               backgroundColor: Colors.white,
                               onTap: () {
                                 Get.toNamed('/test');
                               }),
                           SpeedDialChild(
-                            child: const Icon(Icons.margin, color: Colors.deepPurple),
+                            child: Icon(Icons.margin, color: HexColor('#7F7FDA')),
                             backgroundColor: Colors.white,
                             visible: true,
                           ),

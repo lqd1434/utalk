@@ -44,20 +44,6 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
               myAnimation: myAnimation(widget.animationController, 1),
               myAnimationController: widget.animationController!,
               child: const TopInfoCard(),
-              // child: MySlimyCard(
-              //   threeBgGradient: [
-              //     HexColor('#7D62E7'),
-              //     HexColor('#7E83CB'),
-              //     HexColor('#C6BAF5'),
-              //   ],
-              //   width: MediaQuery.of(context).size.width,
-              //   topCardHeight: 260,
-              //   bottomCardHeight: 100,
-              //   borderRadius: 30,
-              //   topCardWidget: const TopInfoCard(),
-              //   bottomCardWidget: const MyCountInfo(),
-              //   slimeEnabled: true,
-              // ),
             ),
             Stack(
               children: [

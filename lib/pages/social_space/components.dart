@@ -79,43 +79,39 @@ class MoodTellStatePage extends State<MoodTell> {
             alignment: Alignment.topLeft,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Padding(
                   padding: EdgeInsets.only(right: 5),
                   child: Icon(Icons.thumb_up_alt, size: 26),
                 ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const AutoSizeText(
-                        '马云,马化腾觉得很赞',
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      Container(
-                        height: 35,
-                        alignment: Alignment.center,
-                        decoration: const BoxDecoration(),
-                        margin: const EdgeInsets.only(top: 15),
-                        child: const TextField(
-                          style: TextStyle(fontSize: 18, letterSpacing: 1),
-                          textAlign: TextAlign.start,
-                          decoration: InputDecoration(
-                            hintText: '评论',
-                            focusedBorder: InputBorder.none,
-                            fillColor: Colors.grey,
-                            filled: true,
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      )
-                    ],
+                  child: AutoSizeText(
+                    '马云,马化腾觉得很赞',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
+            ),
+          ),
+          Container(
+            height: 40,
+            alignment: Alignment.center,
+            decoration:
+                BoxDecoration(color: HexColor('#F5F8FA'), borderRadius: BorderRadius.circular(10)),
+            padding: const EdgeInsets.only(top: 10, left: 10),
+            margin: const EdgeInsets.only(top: 5, left: 10, right: 20, bottom: 10),
+            child: const TextField(
+              style: TextStyle(fontSize: 16, letterSpacing: 1),
+              textAlign: TextAlign.start,
+              decoration: InputDecoration(
+                hintText: '评论',
+                hintStyle: TextStyle(fontSize: 15, letterSpacing: 1, color: Colors.black45),
+                filled: false,
+                focusedBorder: InputBorder.none,
+                border: InputBorder.none,
+              ),
             ),
           )
         ],

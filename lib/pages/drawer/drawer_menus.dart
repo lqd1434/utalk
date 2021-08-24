@@ -13,42 +13,42 @@ class DrawMenus extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
               child: Icon(
                 Icons.favorite,
-                color: HexColor('#E12209'),
+                color: Colors.white,
               ),
             ),
             Container(
               width: 1,
               height: 50,
-              color: Colors.grey,
+              color: Colors.white,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
               child: Icon(
                 Icons.library_add,
-                color: HexColor('#15D58B'),
+                color: Colors.white,
               ),
             ),
             Container(
               width: 1,
               height: 50,
-              color: Colors.grey,
+              color: Colors.white,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Icon(Icons.palette, color: HexColor('#37C5FA')),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Icon(Icons.palette, color: Colors.white),
             ),
             Container(
               width: 1,
               height: 50,
-              color: Colors.grey,
+              color: Colors.white,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Icon(Icons.notifications_none, color: HexColor('#FA6C37')),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: Icon(Icons.notifications_none, color: Colors.white),
             ),
           ],
         ),

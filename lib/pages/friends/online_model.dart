@@ -65,7 +65,7 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
   Widget build(BuildContext context) {
     return Container(
         color: const Color.fromRGBO(241, 242, 249, 1),
-        padding: const EdgeInsets.only(bottom: 70),
+        padding: const EdgeInsets.only(bottom: 80),
         child: AnimationLimiter(
           child: SmartRefresher(
             enablePullDown: true,
@@ -141,7 +141,7 @@ class _OnlineModelStatePage extends State<OnlineModel> {
                   Container(
                     padding: const EdgeInsets.fromLTRB(8, 4, 8, 4),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10), color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(10), color: HexColor('#7F7FDA')),
                     child: const Text(
                       'Jack',
                       style: TextStyle(color: Colors.white),
@@ -164,8 +164,12 @@ class _OnlineModelStatePage extends State<OnlineModel> {
                     child: GestureDetector(
                       onTap: _approve,
                       child: _isApprove
-                          ? const Icon(Icons.thumb_up_alt, color: Colors.deepPurple, size: 26)
-                          : const Icon(Icons.thumb_up_off_alt, size: 26),
+                          ? Icon(Icons.thumb_up_alt, color: HexColor('#7F7FDA'), size: 26)
+                          : Icon(
+                              Icons.thumb_up_off_alt,
+                              size: 26,
+                              color: HexColor('#7F7FDA'),
+                            ),
                     ))
               ],
             )

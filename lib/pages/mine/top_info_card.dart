@@ -26,7 +26,7 @@ class _TopInfoCardState extends State<TopInfoCard> {
   Logger logger = Logger();
   Uint8List? imageData;
   final colorizeColors = [
-    HexColor('#FA6C37'),
+    HexColor('#FFFFFF'),
     Colors.blue,
     Colors.yellow,
     Colors.red,

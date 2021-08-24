@@ -58,24 +58,36 @@ class AuthPageStatePage extends State<AuthPage> {
                   })
                 });
           } else {
+            setState(() {
+              state = ButtonState.idle;
+            });
             BotToast.showText(
                 text: res.description,
                 contentColor: const Color.fromRGBO(245, 62, 62, 1),
                 textStyle: const TextStyle(color: Colors.white));
           }
         } catch (e) {
+          setState(() {
+            state = ButtonState.idle;
+          });
           BotToast.showText(
               text: '密码错误',
               contentColor: const Color.fromRGBO(245, 62, 62, 1),
               textStyle: const TextStyle(color: Colors.white));
         }
       } else {
+        setState(() {
+          state = ButtonState.idle;
+        });
         BotToast.showText(
             text: '邮箱格式错误',
             contentColor: const Color.fromRGBO(245, 62, 62, 1),
             textStyle: const TextStyle(color: Colors.white));
       }
     } else {
+      setState(() {
+        state = ButtonState.idle;
+      });
       BotToast.showText(
           text: '账号和密码不能为空',
           contentColor: const Color.fromRGBO(245, 62, 62, 1),
@@ -101,9 +113,10 @@ class AuthPageStatePage extends State<AuthPage> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                        HexColor('#9181D6'),
-                        HexColor('#8774D5'),
+                        HexColor('#7F7FDA'),
+                        HexColor('#8787D2'),
                         HexColor('#7E83CB'),
+                        HexColor('#A1A1EB'),
                       ])),
                 ),
                 Container(
@@ -124,7 +137,7 @@ class AuthPageStatePage extends State<AuthPage> {
                       ],
                     )),
                 Positioned(
-                  bottom: 80,
+                  top: 340,
                   width: MediaQuery.of(context).size.width,
                   child: Container(
                     height: 360,
@@ -150,20 +163,21 @@ class AuthPageStatePage extends State<AuthPage> {
                                 });
                               },
                               icon: _visibility
-                                  ? const Icon(
+                                  ? Icon(
                                       Icons.visibility,
-                                      color: Colors.black45,
+                                      color: HexColor('#8787D2'),
                                       size: 30,
                                     )
-                                  : const Icon(
+                                  : Icon(
                                       Icons.visibility_off,
-                                      color: Colors.black45,
+                                      color: HexColor('#8787D2'),
                                       size: 27,
                                     )),
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(vertical: 20),
-                          child: const Text('忘记密码?', style: TextStyle(fontSize: 18)),
+                          child: Text('忘记密码?',
+                              style: TextStyle(fontSize: 18, color: HexColor('#7F7FDA'))),
                         ),
                         Container(
                             height: 60,
@@ -175,10 +189,10 @@ class AuthPageStatePage extends State<AuthPage> {
                                 // padding: const EdgeInsets.symmetric(vertical: 10),
                                 textStyle: const TextStyle(fontSize: 27, color: Colors.white),
                                 iconedButtons: {
-                                  ButtonState.idle: const IconedButton(
-                                      icon: Icon(Icons.login, color: Colors.white, size: 30),
+                                  ButtonState.idle: IconedButton(
+                                      icon: const Icon(Icons.login, color: Colors.white, size: 30),
                                       text: '登录',
-                                      color: Colors.deepPurple),
+                                      color: HexColor('#7F7FDA')),
                                   ButtonState.loading:
                                       IconedButton(color: Colors.deepPurple.shade700),
                                   ButtonState.fail: IconedButton(
@@ -201,7 +215,8 @@ class AuthPageStatePage extends State<AuthPage> {
                               onTap: () {
                                 Get.toNamed('/register');
                               },
-                              child: const Text('没有账号? 去注册', style: TextStyle(fontSize: 18)),
+                              child: Text('没有账号? 去注册',
+                                  style: TextStyle(fontSize: 18, color: HexColor('#7F7FDA'))),
                             )),
                       ],
                     ),

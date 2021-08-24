@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:myapp/utils/hex_color.dart';
 
 class InputField extends StatefulWidget {
   final String? hintText;
@@ -44,13 +45,12 @@ class _InputFieldState extends State<InputField> {
       decoration: BoxDecoration(
           color: const Color.fromRGBO(235, 231, 252, 1),
           borderRadius: BorderRadius.circular(50),
-          boxShadow:
-              !_isFocus ? null : [const BoxShadow(color: Colors.deepPurpleAccent, blurRadius: 5)]),
+          boxShadow: !_isFocus ? null : [BoxShadow(color: HexColor('#8787D2'), blurRadius: 6)]),
       child: TextField(
         controller: widget.controller,
         obscureText: widget.obscureText,
         focusNode: _focusNode,
-        cursorColor: Colors.black45,
+        cursorColor: HexColor('#7F7FDA'),
         style: const TextStyle(fontSize: 18, letterSpacing: 1),
         decoration: InputDecoration(
             hintText: widget.hintText,
@@ -59,50 +59,10 @@ class _InputFieldState extends State<InputField> {
             prefixIcon: Icon(
               widget.prefixIcon,
               size: 30,
-              color: Colors.black45,
+              color: HexColor('#8787D2'),
             ),
             border: InputBorder.none),
       ),
     );
   }
 }
-
-// class InputField extends StatefulWidget {
-//
-//
-//   @override
-//   State<StatefulWidget> createState() {}
-//
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-//       padding: const EdgeInsets.fromLTRB(6, 5, 10, 5),
-//       decoration: BoxDecoration(
-//           color: const Color.fromRGBO(235, 231, 252, 1),
-//           borderRadius: BorderRadius.circular(50),
-//           boxShadow: !(focusNode != null && focusNode!.hasFocus)
-//               ? null
-//               : [const BoxShadow(color: Colors.white10, blurRadius: 5)]),
-//       child: TextField(
-//         controller: controller,
-//         obscureText: obscureText,
-//         focusNode: focusNode,
-//         cursorColor: Colors.black45,
-//         style: const TextStyle(fontSize: 18, letterSpacing: 1),
-//         decoration: InputDecoration(
-//             hintText: hintText,
-//             suffixIcon: suffixIcon,
-//             focusColor: Colors.deepPurpleAccent,
-//             prefixIcon: Icon(
-//               prefixIcon,
-//               size: 30,
-//               color: Colors.black45,
-//             ),
-//             border: InputBorder.none),
-//       ),
-//     );
-//   }
-//
-// }

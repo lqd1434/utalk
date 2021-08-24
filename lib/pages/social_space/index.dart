@@ -73,23 +73,24 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
               SliverAppBar(
                   expandedHeight: 210.0,
                   pinned: true,
+                  backgroundColor: HexColor('#7F7FDA'),
                   leading: IconButton(
                       splashColor: HexColor('#7F7FDA'),
                       onPressed: () {
                         Get.toNamed(Get.previousRoute);
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.chevron_left,
                         size: 35,
-                        color: HexColor('#7F7FDA'),
+                        color: Colors.white,
                       )),
                   actions: [
                     Padding(
                         padding: const EdgeInsets.only(right: 0),
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.notifications,
-                            color: HexColor('#7F7FDA'),
+                            color: Colors.white,
                           ),
                           onPressed: () {
                             Get.toNamed('');
@@ -98,10 +99,10 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
                     Padding(
                         padding: const EdgeInsets.only(right: 6),
                         child: IconButton(
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.add_circle_outline,
                             size: 26,
-                            color: HexColor('#7F7FDA'),
+                            color: Colors.white,
                           ),
                           onPressed: () {
                             Get.toNamed('');
@@ -119,7 +120,13 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
                   maxSize: 20,
                   fetchData: _fetchPage,
                   listViewFunc: (BuildContext context, int index) {
-                    return const RepaintBoundary(child: MoodTell());
+                    return RepaintBoundary(
+                        child: GestureDetector(
+                            behavior: HitTestBehavior.translucent,
+                            onTap: () {
+                              FocusScope.of(context).requestFocus(FocusNode());
+                            },
+                            child: MoodTell()));
                   },
                 )),
     );
@@ -129,7 +136,9 @@ class _SocialSpaceStatePage extends State<SocialSpace> {
 Widget getFlexibleSpaceBar(bool isShowTitle, double paddingTop) {
   return FlexibleSpaceBar(
       centerTitle: true,
-      title: isShowTitle ? const Text('好友动态', style: TextStyle(fontSize: 18)) : null,
+      title: isShowTitle
+          ? const Text('好友动态', style: TextStyle(fontSize: 18, color: Colors.white))
+          : null,
       background: SizedBox(
         child: Image.network(
           'http://47.103.211.10:9090/static/images/pexels-eberhard-grossgasteiger-1287145.jpg',

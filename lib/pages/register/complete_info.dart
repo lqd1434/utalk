@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/components/input_field.dart';
+import 'package:myapp/utils/hex_color.dart';
 
 typedef HandleRegister = void Function(String username, String password);
 
@@ -68,8 +69,8 @@ class _CompleteInfoState extends State<CompleteInfo> {
               height: 60,
               alignment: Alignment.center,
               margin: const EdgeInsets.fromLTRB(20, 40, 20, 0),
-              decoration:
-                  BoxDecoration(color: Colors.deepPurple, borderRadius: BorderRadius.circular(50)),
+              decoration: BoxDecoration(
+                  color: HexColor('#7F7FDA'), borderRadius: BorderRadius.circular(50)),
               child: const Text(
                 '注册',
                 style: TextStyle(color: Colors.white, fontSize: 20),

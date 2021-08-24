@@ -29,13 +29,16 @@ class Header extends StatelessWidget {
           height: 80,
           alignment: Alignment.center,
           margin: const EdgeInsets.only(bottom: 10),
-          child: RadiusImage(
-            widthAndHeight: 70,
-            radius: 35,
-            boxShadow: [
-              BoxShadow(color: HexColor('#ADB1F0'), blurRadius: 20, offset: const Offset(0, 10))
-            ],
-            image: const NetworkImage('http://47.103.211.10:9090/static/icons/2.jpg'),
+          child: Hero(
+            tag: 'hero',
+            child: RadiusImage(
+              widthAndHeight: 70,
+              radius: 35,
+              boxShadow: [
+                BoxShadow(color: HexColor('#ADB1F0'), blurRadius: 20, offset: const Offset(0, 10))
+              ],
+              image: const NetworkImage('http://47.103.211.10:9090/static/icons/1.jpg'),
+            ),
           ),
         )
       ],

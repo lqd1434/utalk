@@ -190,13 +190,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
-  flare_flutter:
-    dependency: transitive
-    description:
-      name: flare_flutter
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -698,15 +691,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
-  slimy_card:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: ba378bd5576e0aa704b37a3c2c0a316718e1debd
-      url: "git://github.com/imejiasoft/SlimyCard-Animated-Flutter-Package.git"
-    source: git
-    version: "1.0.4"
   sliver_tools:
     dependency: transitive
     description:

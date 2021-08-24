@@ -9,8 +9,8 @@ import 'package:myapp/pages/draw_item/couple_space/loading.dart';
 import 'package:myapp/pages/home/HomePage.dart';
 import 'package:myapp/pages/meet_you/index.dart';
 import 'package:myapp/pages/mine/happy_everyday.dart';
-import 'package:myapp/pages/personal_page/gallery.dart';
 import 'package:myapp/pages/personal_page/index.dart';
+import 'package:myapp/pages/personal_page/personal_page_items/gallery.dart';
 import 'package:myapp/pages/register/register.dart';
 import 'package:myapp/pages/setting/index.dart';
 import 'package:myapp/pages/social_space/index.dart';
@@ -34,8 +34,8 @@ List<GetPage> routes = [
   GetPage(name: '/happy', page: () => const HappYEveryDay(), transition: Transition.fade),
   GetPage(name: '/meetyou', page: () => const RadarPage(), transition: Transition.fadeIn),
   GetPage(name: '/working', page: () => const Working(), transition: Transition.fadeIn),
-  GetPage(name: '/test', page: () => const PersonalPage(), transition: Transition.fadeIn),
   GetPage(name: '/webview', page: () => const MyWebVie(), transition: Transition.fadeIn),
   GetPage(
       name: '/chatSetting', page: () => const ChatSetting(), transition: Transition.rightToLeft),
+  GetPage(name: '/test', page: () => const PersonalPage(), transition: Transition.fadeIn),
 ];

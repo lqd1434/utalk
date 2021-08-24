@@ -12,7 +12,7 @@ class _MyWebVieState extends State<MyWebVie> {
   @override
   Widget build(BuildContext context) {
     return WebViewPage(
-      title: 'hello',
+      title: Text('百度一下'),
       url: 'http://47.103.211.10:9090/static/hello.html',
       isLocalUrl: false,
     );

@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/utils/event_bus_event.dart';
+import 'package:myapp/utils/event_manage.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:myapp/webView/webview_utils.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:rive/rive.dart';
 import 'package:webview_flutter/webview_flutter.dart';
@@ -34,26 +38,41 @@ class WebViewPage extends StatefulWidget {
 class _WebViewPage extends State<WebViewPage> {
   Logger logger = Logger();
   double percent = 0;
+  double appBarHeight = 45;
+  final GetxState getX = Get.find();
   final Completer<WebViewController> webViewController = Completer<WebViewController>();
-
-  JavascriptChannel jsBridge(BuildContext context) => JavascriptChannel(
-      name: 'jsbridge', // 与h5 端的一致 不然收不到消息
-      onMessageReceived: (JavascriptMessage message) async {
-        logger.w(json.decoder.convert(message.message)['name']);
-      });
+  late VoidCallback func;
 
   @override
   void initState() {
     super.initState();
     if (Platform.isAndroid) WebView.platform = SurfaceAndroidWebView();
+    EventManager.getInstance().eventBus!.on<DoubleEvent>().listen((event) {
+      setState(() {
+        appBarHeight = event.content;
+      });
+    });
+    func = call;
   }
+
+  void call() {
+    logger.i('11');
+  }
+
+  JavascriptChannel jsBridge(BuildContext context) => JavascriptChannel(
+      name: 'JsBridge', // 与h5 端的一致 不然收不到消息
+      onMessageReceived: (JavascriptMessage message) async {
+        WebviewUtils.handleMessage(webViewController, json.decoder.convert(message.message));
+        logger.w(json.decoder.convert(message.message));
+      });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBody: true,
+        extendBodyBehindAppBar: true,
         appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, 45),
+          preferredSize: Size(MediaQuery.of(context).size.width, appBarHeight),
           child: AppBar(
             elevation: 0,
             backgroundColor: Colors.transparent,
@@ -71,7 +90,16 @@ class _WebViewPage extends State<WebViewPage> {
                       width: 50,
                       height: 31,
                       child: TextButton(
-                        onPressed: () {},
+                        // onPressed: func,
+                        onPressed: () {
+                          // logger.w(EventsHandle.getEventByName('ping'));
+                          // webViewController.future.then((value) {
+                          //   //注意用不同的括号...
+                          //   value
+                          //       .evaluateJavascript("window.call.method('8')")
+                          //       .then((value) => {logger.e(json.decoder.convert(value))});
+                          // });
+                        },
                         style: _btnStyleLeft(),
                         child: Container(
                             padding: const EdgeInsets.only(right: 10, left: 10),
@@ -143,7 +171,6 @@ class _WebViewPage extends State<WebViewPage> {
                   javascriptMode: JavascriptMode.unrestricted,
                   javascriptChannels: <JavascriptChannel>{jsBridge(context)},
                   onWebViewCreated: (WebViewController controller) {
-                    logger.i('onWebViewCreated');
                     webViewController.complete(controller);
                     controller.clearCache();
                     setState(() {});
@@ -152,23 +179,22 @@ class _WebViewPage extends State<WebViewPage> {
                     } else {
                       controller.loadUrl(widget.url);
                     }
-                    controller.canGoBack().then((value) => logger.w(value.toString()));
-                    controller.canGoForward().then((value) => logger.w(value.toString()));
-                    controller.currentUrl().then((value) => logger.w(value));
+                    // controller.canGoBack().then((value) => logger.w(value.toString()));
+                    // controller.canGoForward().then((value) => logger.w(value.toString()));
+                    // controller.currentUrl().then((value) => logger.w(value));
                   },
                   onProgress: (int p) {
                     setState(() {
                       percent = p.toDouble();
                     });
                   },
-                  onPageStarted: (String value) {
-                    logger.i('onPageStarted');
-                  },
                   onPageFinished: (String value) {
                     logger.i('onPageFinished');
+                    getX.setWebView(webViewController);
                     webViewController.future.then((value) => {
                           value
-                            ..evaluateJavascript('document.title').then((title) => logger.w(title))
+                              .evaluateJavascript('document.title')
+                              .then((title) => logger.w(title))
                         });
                   },
                 ),
@@ -249,4 +275,10 @@ _btnStyleRight() {
       foregroundColor: MaterialStateProperty.resolveWith((state) {
         return Colors.black54;
       }));
+}
+
+class Test {
+  Test() {
+    print('11');
+  }
 }

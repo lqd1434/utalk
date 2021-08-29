@@ -1,9 +1,11 @@
 // ignore_for_file: file_names
 
+import 'dart:async';
+
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-import 'package:myapp/modules/user_info.dart';
 import 'package:myapp/response/User.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class GetxState extends GetxController {
   var count = 1.obs;
@@ -13,6 +15,7 @@ class GetxState extends GetxController {
   var isShowAppbar = true.obs;
   var userInfo = User().obs;
   var icon = ''.obs;
+  var webViewCtr = Rx<dynamic>(null);
 
   increment() => count++;
 
@@ -48,7 +51,15 @@ class GetxState extends GetxController {
     userInfo.value = user;
   }
 
-  clearUserInfo(UserInfo user) {
+  clearUserInfo() {
     userInfo.value = userInfo();
+  }
+
+  setWebView(Completer<WebViewController> controller) {
+    webViewCtr.value = controller;
+  }
+
+  clearWebView() {
+    webViewCtr.value = null;
   }
 }

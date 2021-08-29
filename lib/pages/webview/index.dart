@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/components/u_webview.dart';
 
-class MyWebVie extends StatefulWidget {
-  const MyWebVie({Key? key}) : super(key: key);
+class MyWebView extends StatefulWidget {
+  const MyWebView({Key? key}) : super(key: key);
 
   @override
-  _MyWebVieState createState() => _MyWebVieState();
+  _MyWebViewState createState() => _MyWebViewState();
 }
 
-class _MyWebVieState extends State<MyWebVie> {
+class _MyWebViewState extends State<MyWebView> {
   @override
   Widget build(BuildContext context) {
-    return WebViewPage(
+    return const WebViewPage(
       title: Text('百度一下'),
-      url: 'http://47.103.211.10:9090/static/hello.html',
+      url: 'http://47.103.211.10?eruda=true',
       isLocalUrl: false,
     );
   }

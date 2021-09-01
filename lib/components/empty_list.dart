@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports, library_prefixes
+
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/painting/gradient.dart' as Gra;

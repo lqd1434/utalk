@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:rive/rive.dart';
 
 class Test extends StatefulWidget {
   const Test({Key? key}) : super(key: key);
@@ -13,13 +14,30 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
   Logger logger = Logger();
+  late SMIInput<bool> _hoverInput;
+  late SMIInput<bool> _pressedInput;
+  late SMIInput<double> _numberInput;
+  Artboard? _artboard;
 
   @override
   void initState() {
+    rootBundle.load('static/flare/energy_bar.riv').then((bytes) {
+      final file = RiveFile.import(bytes);
+      final artboard = file.mainArtboard;
+      var controller = StateMachineController.fromArtboard(artboard, 'State Machine ');
+      logger.i(controller);
+      if (controller != null) {
+        artboard.addController(controller);
+        // _hoverInput = controller.findInput('Hover')!;
+        // _pressedInput = controller.findInput('Pressed')!;
+        _numberInput = controller.findInput('Energy')!;
+        setState(() {
+          _artboard = artboard;
+        });
+      }
+    });
+
     SystemChrome.setEnabledSystemUIOverlays([]);
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //     statusBarColor: Colors.white, statusBarIconBrightness: Brightness.light));
-    // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     animationController = AnimationController(vsync: this, duration: const Duration(seconds: 5))
       ..addStatusListener((status) {
         print(animation.value);
@@ -28,6 +46,26 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
         .chain(CurveTween(curve: Curves.easeInCirc))
         .animate(animationController);
     super.initState();
+  }
+
+  handleClick() async {
+    // PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    // logger.w(packageInfo.appName);
+    // logger.w(packageInfo.packageName);
+    // logger.w(packageInfo.version);
+    // logger.w(packageInfo.buildNumber);
+    // logger.w(packageInfo.buildSignature);
+    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    // logger.i(androidInfo);
+    // // logger.i(androidInfo.toMap());
+    // logger.i(Platform.operatingSystem);
+
+    // WebViewToast.showLoading(context);
+    // _hoverInput.value = true;
+    // _pressedInput.value = true;
+    _numberInput.value = _numberInput.value + 10;
+    // if (_artboard.c)
   }
 
   @override
@@ -39,8 +77,17 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
         color: Colors.white,
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: 80,
-          color: Colors.blue,
+          height: 800,
+          color: Colors.white,
+          child: TextButton(
+            onPressed: handleClick,
+            child: _artboard == null
+                ? const SizedBox()
+                : Rive(
+                    artboard: _artboard!,
+                    fit: BoxFit.contain,
+                  ),
+          ),
         ),
       ),
     );

@@ -30,7 +30,7 @@ Future<Function> useSocket(int userId) async {
     //获取在线用户列表
     socket.on('activeGroupUser', (data) {
       //保存到getx中
-      logger.i(data);
+      getX.addOnlineUser(data);
     });
 
     //私聊信息

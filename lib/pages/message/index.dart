@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -79,7 +81,7 @@ class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin
                     child: Stack(
                       children: [
                         Positioned(
-                          top: -240,
+                          top: -280,
                           child: WaveWidget(
                             config: CustomConfig(
                               gradients: [
@@ -97,7 +99,7 @@ class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin
                             waveAmplitude: 0,
                             size: Size(
                               MediaQuery.of(context).size.width,
-                              800,
+                              900,
                             ),
                           ),
                         ),

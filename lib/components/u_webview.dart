@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/pages/webview/webview_toast.dart';
 import 'package:myapp/utils/event_bus_event.dart';
 import 'package:myapp/utils/event_manage.dart';
 import 'package:myapp/utils/hex_color.dart';
@@ -41,7 +42,6 @@ class _WebViewPage extends State<WebViewPage> {
   double appBarHeight = 45;
   final GetxState getX = Get.find();
   final Completer<WebViewController> webViewController = Completer<WebViewController>();
-  late VoidCallback func;
 
   @override
   void initState() {
@@ -52,25 +52,22 @@ class _WebViewPage extends State<WebViewPage> {
         appBarHeight = event.content;
       });
     });
-    func = call;
-  }
-
-  void call() {
-    logger.i('11');
   }
 
   JavascriptChannel jsBridge(BuildContext context) => JavascriptChannel(
       name: 'JsBridge', // 与h5 端的一致 不然收不到消息
-      onMessageReceived: (JavascriptMessage message) async {
-        WebviewUtils.handleMessage(webViewController, json.decoder.convert(message.message));
-        logger.w(json.decoder.convert(message.message));
+      onMessageReceived: (JavascriptMessage message) {
+        logger.w(json.decoder.convert(message.message), '0000');
+
+        WebviewUtils.handleMessage(
+            context, webViewController, json.decoder.convert(message.message));
       });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBody: true,
-        extendBodyBehindAppBar: true,
+        extendBody: false,
+        extendBodyBehindAppBar: false,
         appBar: PreferredSize(
           preferredSize: Size(MediaQuery.of(context).size.width, appBarHeight),
           child: AppBar(
@@ -92,6 +89,7 @@ class _WebViewPage extends State<WebViewPage> {
                       child: TextButton(
                         // onPressed: func,
                         onPressed: () {
+                          WebViewToast.showLoading(context);
                           // logger.w(EventsHandle.getEventByName('ping'));
                           // webViewController.future.then((value) {
                           //   //注意用不同的括号...
@@ -120,7 +118,7 @@ class _WebViewPage extends State<WebViewPage> {
                       height: 31,
                       child: TextButton(
                         onPressed: () {
-                          Get.toNamed(Get.previousRoute);
+                          Get.toNamed('/home');
                         },
                         style: _btnStyleRight(),
                         child: Container(
@@ -171,17 +169,15 @@ class _WebViewPage extends State<WebViewPage> {
                   javascriptMode: JavascriptMode.unrestricted,
                   javascriptChannels: <JavascriptChannel>{jsBridge(context)},
                   onWebViewCreated: (WebViewController controller) {
-                    webViewController.complete(controller);
                     controller.clearCache();
-                    setState(() {});
+                    webViewController.complete(controller);
+                    getX.setWebView(webViewController);
+                    // setState(() {});
                     if (widget.isLocalUrl) {
                       _loadHtmlAssets(controller);
                     } else {
                       controller.loadUrl(widget.url);
                     }
-                    // controller.canGoBack().then((value) => logger.w(value.toString()));
-                    // controller.canGoForward().then((value) => logger.w(value.toString()));
-                    // controller.currentUrl().then((value) => logger.w(value));
                   },
                   onProgress: (int p) {
                     setState(() {
@@ -189,12 +185,10 @@ class _WebViewPage extends State<WebViewPage> {
                     });
                   },
                   onPageFinished: (String value) {
-                    logger.i('onPageFinished');
-                    getX.setWebView(webViewController);
                     webViewController.future.then((value) => {
                           value
                               .evaluateJavascript('document.title')
-                              .then((title) => logger.w(title))
+                              .then((title) => {logger.i(title)})
                         });
                   },
                 ),

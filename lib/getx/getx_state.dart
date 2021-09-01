@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:myapp/modules/online_user.dart';
 import 'package:myapp/response/User.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -16,6 +17,7 @@ class GetxState extends GetxController {
   var userInfo = User().obs;
   var icon = ''.obs;
   var webViewCtr = Rx<dynamic>(null);
+  var onlineUsers = <OnlineUser>[].obs;
 
   increment() => count++;
 
@@ -61,5 +63,16 @@ class GetxState extends GetxController {
 
   clearWebView() {
     webViewCtr.value = null;
+  }
+
+  addOnlineUser(dynamic data) {
+    final List<dynamic> users = data['data'];
+    var list = <OnlineUser>[];
+    for (var item in users) {
+      OnlineUser user = OnlineUser();
+      user.getFromMap(item);
+      list.add(user);
+    }
+    onlineUsers.value = list;
   }
 }

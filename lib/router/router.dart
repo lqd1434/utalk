@@ -6,7 +6,6 @@ import 'package:myapp/pages/auth/index.dart';
 import 'package:myapp/pages/chat/chat_operate.dart';
 import 'package:myapp/pages/chat/index.dart';
 import 'package:myapp/pages/draw_item/couple_space/index.dart';
-import 'package:myapp/pages/draw_item/couple_space/loading.dart';
 import 'package:myapp/pages/home/HomePage.dart';
 import 'package:myapp/pages/meet_you/index.dart';
 import 'package:myapp/pages/mine/happy_everyday.dart';
@@ -31,7 +30,6 @@ List<GetPage> routes = [
   GetPage(name: '/personalHome', page: () => const PersonalPage(), transition: Transition.fadeIn),
   GetPage(name: '/gallery', page: () => const Gallery(), transition: Transition.fadeIn),
   GetPage(name: '/coupleSpace', page: () => const CoupleSpace(), transition: Transition.fadeIn),
-  GetPage(name: '/rive', page: () => const Loading(), transition: Transition.fadeIn),
   GetPage(name: '/happy', page: () => const HappYEveryDay(), transition: Transition.fade),
   GetPage(name: '/meetyou', page: () => const RadarPage(), transition: Transition.fadeIn),
   GetPage(name: '/working', page: () => const Working(), transition: Transition.fadeIn),

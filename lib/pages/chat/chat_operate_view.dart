@@ -133,38 +133,6 @@ class _GridSettingState extends State<GridSetting> {
               ),
             ),
           ),
-          // Expanded(
-          //   child: Container(
-          //     margin: const EdgeInsets.only(right: 5, left: 10),
-          //     height: _squareHeight == 0 ? 60 : _squareHeight - 30,
-          //     decoration: BoxDecoration(
-          //       color: Colors.white,
-          //       borderRadius: BorderRadius.circular(20),
-          //       boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 2)],
-          //     ),
-          //     child: Column(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       crossAxisAlignment: CrossAxisAlignment.center,
-          //       children: [
-          //         Row(
-          //           mainAxisAlignment: MainAxisAlignment.center,
-          //           crossAxisAlignment: CrossAxisAlignment.end,
-          //           children: const [
-          //             Text(
-          //               '22',
-          //               style: TextStyle(fontSize: 24),
-          //             ),
-          //             Text(
-          //               '天',
-          //               style: TextStyle(fontSize: 14, color: Colors.grey),
-          //             ),
-          //           ],
-          //         ),
-          //         const Text('成为好友')
-          //       ],
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );

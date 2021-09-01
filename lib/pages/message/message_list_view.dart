@@ -1,9 +1,12 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:myapp/components/list_tile.dart';
 import 'package:myapp/components/rive_loading.dart';
 import 'package:myapp/components/swiper_action.dart';
+import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/utils/hex_color.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -15,6 +18,7 @@ class MessageListView extends StatefulWidget {
 }
 
 class _MessageListViewState extends State<MessageListView> with TickerProviderStateMixin {
+  final GetxState gexState = Get.find();
   final RefreshController _refreshController = RefreshController(initialRefresh: false);
   List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
@@ -40,6 +44,9 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
 
   @override
   void initState() {
+    for (var element in gexState.onlineUsers.value) {
+      print(element.name);
+    }
     super.initState();
     animationController =
         AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
@@ -70,7 +77,7 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
         onLoading: _onLoading,
         child: ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: 30,
+            itemCount: gexState.onlineUsers.value.length,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             itemBuilder: (BuildContext context, int index) {
               return Material(
@@ -95,10 +102,10 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
                                     right: 10,
                                   ),
                                   child: UserTile(
-                                    image: const NetworkImage(
-                                      'http://47.103.211.10:9090/static/images/avatar.png',
+                                    image: NetworkImage(
+                                      'http://47.103.211.10:9090/static/icons/${gexState.onlineUsers.value[index].icon}',
                                     ),
-                                    title: Text('sky',
+                                    title: Text(gexState.onlineUsers.value[index].name,
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: HexColor('#653CB3'),

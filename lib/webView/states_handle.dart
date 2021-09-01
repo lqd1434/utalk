@@ -29,13 +29,9 @@ class StatesHandle {
   }
 
   static _userInfo(bool data) {
-    double height = 0;
-    if (data) {
-      height = 0;
-    } else {
-      height = 45;
-    }
-    EventManager.getInstance().eventBus!.fire(DoubleEvent(height));
+    final data = getX.userInfo.value;
+    getX.webViewCtr.value.future
+        .then((value) => {value.evaluateJavascript("window.dispatchMyEvent('$data')")});
   }
 
   static _network(dynamic data) {

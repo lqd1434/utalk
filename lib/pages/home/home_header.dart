@@ -1,3 +1,5 @@
+// ignore_for_file: implementation_imports, library_prefixes
+
 import 'dart:io';
 import 'dart:typed_data';
 

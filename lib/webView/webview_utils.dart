@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:logger/logger.dart';
@@ -16,20 +18,26 @@ class WebviewUtils {
   static Logger logger = Logger();
   static final GetxState getX = Get.find();
 
-  static handleEvent(Completer<WebViewController> webViewController, ResFromJs resFromJs) {
-    EventsHandle.getEventByName(resFromJs.name!)(resFromJs.data);
+  static handleEvent(
+      BuildContext context, Completer<WebViewController> webViewController, Map message) {
+    if (message['name'] == "fullScreen") {
+      EventsHandle.getEventByName('fullScreen')(context, json.decode(message['data']));
+    } else {
+      var resFromJs = ResFromJs.fromJson(message);
+      EventsHandle.getEventByName(resFromJs.name!)(context, resFromJs.data);
+    }
   }
 
   static handleState(Completer<WebViewController> webViewController, ResFromJs resFromJs) {
     StatesHandle.getStateByName(resFromJs.name!);
   }
 
-  static handleMessage(Completer<WebViewController> webViewController, Map message) {
-    var res = ResFromJs.fromJson(message);
-    logger.i(res.name);
-    if (res.type == 'event') {
-      handleEvent(webViewController, res);
-    } else if (res.type == 'state') {
+  static handleMessage(
+      BuildContext context, Completer<WebViewController> webViewController, Map message) {
+    if (message['type'] == 'event') {
+      handleEvent(context, webViewController, message);
+    } else if (message['type'] == 'state') {
+      var res = ResFromJs.fromJson(message);
       handleState(webViewController, res);
       // handleState(webViewController, message);
     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myapp/utils/hex_color.dart';
 
 class DrawMenus extends StatelessWidget {
@@ -56,22 +57,26 @@ class DrawMenus extends StatelessWidget {
           padding: const EdgeInsets.only(left: 35),
           child: Column(
             children: [
-              Container(
-                height: 60,
-                margin: const EdgeInsets.only(bottom: 30),
-                width: MediaQuery.of(context).size.width - 89,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-                ),
-                padding: const EdgeInsets.only(left: 20),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '情侣空间',
-                  style: TextStyle(fontSize: 22, color: HexColor('#E12209')),
-                ),
-              ),
+              GestureDetector(
+                  onTap: () {
+                    Get.toNamed('/coupleSpace');
+                  },
+                  child: Container(
+                    height: 60,
+                    margin: const EdgeInsets.only(bottom: 30),
+                    width: MediaQuery.of(context).size.width - 89,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                    ),
+                    padding: const EdgeInsets.only(left: 20),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '情侣空间',
+                      style: TextStyle(fontSize: 22, color: HexColor('#E12209')),
+                    ),
+                  )),
               Container(
                 height: 60,
                 margin: const EdgeInsets.only(bottom: 30),

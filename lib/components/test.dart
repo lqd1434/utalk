@@ -1,6 +1,9 @@
+import 'package:dio/src/response.dart' as DioResponse;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:myapp/modules/chat.dart';
+import 'package:myapp/request/my_dio.dart';
 import 'package:rive/rive.dart';
 
 class Test extends StatefulWidget {
@@ -25,7 +28,6 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
       final file = RiveFile.import(bytes);
       final artboard = file.mainArtboard;
       var controller = StateMachineController.fromArtboard(artboard, 'State Machine ');
-      logger.i(controller);
       if (controller != null) {
         artboard.addController(controller);
         // _hoverInput = controller.findInput('Hover')!;
@@ -48,6 +50,8 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
     super.initState();
   }
 
+  List<ChatHistory> list = [];
+
   handleClick() async {
     // PackageInfo packageInfo = await PackageInfo.fromPlatform();
     // logger.w(packageInfo.appName);
@@ -65,7 +69,18 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
     // _hoverInput.value = true;
     // _pressedInput.value = true;
     _numberInput.value = _numberInput.value + 10;
-    // if (_artboard.c)
+
+    final DioResponse.Response<List> res = await DioManege.getInstance().dio!.get(
+        'http://47.103.211.10:8080/msg/limit',
+        queryParameters: {'count': 2, 'lastId': list.length, 'from': 1, 'to': 2});
+
+    for (var element in res.data!) {
+      list.add(ChatHistory.fromJson(element));
+    }
+    logger.i(list.length);
+    for (var element in list) {
+      logger.w(element.id);
+    }
   }
 
   @override

@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
@@ -18,8 +17,19 @@ class BottomBar extends StatefulWidget {
   State<StatefulWidget> createState() => _BottomBarStatePage();
 }
 
-class _BottomBarStatePage extends State<BottomBar> {
+class _BottomBarStatePage extends State<BottomBar> with SingleTickerProviderStateMixin {
   bool isShow = false;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(milliseconds: 800));
+    _animation = Tween<double>(begin: 0, end: 1.0)
+        .animate(CurvedAnimation(parent: _animationController, curve: Curves.fastOutSlowIn));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,15 @@ class _BottomBarStatePage extends State<BottomBar> {
         Visibility(
             visible: isShow,
             maintainSize: false,
-            child: SlideInUp(
+            child: AnimatedBuilder(
+              animation: _animation,
+              builder: (BuildContext context, Widget? child) {
+                return FadeTransition(
+                    opacity: _animation,
+                    child: Transform(
+                        transform: Matrix4.translationValues(0, 60 * (1.0 - _animation.value), 0),
+                        child: child));
+              },
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 2),
                 height: 150,
@@ -86,8 +104,11 @@ class _BottomBarStatePage extends State<BottomBar> {
                           padding: EdgeInsets.zero,
                           icon: Icon(Icons.cancel, size: 40, color: HexColor('#5757CF')),
                           onPressed: () {
-                            setState(() {
-                              isShow = false;
+                            _animationController.reverse();
+                            Future.delayed(const Duration(milliseconds: 800), () {
+                              setState(() {
+                                isShow = false;
+                              });
                             });
                           },
                         ))
@@ -117,9 +138,19 @@ class _BottomBarStatePage extends State<BottomBar> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        setState(() {
-                          isShow = !isShow;
-                        });
+                        if (isShow) {
+                          _animationController.reverse();
+                          Future.delayed(const Duration(milliseconds: 800), () {
+                            setState(() {
+                              isShow = false;
+                            });
+                          });
+                        } else {
+                          setState(() {
+                            isShow = true;
+                          });
+                          _animationController.forward();
+                        }
                       },
                       child: Container(
                         height: 45,

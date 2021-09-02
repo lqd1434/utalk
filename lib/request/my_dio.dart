@@ -25,7 +25,7 @@ class DioManege {
       print('发起请求');
       _.next(requestOptions);
     }, onResponse: (Response<dynamic> response, _) {
-      print('发起请求');
+      print('收到响应');
       _.next(response);
     }, onError: (DioError error, _) {
       print('出现错误--${error.toString()}');

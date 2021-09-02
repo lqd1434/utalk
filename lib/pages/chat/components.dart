@@ -1,7 +1,14 @@
 import 'package:bubble/bubble.dart';
+import 'package:dio/src/response.dart' as DioResponse;
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
+import 'package:myapp/components/rive_loading.dart';
+import 'package:myapp/modules/chat.dart';
+import 'package:myapp/request/my_dio.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class ChatBubbleLeft extends StatelessWidget {
   final String text;
@@ -11,6 +18,7 @@ class ChatBubbleLeft extends StatelessWidget {
   final Alignment? alignment;
   final ImageProvider img;
   final double? topMargin;
+  final double? bottomMargin;
 
   const ChatBubbleLeft({
     Key? key,
@@ -21,12 +29,13 @@ class ChatBubbleLeft extends StatelessWidget {
     this.color = Colors.blue,
     required this.img,
     this.topMargin = 0,
+    this.bottomMargin = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: topMargin!),
+      padding: EdgeInsets.only(top: topMargin!, bottom: bottomMargin!),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -44,7 +53,7 @@ class ChatBubbleLeft extends StatelessWidget {
             width: 200,
             child: Bubble(
               color: bgColor,
-              margin: const BubbleEdges.only(top: 10),
+              margin: BubbleEdges.fromLTRB(0, topMargin, 0, bottomMargin),
               padding: const BubbleEdges.all(12),
               alignment: alignment,
               nip: nip,
@@ -71,7 +80,8 @@ class ChatBubbleRight extends StatelessWidget {
   final BubbleNip? nip;
   final Alignment? alignment;
   final ImageProvider img;
-  final double? bottomPadding;
+  final double? bottomMargin;
+  final double? topMargin;
 
   const ChatBubbleRight({
     Key? key,
@@ -81,40 +91,44 @@ class ChatBubbleRight extends StatelessWidget {
     this.bgColor = Colors.white,
     this.color = Colors.blue,
     required this.img,
-    this.bottomPadding = 0,
+    this.bottomMargin = 0,
+    this.topMargin = 10,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const Expanded(child: SizedBox()),
-        SizedBox(
-          width: 200,
-          child: Bubble(
-            color: bgColor,
-            margin: BubbleEdges.fromLTRB(0, 10, 0, bottomPadding),
-            padding: const BubbleEdges.all(12),
-            alignment: alignment,
-            nip: nip,
-            nipWidth: 12,
-            child: Text(text, style: TextStyle(color: color), textAlign: TextAlign.left),
-            nipRadius: 4,
-            elevation: 1,
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, topMargin!, 0, bottomMargin!),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Expanded(child: SizedBox()),
+          SizedBox(
+            width: 200,
+            child: Bubble(
+              color: bgColor,
+              margin: BubbleEdges.fromLTRB(0, topMargin, 0, bottomMargin),
+              padding: const BubbleEdges.all(12),
+              alignment: alignment,
+              nip: nip,
+              nipWidth: 12,
+              child: Text(text, style: TextStyle(color: color), textAlign: TextAlign.left),
+              nipRadius: 4,
+              elevation: 1,
+            ),
           ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(right: 2),
-          margin: const EdgeInsets.only(left: 2),
-          child: RadiusImage(
-              radius: 8,
-              widthAndHeight: 50,
-              image: img,
-              boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1)]),
-        ),
-      ],
+          Container(
+            padding: const EdgeInsets.only(right: 2),
+            margin: const EdgeInsets.only(left: 2),
+            child: RadiusImage(
+                radius: 8,
+                widthAndHeight: 50,
+                image: img,
+                boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 1)]),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -127,51 +141,102 @@ class ChatList extends StatefulWidget {
 }
 
 class _ChatListStatePage extends State<ChatList> {
+  final RefreshController _refreshController = RefreshController(initialRefresh: false);
+  List<ChatHistory> chatList = [];
+
+  @override
+  void initState() {
+    _loadMore();
+    super.initState();
+  }
+
+  void _onRefresh() async {
+    final bool result = await _loadMore();
+    if (result) {
+      _refreshController.headerMode!.value = RefreshStatus.completed;
+    } else {
+      _refreshController.headerMode!.value = RefreshStatus.failed;
+    }
+  }
+
+  Future<bool> _loadMore() async {
+    try {
+      final DioResponse.Response<List> res = await DioManege.getInstance().dio!.get(
+          'http://47.103.211.10:8080/msg/limit',
+          queryParameters: {'count': 2, 'lastId': chatList.length, 'from': 1, 'to': 2});
+      for (var element in res.data!) {
+        chatList.add(ChatHistory.fromJson(element));
+      }
+      setState(() {});
+      return true;
+    } catch (e) {
+      Logger().e(e);
+      return false;
+    }
+  }
+
+  Widget _loadText(String text, Color color) {
+    return Text(
+      text,
+      style: TextStyle(color: color, fontSize: 18),
+    );
+  }
+
+  Widget _loadBuilder(BuildContext context, RefreshStatus? mode) {
+    if (mode == RefreshStatus.refreshing) {
+      return const RiveLoading();
+    } else {
+      Widget body;
+      if (mode == RefreshStatus.failed) {
+        body = _loadText('加载失败', Colors.red);
+      } else if (mode == RefreshStatus.completed) {
+        body = _loadText("✅加载完成", Colors.green);
+      } else if (mode == RefreshStatus.idle) {
+        body = _loadText('下拉加载更多', Colors.grey);
+      } else {
+        body = _loadText('释放加载更多', Colors.blue);
+      }
+      return Container(height: 100, alignment: Alignment.center, child: body);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (BuildContext context, int index) {
-        if (index % 2 == 0) {
-          if (index == 0) {
-            return ChatBubbleLeft(
-              text: '开心',
-              color: HexColor('#B2B6EB'),
-              nip: BubbleNip.leftTop,
-              topMargin: 10,
-              alignment: Alignment.centerLeft,
-              img: const NetworkImage('http://47.103.211.10:9090/static/icons/1.jpg'),
-            );
-          }
-          return ChatBubbleLeft(
-            text: '开心',
-            color: HexColor('#B2B6EB'),
-            nip: BubbleNip.leftTop,
-            alignment: Alignment.centerLeft,
-            img: const NetworkImage('http://47.103.211.10:9090/static/icons/1.jpg'),
-          );
-        } else {
-          if (index == 19) {
-            return ChatBubbleRight(
-              text: '今天真的好开心',
-              color: Colors.white,
-              bgColor: HexColor('#898FE1'),
-              nip: BubbleNip.rightTop,
-              alignment: Alignment.centerRight,
-              bottomPadding: 15,
-              img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
-            );
-          }
-          return ChatBubbleRight(
-            text: '今天真的好开心',
-            color: Colors.white,
-            nip: BubbleNip.rightTop,
-            bgColor: HexColor('#898FE1'),
-            alignment: Alignment.centerRight,
-            img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
-          );
-        }
-      },
-      itemCount: 20,
-    );
+    return SmartRefresher(
+        enablePullDown: true,
+        enablePullUp: false,
+        header: CustomHeader(refreshStyle: RefreshStyle.Behind, builder: _loadBuilder),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        child: chatList.isEmpty
+            ? const SizedBox()
+            : ListView.builder(
+                itemBuilder: (BuildContext context, int index) {
+                  if (chatList[index].from == '2') {
+                    return ChatBubbleLeft(
+                      text: chatList[index].content,
+                      color: HexColor('#B2B6EB'),
+                      nip: BubbleNip.leftTop,
+                      bottomMargin: 15,
+                      topMargin: 10,
+                      alignment: Alignment.centerLeft,
+                      img: NetworkImage(
+                          'http://47.103.211.10:9090/static/icons/${Get.arguments.icon}'),
+                    );
+                  } else {
+                    return ChatBubbleRight(
+                      text: chatList[index].content,
+                      color: Colors.white,
+                      bgColor: HexColor('#898FE1'),
+                      nip: BubbleNip.rightTop,
+                      alignment: Alignment.centerRight,
+                      bottomMargin: 15,
+                      topMargin: 10,
+                      img: const NetworkImage('http://47.103.211.10:9090/static/images/avatar.png'),
+                    );
+                  }
+                },
+                itemCount: chatList.length,
+              ));
   }
 }

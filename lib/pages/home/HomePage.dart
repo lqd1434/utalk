@@ -91,8 +91,8 @@ class _MyMainPageState extends State<MainPage>
 
   @override
   void dispose() {
-    super.dispose();
     animationController?.dispose();
+    super.dispose();
   }
 
   @override

@@ -13,11 +13,11 @@
 //   DBProvider._internal();
 //
 //   Future<Database> get db async {
-//     if (_db != null) {
-//       return _db;
+//     if (db != null) {
+//       return db;
 //     }
-//     _db = await _initDB();
-//     return _db;
+//     db = await _initDB();
+//     return db;
 //   }
 //
 //   Future<Database> _initDB() async {

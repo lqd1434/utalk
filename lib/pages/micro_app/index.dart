@@ -19,16 +19,16 @@ class MicroAppPlayGround extends StatefulWidget {
 }
 
 class MicroAppPlayGroundStatePage extends State<MicroAppPlayGround> with TickerProviderStateMixin {
-  late Animation<double>? topAnimation;
+  // late Animation<double>? topAnimation;
 
   final GetxState gexState = Get.find();
 
   @override
   void initState() {
     super.initState();
-    topAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-        parent: widget.animationController!,
-        curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+    // topAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+    //     parent: widget.animationController!,
+    //     curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
 
     WidgetsBinding.instance!.addPostFrameCallback((_) => gexState.changeIsShowAppBar(false));
   }

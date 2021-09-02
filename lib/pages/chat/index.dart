@@ -21,7 +21,7 @@ class ChatWin extends StatefulWidget {
 
 class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
   final TextEditingController contentController = TextEditingController();
-  double bottomPadding = 0;
+  bool _keyboard = false;
   Logger logger = Logger();
   final GetxState getX = Get.find();
   Function conn = () => {};
@@ -35,15 +35,9 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
     });
     var keyboardVisibilityController = KeyboardVisibilityController();
     keyboardVisibilityController.onChange.listen((bool visible) {
-      if (visible) {
-        setState(() {
-          bottomPadding = 280;
-        });
-      } else {
-        setState(() {
-          bottomPadding = 0;
-        });
-      }
+      setState(() {
+        _keyboard = visible;
+      });
     });
   }
 
@@ -103,9 +97,9 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
             child: AnimatedTextKit(
               repeatForever: true,
               animatedTexts: [
-                RotateAnimatedText('AWESOME'),
-                RotateAnimatedText('OPTIMISTIC'),
-                RotateAnimatedText('DIFFERENT'),
+                RotateAnimatedText((Get.arguments.name as String).toUpperCase()),
+                RotateAnimatedText((Get.arguments.name as String).toUpperCase()),
+                RotateAnimatedText((Get.arguments.name as String).toUpperCase()),
               ],
               onTap: () {
                 print("Tap Event");
@@ -118,7 +112,7 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
               margin: const EdgeInsets.only(right: 10),
               child: IconButton(
                   onPressed: () {
-                    Get.toNamed("/chatSetting");
+                    Get.toNamed("/chatSetting", arguments: Get.arguments);
                   },
                   icon: Icon(Icons.face, size: 27, color: HexColor('#FFFFFF'))),
             )
@@ -129,7 +123,7 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
             behavior: HitTestBehavior.translucent,
             onTap: () {
               setState(() {
-                bottomPadding = 0;
+                _keyboard = false;
               });
               FocusScope.of(context).requestFocus(FocusNode());
             },
@@ -140,7 +134,7 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
           ),
         ),
         bottomNavigationBar: ChatBottom(
-          bottomPadding: bottomPadding,
+          bottomPadding: !_keyboard ? 0 : MediaQuery.of(context).viewInsets.bottom,
           controller: contentController,
         ));
   }

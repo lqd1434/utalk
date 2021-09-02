@@ -44,9 +44,6 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
 
   @override
   void initState() {
-    for (var element in gexState.onlineUsers.value) {
-      print(element.name);
-    }
     super.initState();
     animationController =
         AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
@@ -60,6 +57,7 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    final onlineUsers = gexState.onlineUsers.value;
     return Container(
       padding: const EdgeInsets.only(top: 15, bottom: 73),
       child: AnimationLimiter(
@@ -77,7 +75,7 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
         onLoading: _onLoading,
         child: ListView.builder(
             padding: EdgeInsets.zero,
-            itemCount: gexState.onlineUsers.value.length,
+            itemCount: onlineUsers.length,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             itemBuilder: (BuildContext context, int index) {
               return Material(
@@ -85,7 +83,7 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
                 child: Ink(
                   child: InkWell(
                     onTap: () {
-                      Get.toNamed('/chat');
+                      Get.toNamed('/chat', arguments: onlineUsers[index]);
                     },
                     splashColor: HexColor('#7F7FDA'),
                     child: AnimationConfiguration.staggeredList(
@@ -103,9 +101,9 @@ class _MessageListViewState extends State<MessageListView> with TickerProviderSt
                                   ),
                                   child: UserTile(
                                     image: NetworkImage(
-                                      'http://47.103.211.10:9090/static/icons/${gexState.onlineUsers.value[index].icon}',
+                                      'http://47.103.211.10:9090/static/icons/${onlineUsers[index].icon}',
                                     ),
-                                    title: Text(gexState.onlineUsers.value[index].name,
+                                    title: Text(onlineUsers[index].name,
                                         style: TextStyle(
                                             fontSize: 18,
                                             color: HexColor('#653CB3'),

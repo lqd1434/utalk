@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:myapp/modules/message.dart';
 import 'package:myapp/socket/index.dart';
 import 'package:myapp/utils/hex_color.dart';
+import 'package:myapp/utils/save_login_data.dart';
 
 class ChatBottom extends StatefulWidget {
   final double bottomPadding;
@@ -14,8 +16,9 @@ class ChatBottom extends StatefulWidget {
 }
 
 class ChatBottomStatePage extends State<ChatBottom> {
-  void handleSend() {
-    final MessageBody message = MessageBody('1', '2', 'hello');
+  void handleSend() async {
+    final String id = await getSharedData('id');
+    final MessageBody message = MessageBody(id, Get.arguments.id.toString(), 'hello');
     sendMessage(message);
   }
 
@@ -24,9 +27,11 @@ class ChatBottomStatePage extends State<ChatBottom> {
     return Container(
         height: 95,
         width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.only(bottom: widget.bottomPadding),
         decoration: BoxDecoration(
             color: HexColor('#FFFFFF'),
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(30), topRight: Radius.circular(30)),
             boxShadow: const [BoxShadow(color: Colors.grey, blurRadius: 3)]),
         padding: const EdgeInsets.fromLTRB(10, 15, 0, 0),
         child: Column(

@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         child: GetMaterialApp(
             smartManagement: SmartManagement.keepFactory,
             defaultGlobalState: true,
-            title: 'Flutter Demo',
+            title: 'Utalk',
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
             debugShowCheckedModeBanner: false,

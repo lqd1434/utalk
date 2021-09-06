@@ -161,6 +161,7 @@ class _WebViewPage extends State<WebViewPage> {
                 visible: percent == 100,
                 maintainState: true,
                 child: WebView(
+                  debuggingEnabled: true,
                   initialUrl: widget.isLocalUrl
                       ? Uri.dataFromString(widget.url,
                               mimeType: 'text/html', encoding: Encoding.getByName('utf-8'))

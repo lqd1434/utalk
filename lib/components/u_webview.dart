@@ -292,9 +292,3 @@ _btnStyleRight() {
         return Colors.black54;
       }));
 }
-
-class Test {
-  Test() {
-    print('11');
-  }
-}

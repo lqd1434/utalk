@@ -97,9 +97,9 @@ class ChatWinStatePage extends State<ChatWin> with WidgetsBindingObserver {
             child: AnimatedTextKit(
               repeatForever: true,
               animatedTexts: [
-                RotateAnimatedText((Get.arguments.name as String).toUpperCase()),
-                RotateAnimatedText((Get.arguments.name as String).toUpperCase()),
-                RotateAnimatedText((Get.arguments.name as String).toUpperCase()),
+                RotateAnimatedText(("sky").toUpperCase()),
+                RotateAnimatedText(("sky").toUpperCase()),
+                RotateAnimatedText(("sky").toUpperCase()),
               ],
               onTap: () {
                 print("Tap Event");

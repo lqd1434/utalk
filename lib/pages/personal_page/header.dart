@@ -6,6 +6,10 @@ import 'package:myapp/utils/hex_color.dart';
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
 
+  void _back() {
+    Get.toNamed(Get.previousRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -16,9 +20,7 @@ class Header extends StatelessWidget {
           margin: const EdgeInsets.only(left: 20, top: 20),
           decoration: const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
           child: IconButton(
-              onPressed: () {
-                Get.toNamed(Get.previousRoute);
-              },
+              onPressed: _back,
               icon: const Icon(
                 Icons.chevron_left,
                 size: 30,

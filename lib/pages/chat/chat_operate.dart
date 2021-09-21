@@ -49,7 +49,7 @@ class _ChatSettingStatePage extends State<ChatSetting> {
         leading: IconButton(
           icon: const Icon(Icons.chevron_left, size: 35, color: Colors.white),
           onPressed: () {
-            Get.offNamed(Get.previousRoute);
+            Get.offNamed('/chat');
           },
         ),
         title: const Text('聊天设置', style: TextStyle(color: Colors.white)),

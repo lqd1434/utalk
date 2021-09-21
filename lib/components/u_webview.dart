@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:myapp/components/webview_bottom_sheet.dart';
 import 'package:myapp/getx/getx_state.dart';
-import 'package:myapp/pages/webview/webview_toast.dart';
 import 'package:myapp/utils/event_bus_event.dart';
 import 'package:myapp/utils/event_manage.dart';
 import 'package:myapp/utils/hex_color.dart';
@@ -63,85 +63,106 @@ class _WebViewPage extends State<WebViewPage> {
             context, webViewController, json.decoder.convert(message.message));
       });
 
+  void fullscreen() {
+    setState(() {
+      appBarHeight = 0;
+    });
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    Get.back();
+  }
+
+  Future<bool> _willPopScope() async {
+    if (appBarHeight == 0) {
+      setState(() {
+        appBarHeight = 45;
+      });
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        extendBody: false,
-        extendBodyBehindAppBar: false,
-        appBar: PreferredSize(
-          preferredSize: Size(MediaQuery.of(context).size.width, appBarHeight),
-          child: AppBar(
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-            automaticallyImplyLeading: false,
-            title: widget.title,
-            leading: widget.leading,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: 50,
-                      height: 31,
-                      child: TextButton(
-                        // onPressed: func,
-                        onPressed: () {
-                          WebViewToast.showLoading(context);
-                          // logger.w(EventsHandle.getEventByName('ping'));
-                          // webViewController.future.then((value) {
-                          //   //注意用不同的括号...
-                          //   value
-                          //       .evaluateJavascript("window.call.method('8')")
-                          //       .then((value) => {logger.e(json.decoder.convert(value))});
-                          // });
-                        },
-                        style: _btnStyleLeft(),
-                        child: Container(
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black45, width: 0.3),
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(30),
-                                  topLeft: Radius.circular(30),
-                                )),
-                            child: Icon(
-                              widget.leftIcon ?? Icons.more_horiz,
-                              size: 28,
-                            )),
+    return WillPopScope(
+      onWillPop: _willPopScope,
+      child: Scaffold(
+          extendBody: false,
+          extendBodyBehindAppBar: false,
+          appBar: PreferredSize(
+            preferredSize: Size(MediaQuery.of(context).size.width, appBarHeight),
+            child: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+              automaticallyImplyLeading: false,
+              title: widget.title,
+              leading: widget.leading,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: 50,
+                        height: 31,
+                        child: TextButton(
+                          onPressed: () {
+                            Get.bottomSheet(webviewSheet(fullscreen));
+                          },
+                          style: _btnStyleLeft(),
+                          child: Container(
+                              padding: const EdgeInsets.only(right: 10, left: 10),
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black45, width: 0.3),
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(30),
+                                    topLeft: Radius.circular(30),
+                                  )),
+                              child: Icon(
+                                widget.leftIcon ?? Icons.more_horiz,
+                                size: 28,
+                              )),
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 50,
-                      height: 31,
-                      child: TextButton(
-                        onPressed: () {
-                          Get.toNamed('/home');
-                        },
-                        style: _btnStyleRight(),
-                        child: Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black45, width: 0.3),
-                                borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(30),
-                                  topRight: Radius.circular(30),
-                                )),
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: const Icon(
-                              Icons.power_settings_new,
-                              size: 28,
-                            )),
+                      SizedBox(
+                        width: 50,
+                        height: 31,
+                        child: TextButton(
+                          onPressed: () {
+                            Get.toNamed('/home');
+                          },
+                          style: _btnStyleRight(),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black45, width: 0.3),
+                                  borderRadius: const BorderRadius.only(
+                                    bottomRight: Radius.circular(30),
+                                    topRight: Radius.circular(30),
+                                  )),
+                              padding: const EdgeInsets.only(right: 10, left: 10),
+                              child: const Icon(
+                                Icons.power_settings_new,
+                                size: 28,
+                              )),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
-        ),
-        body: _buildBody(context));
+          body: _buildBody(context)),
+    );
   }
 
   _buildBody(BuildContext context) {

@@ -29,7 +29,7 @@ class WebviewUtils {
   }
 
   static handleState(Completer<WebViewController> webViewController, ResFromJs resFromJs) {
-    StatesHandle.getStateByName(resFromJs.name!);
+    StatesHandle.getStateByName(resFromJs.name!)();
   }
 
   static handleMessage(

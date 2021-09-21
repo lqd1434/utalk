@@ -2,8 +2,6 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:myapp/getx/getx_state.dart';
-import 'package:myapp/utils/event_bus_event.dart';
-import 'package:myapp/utils/event_manage.dart';
 
 class StatesHandle {
   static final GetxState getX = Get.find();
@@ -16,25 +14,36 @@ class StatesHandle {
         return _userInfo;
       case 'network':
         return _network;
+      case 'safeArea':
+        return _safeArea;
     }
   }
 
-  static _version(dynamic value) {
-    final res = {};
-    res['eventName'] = 'ping';
-    res['data'] = value;
-    final data = json.encode(res);
-    getX.webViewCtr.value.future
-        .then((value) => {value.evaluateJavascript("window.dispatchMyEvent('$data')")});
+  static _version() {
+    // final res = {};
+    // res['eventName'] = 'ping';
+    // res['data'] = value;
+    // final data = json.encode(res);
+    // getX.webViewCtr.value.future
+    //     .then((value) => {value.evaluateJavascript("window.dispatchMyEvent('$data')")});
   }
 
-  static _userInfo(bool data) {
+  static _userInfo() {
     final data = getX.userInfo.value;
     getX.webViewCtr.value.future
         .then((value) => {value.evaluateJavascript("window.dispatchMyEvent('$data')")});
   }
 
-  static _network(dynamic data) {
-    EventManager.getInstance().eventBus!.fire(StringEvent(data));
+  static _network() {
+    // EventManager.getInstance().eventBus!.fire(StringEvent(data));
+  }
+
+  static _safeArea() {
+    final res = {};
+    res['eventName'] = 'safeArea';
+    res['data'] = 25;
+    final data = json.encode(res);
+    getX.webViewCtr.value.future
+        .then((value) => {value.evaluateJavascript("window.dispatchMyEvent('$data')")});
   }
 }

@@ -23,8 +23,8 @@ class EventsHandle {
         return _requestLogin;
       case 'loadingToast':
         return _loading;
-      case 'cancelLoading':
-        return _cancelLoading;
+      case 'cancelToast':
+        return _cancelToast;
       case 'successToast':
         return _success;
       case 'errorToast':
@@ -67,8 +67,8 @@ class EventsHandle {
     WebViewToast.showLoading(context);
   }
 
-  static _cancelLoading(BuildContext context, dynamic data) {
-    WebViewToast.cancelLoading(context);
+  static _cancelToast(BuildContext context, dynamic data) {
+    WebViewToast.cancelToast(context);
   }
 
   static _success(BuildContext context, String data) {

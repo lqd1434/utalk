@@ -15,7 +15,7 @@ class WebViewToast {
             Animation<double> secondaryAnimation) {
           return GestureDetector(
             onTap: () {
-              cancelLoading(context);
+              cancelToast(context);
             },
             child: Center(
               child: Container(
@@ -37,7 +37,7 @@ class WebViewToast {
         });
   }
 
-  static cancelLoading(BuildContext context) {
+  static cancelToast(BuildContext context) {
     Navigator.of(context).pop();
   }
 
@@ -72,8 +72,8 @@ class WebViewToast {
             Animation<double> secondaryAnimation) {
           return Center(
             child: Container(
-              height: 220,
-              width: 210,
+              height: 180,
+              width: 180,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white,
@@ -83,8 +83,8 @@ class WebViewToast {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 150,
-                    width: 150,
+                    height: 130,
+                    width: 130,
                     child: RiveAnimation.asset(
                       'static/flare/$iconName',
                       fit: BoxFit.contain,
@@ -96,7 +96,9 @@ class WebViewToast {
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: AutoSizeText(
                           text,
-                          maxLines: 2,
+                          maxLines: 1,
+                          minFontSize: 15,
+                          overflow: TextOverflow.ellipsis,
                           textAlign: TextAlign.center,
                           style: TextStyle(color: color, fontSize: 20),
                         )),

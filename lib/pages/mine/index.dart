@@ -34,6 +34,7 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     widget.animationController?.forward();
+    print(MediaQuery.of(context).padding);
     return Scaffold(
         backgroundColor: const Color.fromRGBO(241, 242, 249, 1),
         extendBody: true,

@@ -12,8 +12,8 @@ class _MyWebViewState extends State<MyWebView> {
   @override
   Widget build(BuildContext context) {
     return const WebViewPage(
-      title: Text('百度一下'),
-      url: 'http://47.103.211.10?eruda=true',
+      title: Text('webview测试'),
+      url: 'http://47.103.211.10',
       isLocalUrl: false,
     );
   }

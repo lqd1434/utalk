@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/components/u_webview.dart';
+import 'package:myapp/components/webview/index.dart';
 
 class MyWebView extends StatefulWidget {
   const MyWebView({Key? key}) : super(key: key);

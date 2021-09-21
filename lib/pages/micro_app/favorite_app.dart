@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 import 'components.dart';
@@ -42,6 +43,9 @@ class FavoriteAppStatePage extends State<FavoriteApp> {
           ),
         ),
         GestureDetector(
+          onTap: () {
+            Get.toNamed('/webview');
+          },
           child: Container(
             height: 240,
             margin: const EdgeInsets.only(top: 10),
@@ -65,7 +69,7 @@ class FavoriteAppStatePage extends State<FavoriteApp> {
                         children: const [
                           LeftBorderText(
                             subtitle: '名称',
-                            title: '风铃音乐',
+                            title: 'ulisten',
                             subtitleColor: Colors.grey,
                             titleColor: Colors.blue,
                             barColor: Color.fromRGBO(135, 160, 229, 0.5),

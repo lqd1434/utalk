@@ -16,7 +16,7 @@ import 'package:myapp/pages/setting/index.dart';
 import 'package:myapp/pages/social_space/index.dart';
 import 'package:myapp/pages/splash/index.dart';
 import 'package:myapp/pages/videoPage/video.dart';
-import 'package:myapp/pages/webview/index.dart';
+import 'package:myapp/pages/webviewPage/index.dart';
 
 List<GetPage> routes = [
   GetPage(name: '/', page: () => const Splash(), transition: Transition.fadeIn),

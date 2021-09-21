@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
-import 'package:myapp/pages/webview/webview_toast.dart';
+import 'package:myapp/pages/webviewPage/webview_toast.dart';
 import 'package:myapp/utils/event_bus_event.dart';
 import 'package:myapp/utils/event_manage.dart';
 
@@ -34,6 +34,7 @@ class EventsHandle {
     }
   }
 
+  /// 连接函数
   static _ping(BuildContext context, dynamic value) {
     final res = {};
     res['eventName'] = 'ping';
@@ -43,18 +44,23 @@ class EventsHandle {
         .then((value) => {value.evaluateJavascript("window.dispatchMyEvent('$data')")});
   }
 
+  /// 全屏函数
   static _fullscreen(BuildContext context, Map<String, dynamic> dataMap) {
     double height = 0;
-    if (dataMap['showAppBar']!) {
-      if (!dataMap['showStatusBar']!) {
-        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-      } else {
-        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top, SystemUiOverlay.bottom]);
-      }
+    final showStatusBar = dataMap['showStatusBar'];
+    final showAppBar = dataMap['showAppBar'];
+    if (showStatusBar && showAppBar) {
       height = 45;
-      // SystemChrome.setEnabledSystemUIOverlays([]);
-    } else {
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
+    } else if (showStatusBar && !showAppBar) {
       height = 0;
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
+    } else if (!showStatusBar && showAppBar) {
+      height = 45;
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    } else if (!showStatusBar && !showAppBar) {
+      height = 0;
+      SystemChrome.setEnabledSystemUIOverlays([]);
     }
     EventManager.getInstance().eventBus!.fire(DoubleEvent(height));
   }

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
-import 'package:myapp/webView/res_from_js.dart';
+import 'package:myapp/webview_handle/res_from_js.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'events_handle.dart';

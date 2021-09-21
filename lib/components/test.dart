@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/modules/chat.dart';
-import 'package:myapp/pages/webview/webview_toast.dart';
+import 'package:myapp/pages/webviewPage/webview_toast.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rive/rive.dart';
 
 class Test extends StatefulWidget {
@@ -52,21 +56,21 @@ class _TestState extends State<Test> with TickerProviderStateMixin {
   List<ChatHistory> list = [];
 
   handleClick() async {
-    // PackageInfo packageInfo = await PackageInfo.fromPlatform();
-    // logger.w(packageInfo.appName);
-    // logger.w(packageInfo.packageName);
-    // logger.w(packageInfo.version);
-    // logger.w(packageInfo.buildNumber);
-    // logger.w(packageInfo.buildSignature);
-    // DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    // AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    // logger.i(androidInfo);
-    // // logger.i(androidInfo.toMap());
-    // logger.i(Platform.operatingSystem);
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    logger.w(packageInfo.appName);
+    logger.w(packageInfo.packageName);
+    logger.w(packageInfo.version);
+    logger.w(packageInfo.buildNumber);
+    logger.w(packageInfo.buildSignature);
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    logger.i(androidInfo);
+    // logger.i(androidInfo.toMap());
+    logger.i(Platform.operatingSystem);
 
-    // WebViewToast.showLoading(context);
-    // _hoverInput.value = true;
-    // _pressedInput.value = true;
+    WebViewToast.showLoading(context);
+    _hoverInput.value = true;
+    _pressedInput.value = true;
     WebViewToast.showInfo(context, 'success', '今天真的很开心的很的很');
     // _numberInput.value = _numberInput.value + 10;
     //

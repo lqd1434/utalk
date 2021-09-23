@@ -11,8 +11,7 @@ import 'package:myapp/pages/friends/index.dart';
 import 'package:myapp/pages/message/index.dart';
 import 'package:myapp/pages/micro_app/index.dart';
 import 'package:myapp/pages/mine/index.dart';
-import 'package:myapp/socket/index.dart';
-import 'package:myapp/utils/save_login_data.dart';
+import 'package:myapp/utils/viewport_size.dart';
 
 import 'bottom_bar.dart';
 import 'home_header.dart';
@@ -79,15 +78,15 @@ class _MyMainPageState extends State<MainPage>
     super.initState();
   }
 
-  _init() async {
-    final name = await getSharedData('name');
-    final id = int.parse(await getSharedData('id'));
-    logger.i(getX.socket.value);
-    conn = await useSocket(id);
-    if (getX.socket.value == null && name != '') {
-      conn();
-    }
-  }
+  // _init() async {
+  //   final name = await getSharedData('name');
+  //   final id = int.parse(await getSharedData('id'));
+  //   logger.i(getX.socket.value);
+  //   conn = await useSocket(id);
+  //   if (getX.socket.value == null && name != '') {
+  //     conn();
+  //   }
+  // }
 
   @override
   void dispose() {
@@ -132,6 +131,10 @@ class _MyMainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
+    if (getX.ctx.value == null) {
+      getX.setCtx(context);
+    }
+    print(viewPort('100vw'));
     return WillPopScope(
         onWillPop: _onWillPop,
         child: Obx(() => Scaffold(

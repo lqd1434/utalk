@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:myapp/modules/online_user.dart';
@@ -18,6 +19,7 @@ class GetxState extends GetxController {
   var icon = ''.obs;
   var webViewCtr = Rx<dynamic>(null);
   var onlineUsers = <OnlineUser>[].obs;
+  var ctx = Rx<dynamic>(null);
 
   increment() => count++;
 
@@ -74,5 +76,9 @@ class GetxState extends GetxController {
       list.add(user);
     }
     onlineUsers.value = list;
+  }
+
+  setCtx(BuildContext context) {
+    ctx.value = context;
   }
 }

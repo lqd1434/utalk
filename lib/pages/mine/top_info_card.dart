@@ -63,10 +63,9 @@ class _TopInfoCardState extends State<TopInfoCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.zero,
-        margin: EdgeInsets.zero,
-        height: 250,
-        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.fromLTRB(5, MediaQuery.of(context).padding.top + 5, 5, 0),
+        height: 220,
+        // width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
             gradient:
                 LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [
@@ -75,13 +74,12 @@ class _TopInfoCardState extends State<TopInfoCard> {
               HexColor('#8289E8'),
               HexColor('#898FE1'),
             ]),
-            borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(30), bottomRight: Radius.circular(30))),
+            borderRadius: BorderRadius.circular(20)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 30, left: 20),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10, left: 20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

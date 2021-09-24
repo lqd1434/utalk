@@ -1,5 +1,4 @@
 import 'package:bubble/bubble.dart';
-import 'package:dio/src/response.dart' as DioResponse;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -146,7 +145,7 @@ class _ChatListStatePage extends State<ChatList> {
 
   @override
   void initState() {
-    _loadMore();
+    _loadMore(count: 10);
     super.initState();
   }
 
@@ -159,12 +158,13 @@ class _ChatListStatePage extends State<ChatList> {
     }
   }
 
-  Future<bool> _loadMore() async {
+  Future<bool> _loadMore({int count = 2}) async {
     try {
-      final DioResponse.Response<List> res = await DioManege.getInstance().dio!.get(
-          'http://47.103.211.10:8080/msg/limit',
-          queryParameters: {'count': 2, 'lastId': chatList.length, 'from': 1, 'to': 2});
-      for (var element in res.data!) {
+      final res = (await DioManege.getInstance().dio!.get('http://47.103.211.10:8080/msg/limit',
+              queryParameters: {'count': count, 'lastId': chatList.length, 'from': 1, 'to': 2}))
+          .data['list'];
+      Logger().w(res);
+      for (var element in res) {
         chatList.add(ChatHistory.fromJson(element));
       }
       setState(() {});
@@ -212,7 +212,7 @@ class _ChatListStatePage extends State<ChatList> {
             ? const SizedBox()
             : ListView.builder(
                 itemBuilder: (BuildContext context, int index) {
-                  if (chatList[index].from == '2') {
+                  if (chatList[index].from == 2) {
                     return ChatBubbleLeft(
                       text: chatList[index].content,
                       color: HexColor('#B2B6EB'),

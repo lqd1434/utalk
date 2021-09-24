@@ -70,6 +70,8 @@ dependencies:
   wave: 0.2.0
   device_info_plus: 2.1.0
   package_info_plus: 1.0.6
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
 
 
 
@@ -89,6 +91,8 @@ dev_dependencies:
   flutter_ume_kit_perf: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
   flutter_ume_kit_show_code: ^0.2.0-dev.0  # null-safety 版本: ^0.2.0-dev.0
   flutter_ume_kit_console: ^0.2.0-dev.0
+  hive_generator: ^1.1.1
+  build_runner: ^2.1.2
 
 flutter:
   uses-material-design: true

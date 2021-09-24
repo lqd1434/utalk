@@ -4,14 +4,15 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/getx/getx_state.dart';
+import 'package:myapp/hive/adapter/user_adapter.dart';
 import 'package:myapp/pages/drawer/index.dart';
 import 'package:myapp/pages/friends/index.dart';
 import 'package:myapp/pages/message/index.dart';
 import 'package:myapp/pages/micro_app/index.dart';
 import 'package:myapp/pages/mine/index.dart';
-import 'package:myapp/utils/viewport_size.dart';
 
 import 'bottom_bar.dart';
 import 'home_header.dart';
@@ -26,6 +27,7 @@ class MainPage extends StatefulWidget {
 class _MyMainPageState extends State<MainPage>
     with WidgetsBindingObserver, TickerProviderStateMixin {
   Logger logger = Logger();
+  late Box<User> box;
 
   final GetxState getX = Get.find();
   DateTime lastPopTime = DateTime.now();
@@ -75,6 +77,11 @@ class _MyMainPageState extends State<MainPage>
     view = getView(getX.currentIndex.value);
     WidgetsBinding.instance!.addObserver(this);
     // _init();
+    box = Hive.box('userBox');
+    final user = User();
+    user.name = '11';
+    user.age = 20;
+    box.add(user);
     super.initState();
   }
 
@@ -131,10 +138,10 @@ class _MyMainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
+    print(box.getAt(0)!.name);
     if (getX.ctx.value == null) {
       getX.setCtx(context);
     }
-    print(viewPort('100vw'));
     return WillPopScope(
         onWillPop: _onWillPop,
         child: Obx(() => Scaffold(

@@ -1,11 +1,11 @@
 class ChatHistory {
-  String id;
-  String from;
-  String to;
+  int id;
+  int from;
+  int to;
   String content;
   String? time;
 
-  ChatHistory({this.id = '', this.from = '', this.to = '', this.content = '', this.time});
+  ChatHistory({this.id = 0, this.from = 0, this.to = 0, this.content = '', this.time});
 
   static ChatHistory fromJson(Map jsonString) {
     var res = ChatHistory();

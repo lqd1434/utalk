@@ -8,28 +8,20 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/smart_management.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:myapp/pages/splash/index.dart';
 import 'package:myapp/router/router.dart';
 
 import 'getx/getx_state.dart';
+import 'hive/adapter/user_adapter.dart';
 
-void main() {
-  // if (kDebugMode) {
-  //   PluginManager.instance! // 注册插件
-  //     ..register(const WidgetInfoInspector())
-  //     ..register(const WidgetDetailInspector())
-  //     ..register(const ColorSucker())
-  //     ..register(AlignRuler())
-  //     ..register(Performance())
-  //     ..register(const ShowCode())
-  //     ..register(const MemoryInfoPage())
-  //     ..register(CpuInfoPage())
-  //     ..register(const DeviceInfoPanel())
-  //     ..register(Console());
-  //   runApp(injectUMEWidget(child: MyApp(), enable: true)); // 初始化
-  // } else {
+void main() async {
+  Hive.registerAdapter(UserAdapter());
+  await Hive.initFlutter();
+  await Hive.openBox<User>('userBox');
+
   runApp(MyApp());
-  // }
 }
 
 class MyApp extends StatelessWidget {

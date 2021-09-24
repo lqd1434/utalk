@@ -6,7 +6,6 @@ import 'package:myapp/getx/getx_state.dart';
 import 'package:myapp/pages/home/HomePage.dart';
 import 'package:myapp/pages/mine/top_info_card.dart';
 import 'package:myapp/utils/hex_color.dart';
-import 'package:myapp/utils/viewport_size.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
@@ -34,8 +33,6 @@ class MineStatePage extends State<Mine> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print(viewPort('20vw'));
-    print(MediaQuery.of(context).size.height);
     widget.animationController?.forward();
     return Scaffold(
         backgroundColor: const Color.fromRGBO(241, 242, 249, 1),

@@ -1,6 +1,5 @@
 import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:myapp/components/circular_img.dart';
 import 'package:myapp/components/rive_loading.dart';
@@ -220,8 +219,7 @@ class _ChatListStatePage extends State<ChatList> {
                       bottomMargin: 15,
                       topMargin: 10,
                       alignment: Alignment.centerLeft,
-                      img: NetworkImage(
-                          'http://47.103.211.10:9090/static/icons/${Get.arguments.icon}'),
+                      img: const NetworkImage('http://47.103.211.10:9090/static/icons/1.jpg'),
                     );
                   } else {
                     return ChatBubbleRight(

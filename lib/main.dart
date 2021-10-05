@@ -17,6 +17,7 @@ import 'getx/getx_state.dart';
 import 'hive/adapter/user_adapter.dart';
 
 void main() async {
+  //Hive存储测试
   Hive.registerAdapter(UserAdapter());
   await Hive.initFlutter();
   await Hive.openBox<User>('userBox');
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
             home: const Splash(),
             getPages: routes,
             routingCallback: (routing) {
+              //路由切换监控
               print('-----路由变化-----');
               print('-----$routing-----');
             }));

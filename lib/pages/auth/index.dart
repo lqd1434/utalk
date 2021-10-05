@@ -20,10 +20,10 @@ class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => AuthPageStatePage();
+  State<StatefulWidget> createState() => _AuthPageStatePage();
 }
 
-class AuthPageStatePage extends State<AuthPage> {
+class _AuthPageStatePage extends State<AuthPage> {
   bool _visibility = false;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -31,6 +31,7 @@ class AuthPageStatePage extends State<AuthPage> {
   bool onLoading = false;
   final GetxState getX = Get.find();
 
+  //登录处理函数
   void _handlePress() async {
     if (_emailController.value.text.isNotEmpty && _passwordController.value.text.isNotEmpty) {
       if (_emailController.value.text.isEmail) {
@@ -119,23 +120,25 @@ class AuthPageStatePage extends State<AuthPage> {
                         HexColor('#A1A1EB'),
                       ])),
                 ),
-                Container(
-                    margin: EdgeInsets.fromLTRB(
-                        (MediaQuery.of(context).size.width - 120) / 2, 90, 0, 0),
-                    child: Column(
-                      children: [
-                        Image.network(
-                          'http://47.103.211.10:9090/static/images/pika.png',
-                          width: 120,
-                          fit: BoxFit.cover,
-                        ),
-                        Container(
-                          padding: const EdgeInsets.fromLTRB(10, 12, 0, 0),
-                          child: const Text('utalk',
-                              style: TextStyle(fontSize: 40, color: Colors.amber)),
-                        ),
-                      ],
-                    )),
+                SingleChildScrollView(
+                  child: Container(
+                      margin: EdgeInsets.fromLTRB(
+                          (MediaQuery.of(context).size.width - 120) / 2, 90, 0, 0),
+                      child: Column(
+                        children: [
+                          Image.network(
+                            'http://47.103.211.10:9090/static/images/pika.png',
+                            width: 120,
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.fromLTRB(10, 12, 0, 0),
+                            child: const Text('utalk',
+                                style: TextStyle(fontSize: 40, color: Colors.amber)),
+                          ),
+                        ],
+                      )),
+                ),
                 Positioned(
                   top: 340,
                   width: MediaQuery.of(context).size.width,

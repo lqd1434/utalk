@@ -35,6 +35,7 @@ class _MyMainPageState extends State<MainPage>
   AnimationController? animationController;
   Function conn = () {};
 
+  //切换tab时反转动画,形成进入和退场动画
   void handleItemSelected(index) {
     getX.changeIndex(index);
     animationController?.reverse().then<dynamic>((data) {
@@ -85,16 +86,6 @@ class _MyMainPageState extends State<MainPage>
     super.initState();
   }
 
-  // _init() async {
-  //   final name = await getSharedData('name');
-  //   final id = int.parse(await getSharedData('id'));
-  //   logger.i(getX.socket.value);
-  //   conn = await useSocket(id);
-  //   if (getX.socket.value == null && name != '') {
-  //     conn();
-  //   }
-  // }
-
   @override
   void dispose() {
     animationController?.dispose();
@@ -138,7 +129,6 @@ class _MyMainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    print(box.getAt(0)!.name);
     if (getX.ctx.value == null) {
       getX.setCtx(context);
     }

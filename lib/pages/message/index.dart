@@ -22,12 +22,9 @@ class Message extends StatefulWidget {
   State<StatefulWidget> createState() => MessageStatePage();
 }
 
-class MessageStatePage extends State<Message> with AutomaticKeepAliveClientMixin {
+class MessageStatePage extends State<Message> {
   final Logger logger = Logger();
   final GetxState gexState = Get.find();
-
-  @override
-  bool get wantKeepAlive => true;
 
   void _handleGNavChange(index) {
     logger.i(index);

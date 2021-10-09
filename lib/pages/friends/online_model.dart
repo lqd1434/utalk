@@ -37,9 +37,11 @@ class _OnlineModelListStatePage extends State<OnlineModelList> {
 
   void load() async {
     int c = await compute(delay, 1);
-    setState(() {
-      count = c;
-    });
+    if (mounted) {
+      setState(() {
+        count = c;
+      });
+    }
   }
 
   static Future<int> delay(int i) async {
